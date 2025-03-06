@@ -1,0 +1,2 @@
+include requirements.txt
+include neural_de/external/_checksums/checksums.json

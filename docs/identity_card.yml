@@ -1,0 +1,29 @@
+Global_information:
+  ID: 4205
+  Name: neuralde
+  Version: 1.0.0
+  License:
+  Type: PythonLib
+  Domain: Robustness
+  Thematic: Image enhancement at test time
+  Data_type: Image
+  usecases: Air Liquide Cylinder Counting
+
+Attributes:
+  Trustworthy_attributes: Robustness, Adaptability, Modularity/System Integrity
+  Eng_activities: EA22 - Design AI Module algorithm, EA23 - Develop AI Module component
+  Functional_set: Robustness
+  Scientific_Challenge:
+    SC42 - Integrate physical knowledge by generating synthetic training data,
+    SC15 - Combining data-driven and model-based approaches, 
+    SC8 - Ensuring the theoretical robustness of neural networks
+
+Link:
+  source_code_url: https://git.irt-systemx.fr/confianceai/ec_4/neuralde
+  demonstrators_url: https://git.irt-systemx.fr/confianceai/Demonstrators/-/tree/comp_4205/Comp_4205/2024_python_lib_neuralde
+
+Technical:
+  Python Version: 3.9
+  Dependencies: tensorflow-2.10.0, numpy-1.24.3, torch-2.0.1, transformers-4.33.2
+  Hardware_compatibility: CPU and GPU tested
+  component_incompatibility: None
