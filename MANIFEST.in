@@ -1,2 +1,3 @@
 include requirements.txt
 include neural_de/external/_checksums/checksums.json
+include neural_de/external/_repositories/external_models_list.yaml

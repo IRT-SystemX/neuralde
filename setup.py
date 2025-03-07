@@ -15,7 +15,7 @@ setuptools.setup(
     author="Nelson Fernandez Pinto",
     author_email="nelson.fernandez-pinto@irt-systemx.fr",
     description="Image enhancement library: corruption (noise, meteorological...), removal",
-    data_files=[('neural_de', ["neural_de/external/_checksums/checksums.json"])],
+    data_files=[('neural_de', ["neural_de/external/_checksums/checksums.json","neural_de/external/_repositories/external_models_list.yaml"])],
     include_package_data=True,
     license="TODO",
     install_requires=parse_requirements('requirements.txt')

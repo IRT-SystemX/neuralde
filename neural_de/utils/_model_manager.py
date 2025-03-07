@@ -1,32 +1,16 @@
-"""
-Helper class to manage weights download via MinIO
-"""
 import hashlib
 import json
 import logging
 import os.path
-from dataclasses import dataclass
 from pathlib import Path
-
-from minio import Minio
-
 from ._twe_logger import log_and_raise
-
+import urllib.request
+import yaml
 ROOT_PATH = Path(__file__).parent.parent.parent.resolve()
-
-
-@dataclass
-class MinioCredentials:
-    """
-    User credentials associated with their MinIO account
-    """
-    access_key: str
-    secret_key: str
-
 
 class ModelManager:
     """
-    Manages all models stored on Minio that are required by the library
+    Manages all external models required by the library
     """
 
     def __init__(self, enhancer: str, required_model: str, logger: logging.Logger):
@@ -34,10 +18,15 @@ class ModelManager:
         self._checksums = self._load_checksums()
         self._enhancer = enhancer
         self._model_filename = required_model
-        #self._credentials = MinioCredentials()
-
         self._enhancer_directory = Path(os.path.expanduser("~")) / ".neuralde" / enhancer
         self._model_filepath = self._enhancer_directory / required_model
+
+        # Load model repostories
+        with open(ROOT_PATH / "neural_de/external/_repositories/external_models_list.yaml") as stream:
+            try:
+                self.external_models_list=yaml.safe_load(stream)
+            except yaml.YAMLError as exc:
+                print("error the external models list file is missing from package , it shoudl be at /neural_de/external/_repositories/external_models_list.yaml")
 
     @staticmethod
     def _load_checksums():
@@ -57,12 +46,14 @@ class ModelManager:
         if not (self._is_model_available() and self._is_model_valid()):
             self._logger.info("Model %s not found locally or corrupted, downloading it from server",
                               self._model_filename)
-            # self.set_credentials() # bucker is now public
-            client = self._get_client()
-            client.fget_object('ml-models',
-                               f'{self._model_filename}',
-                               self._model_filepath)
-            self._check_download_status()
+
+            if self._enhancer in self.external_models_list.keys():
+                print("Required pretrain model for ",self._enhancer, " enchancer is not present in local cache, downloading it . . .")
+                urllib.request.urlretrieve (self.external_models_list[self._enhancer],self._model_filepath)
+                self._check_download_status()
+                print("Pretrained model has been downloaded in cache")
+            else:
+                raise Exception("error there is no defined model repository for the enhancer ",self._enhancer, "in external models annuary") 
         else:
             self._logger.info("Model already available locally, skipping download")
 
@@ -83,11 +74,6 @@ class ModelManager:
             os.remove(self._model_filepath)
         else:
             log_and_raise(self._logger, FileNotFoundError, "Expected model was not found")
-
-    def _get_client(self) -> Minio:
-        return Minio(
-            "minio-storage.apps.confianceai-public.irtsysx.fr"
-        )
 
     def _is_model_available(self) -> bool:
         self._enhancer_directory.mkdir(parents=True, exist_ok=True)

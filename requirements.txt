@@ -6,3 +6,5 @@ einops==0.8.1
 transformers==4.49.0
 torchsde==0.2.6
 matplotlib==3.10.1
+pyaml==6.0.2
+torchvision==0.21.0
