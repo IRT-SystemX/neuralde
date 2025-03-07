@@ -1,16 +1,16 @@
 - name: NightImageEnhancer
 - name: DeRainEnhancer
   init_param:
-    device: 'cpu'
+    device: 'cuda'
 - name: DeSnowEnhancer
   init_param:
-    device: 'cpu'
+    device: 'cuda'
 - name: KernelDeblurringEnhancer
   init_param:
     kernel: "medium"
 - name: ResolutionEnhancer
   init_param:
-    device: 'cpu'
+    device: 'cuda'
   transform:
     target_shape: [800, 800]
     crop_ratio: .3
