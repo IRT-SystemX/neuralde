@@ -6,7 +6,7 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = "Neural DE"
+project = "neural_de"
 copyright = "2025, IRT-SystemX"
 author = "IRT-SystemX"
 release = "1.1.0"
