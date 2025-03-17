@@ -6,14 +6,14 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = "neural_de"
+project = "neuralde"
 copyright = "2025, IRT-SystemX"
 author = "IRT-SystemX"
 release = "1.1.0"
 
 import os
 import sys
-sys.path.insert(0, os.path.abspath(f"{__file__}/../../.."))
+sys.path.insert(0, os.path.abspath(f"{__file__}/../.."))
 
 
 # -- General configuration ---------------------------------------------------
@@ -26,7 +26,8 @@ exclude_patterns = [
 ]
 
 extensions = [
-    "sphinx.ext.githubpages"
+    "sphinx.ext.githubpages","sphinx.ext.todo", "sphinx.ext.viewcode", "sphinx.ext.autodoc", "sphinx.ext.napoleon",
+              "sphinx_autodoc_typehints", "myst_parser", "nbsphinx"
 ]
 
 templates_path = ["_templates"]
@@ -37,8 +38,3 @@ exclude_patterns = []
 
 html_theme = "sphinx_rtd_theme"
 html_static_path = ["_static"]
-
-
-
-# extensions = ["sphinx.ext.todo", "sphinx.ext.viewcode", "sphinx.ext.autodoc", "sphinx.ext.napoleon",
-              # "sphinx_autodoc_typehints", "myst_parser", "nbsphinx"]
