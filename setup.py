@@ -17,6 +17,10 @@ setuptools.setup(
     description="Image enhancement library: corruption (noise, meteorological...), removal",
     include_package_data=True,
     license="TODO",
-    # install_requires=parse_requirements('requirements_python.txt')
+    install_requires=parse_requirements('requirements_python39.txt'),
+    entry_points={
+        'console_scripts': [
+            'neural_de = neural_de.main:main',
+        ]},
 )
 
