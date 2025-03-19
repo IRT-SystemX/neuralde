@@ -8,10 +8,13 @@ import os
 import matplotlib.pyplot as plt
 from pathlib import Path
 import glob
-from neural_de.transformations import TransformationPipeline
+from neural_de.transformations.transformation_pipeline import TransformationPipeline
 
 
 def main():
+    """
+    Main script of neural de component
+    """
     parser = argparse.ArgumentParser(description="Main script of Neural DE")
 
     # parse input arguments

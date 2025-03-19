@@ -12,22 +12,14 @@ class Conv2d(torch.nn.Module):
     """
     2D convolution class
     Args:
-        in_channels : int
-            number of input channels
-        out_channels : int
-            number of output channels
-        kernel_size : int
-            size of kernel
-        stride : int
-            stride of convolution
-        activation_func : func
-            activation function after convolution
-        norm_layer : functools.partial
-            normalization layer
-        use_bias : bool
-            if set, then use bias
-        padding_type : str
-            the name of padding layer: reflect | replicate | zero
+    in_channels : int - Number of input channels
+    out_channels : int - Number of output channels
+    kernel_size : int - Size of kernel
+    stride : int - Stride of convolution
+    activation_func : func - Activation function after convolution
+    norm_layer : functools.partial - Normalization layer
+    use_bias : bool - If set, then use bias
+    padding_type : str - The name of padding layer: reflect | replicate | zero
     """
 
     def __init__(
@@ -82,18 +74,12 @@ class DeformableConv2d(nn.Module):
     """
     2D deformable convolution class
     Args:
-      in_channels : int
-        number of input channels
-      out_channels : int
-        number of output channels
-      kernel_size : int
-        size of kernel
-      stride : int
-        stride of convolution
-      padding : int
-        padding
-      use_bias : bool
-        if set, then use bias
+        in_channels : int - number of input channels
+        out_channels : int - number of output channels
+        kernel_size : int - size of kernel
+        stride : int - stride of convolution
+        padding : int - padding
+        use_bias : bool - if set, then use bias
     """
 
     def __init__(
@@ -157,22 +143,14 @@ class UpConv2d(torch.nn.Module):
     """
     Up-convolution (upsample + convolution) block class
     Args:
-      in_channels : int
-        number of input channels
-      out_channels : int
-        number of output channels
-      kernel_size : int
-        size of kernel (k x k)
-      activation_func : func
-        activation function after convolution
-      norm_layer : functools.partial
-        normalization layer
-      use_bias : bool
-        if set, then use bias
-      padding_type : str
-        the name of padding layer: reflect | replicate | zero
-      interpolate_mode : str
-        the mode for interpolation: bilinear | nearest
+    in_channels : int - number of input channels
+    out_channels : int - number of output channels
+    kernel_size : int - size of kernel (k x k)
+    activation_func : func - activation function after convolution
+    norm_layer : functools.partial - normalization layer
+    use_bias : bool - if set, then use bias
+    padding_type : str - the name of padding layer: reflect | replicate | zero
+    interpolate_mode : str - the mode for interpolation: bilinear | nearest
     """
 
     def __init__(
@@ -216,7 +194,8 @@ class DeformableResnetBlock(nn.Module):
     def __init__(
             self, dim, padding_type, norm_layer, use_dropout, use_bias, activation_func
     ):
-        """Initialize the deformable Resnet block
+        """
+        Initialize the deformable Resnet block
         A deformable resnet block is a conv block with skip connections
         """
         super(DeformableResnetBlock, self).__init__()
@@ -227,7 +206,8 @@ class DeformableResnetBlock(nn.Module):
     def build_conv_block(
             self, dim, padding_type, norm_layer, use_dropout, use_bias, activation_func
     ):
-        """Construct a convolutional block.
+        """
+        Construct a convolutional block.
         Parameters:
             dim (int) -- the number of channels in the conv layer.
             padding_type (str) -- the name of padding layer: reflect | replicate | zero
@@ -283,22 +263,14 @@ class DecoderBlock(torch.nn.Module):
     """
     Decoder block with skip connections
     Args:
-        in_channels : int
-            number of input channels
-        skip_channels : int
-            number of skip connection channels
-        out_channels : int
-            number of output channels
-        activation_func : func
-            activation function after convolution
-        norm_layer : functools.partial
-            normalization layer
-        use_bias : bool
-            if set, then use bias
-        padding_type : str
-            the name of padding layer: reflect | replicate | zero
-        upsample_mode : str
-            the mode for interpolation: transpose | bilinear | nearest
+    in_channels : int - number of input channels
+    skip_channels : int - number of skip connection channels
+    out_channels : int - number of output channels
+    activation_func : func - activation function after convolution
+    norm_layer : functools.partial - normalization layer
+    use_bias : bool - if set, then use bias
+    padding_type : str - the name of padding layer: reflect | replicate | zero
+    upsample_mode : str - the mode for interpolation: transpose | bilinear | nearest
     """
 
     def __init__(
@@ -384,7 +356,8 @@ class ResNetModified(nn.Module):
             padding_type="reflect",
             upsample_mode="bilinear",
     ):
-        """Construct a Resnet-based generator
+        """
+        Construct a Resnet-based generator
         Parameters:
           input_nc (int) -- the number of channels in input images
           output_nc (int) -- the number of channels in output images

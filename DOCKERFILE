@@ -1,0 +1,12 @@
+FROM python:3.12
+WORKDIR /usr/local/app
+
+# Install the application dependencies
+COPY * .
+
+RUN python -m pip install .
+
+ENV INPUT_PATH=""
+ENV OUTPUT_PATH=""
+
+CMD [“neural_de”] 

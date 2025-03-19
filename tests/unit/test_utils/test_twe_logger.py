@@ -1,5 +1,5 @@
 from pytest import raises
-from neural_de.utils._twe_logger import log_and_raise, get_logger
+from neural_de.utils.twe_logger import log_and_raise, get_logger
 from unittest.mock import MagicMock
 
 

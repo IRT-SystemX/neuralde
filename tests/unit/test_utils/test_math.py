@@ -1,4 +1,4 @@
-from neural_de.utils._math import get_pad_value, crop_image
+from neural_de.utils.math import get_pad_value, crop_image
 from pytest import raises
 import numpy as np
 

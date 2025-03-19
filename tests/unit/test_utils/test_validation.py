@@ -1,5 +1,5 @@
 import numpy as np
-from neural_de.utils._validation import is_batch_valid, is_device_valid, is_power_of_two
+from neural_de.utils.validation import is_batch_valid, is_device_valid, is_power_of_two
 
 
 def test_is_device_valid():

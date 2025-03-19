@@ -1,5 +1,5 @@
 from neural_de.transformations import KernelDeblurringEnhancer
-from neural_de.transformations._kernel_deblurring_enhancer import _KERNELS
+from neural_de.transformations.kernel_deblurring_enhancer import _KERNELS
 import numpy as np
 from pytest import raises
 from unittest.mock import MagicMock

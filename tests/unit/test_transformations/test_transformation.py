@@ -1,6 +1,6 @@
 import logging
 import numpy as np
-from neural_de.transformations._transformation import BaseTransformation
+from neural_de.transformations.transformation import BaseTransformation
 
 
 class TestTransformation:
