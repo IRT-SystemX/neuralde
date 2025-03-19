@@ -52,4 +52,4 @@ def crop_image(image: np.ndarray, ratio: float) -> np.ndarray:
     x, y = image.shape[0], image.shape[1]
     ratio = ratio / 2
 
-    return image[int(x*ratio):int(x*(1-ratio)), int(y*ratio):int(y*(1-ratio))]
+    return image[int(x * ratio):int(x * (1 - ratio)), int(y * ratio):int(y * (1 - ratio))]

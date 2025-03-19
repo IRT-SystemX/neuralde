@@ -58,8 +58,8 @@ class CenteredZoom(BaseTransformation):
         transformed_images = self.transform(images)
         transformed_bbox = []
         for ind, image in enumerate(images):
-            crop_x = image.shape[0] * ((1-self._keep_ratio)/2)
-            crop_y = image.shape[1] * ((1-self._keep_ratio)/2)
-            new_bbox = [[l[0]-crop_x, l[1]-crop_y, l[2]-crop_x, l[3]-crop_y] for l in bbox[ind]]
+            crop_x = image.shape[0] * ((1 - self._keep_ratio) / 2)
+            crop_y = image.shape[1] * ((1 - self._keep_ratio) / 2)
+            new_bbox = [[lp[0] - crop_x, lp[1] - crop_y, lp[2] - crop_x, lp[3] - crop_y] for lp in bbox[ind]]
             transformed_bbox.append(np.array(new_bbox))
         return transformed_images, transformed_bbox

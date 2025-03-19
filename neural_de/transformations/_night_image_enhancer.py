@@ -47,7 +47,7 @@ class NightImageEnhancer(BaseTransformation):
             neural_de.utils.get_logger(...). If None, one logging with stdout will be provided.
     """
 
-    def __init__(self, device : str = 'cpu', logger: logging.Logger = None):
+    def __init__(self, device: str = 'cpu', logger: logging.Logger = None):
         super().__init__(logger)
         if device == 'cuda':
             self._device = tf.config.list_logical_devices('GPU')[0].name

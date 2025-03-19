@@ -1,7 +1,6 @@
 """
 Image brightness enhancement method.
 """
-import logging
 from typing import Union
 
 import numpy as np
@@ -69,4 +68,3 @@ class BrightnessEnhancer(BaseTransformation):
         """
         self._check_batch_validity(images)
         return [self.enhance_brightness(image) for image in images]
-    

@@ -17,6 +17,7 @@ Special methods :
     - TransformationPipeline : Allows the automation of any combination of the previous methods,
       and loading from file.
 """
+# flake8: noqa
 from ._derain_enhancer import DeRainEnhancer
 from ._desnow_enhancer import DeSnowEnhancer
 from ._kernel_deblurring_enhancer import KernelDeblurringEnhancer

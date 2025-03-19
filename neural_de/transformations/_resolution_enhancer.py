@@ -138,7 +138,7 @@ class ResolutionEnhancer(BaseTransformation):
             intermediate_images = np.array(
                 [self._intermediate_sampling(img, target_shape) for img in images])
         else:
-            centered_zoom_transformer = CenteredZoom(keep_ratio=1-crop_ratio)
+            centered_zoom_transformer = CenteredZoom(keep_ratio=1 - crop_ratio)
             transformed_img = centered_zoom_transformer.transform(images)
             intermediate_images = np.array(
                 [self._intermediate_sampling(img, target_shape) for img in transformed_img])

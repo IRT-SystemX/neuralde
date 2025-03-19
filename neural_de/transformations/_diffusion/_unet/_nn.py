@@ -2,6 +2,7 @@ from torch import nn
 import torch as th
 import math
 
+
 def linear(*args, **kwargs):
     """
     Create a linear module.
@@ -48,7 +49,6 @@ def normalization(channels):
     :return: an nn.Module for normalization.
     """
     return GroupNorm32(32, channels)
-
 
 
 def timestep_embedding(timesteps, dim, max_period=10000):
@@ -128,4 +128,3 @@ def zero_module(module):
     for p in module.parameters():
         p.detach().zero_()
     return module
-

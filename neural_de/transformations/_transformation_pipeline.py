@@ -73,14 +73,13 @@ class TransformationPipeline(BaseTransformation):
                 transformation = getattr(transformations, transformation_name)
                 self._pipeline.append(transformation(**parameters))
         except KeyError:
-            log_and_raise(self._logger, KeyError, f"Invalid structure for method "
-                                                        f"'{transformation_conf}' ")
+            log_and_raise(self._logger, KeyError, "Invalid structure for method " + transformation_conf)
         except AttributeError:
-            log_and_raise(self._logger, AttributeError, f"Transformation '{transformation_name}' "
-                                                        f"not found in neural.transformations")
-        except TypeError as e:
-            log_and_raise(self._logger, TypeError, f"Invalid call during initialization  "
-                                                         f"of '{transformation.__name__}': {e}")
+            log_and_raise(self._logger, AttributeError, "Transformation " + transformation_name +
+                          "not found in neural.transformations")
+        except TypeError:
+            log_and_raise(self._logger, TypeError, "Invalid call during initialization of " +
+                          transformation.__name__)
         self._logger.info("All pipeline models successfully loaded")
 
     def transform(self, images: Union[list, np.ndarray]) -> Union[list, np.ndarray]:

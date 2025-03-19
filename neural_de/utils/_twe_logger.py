@@ -5,24 +5,24 @@ to a specified file, or both.
 
 Usage:
     Import the module, then get the default logger:
-    
-    .. code-block:: python
-    
+
+    . code-block:: python
+
         import twe_logger
         logger = twe_logger.get_logger()
-    
-    If you need a logger with different parameters, call ``get_logger(..)`` with the desired
+
+    If you need a logger with different parameters, call ``get_logger(.)`` with the desired
     parameters:
-    
-    .. code-block:: python
-    
+
+    . code-block:: python
+
         logger = twe_logger.get_logger(filename="my_logs.log") logger = twe_logger.get_logger(
         name="my_logger", level='debug',filename='my_logs.log', output="both")
-    
+
     Then, use the logger within your code:
 
-    .. code-block:: python
-    
+    . code-block:: python
+
         logger.info("This is an info message")
         logger.error("This is an error message")
 

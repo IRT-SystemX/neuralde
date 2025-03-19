@@ -39,7 +39,6 @@ class RevVPSDE(torch.nn.Module):
         self.sde_type = "ito"
         self.discrete_betas = torch.linspace(beta_min / N, beta_max / N, N)
 
-
     def vpsde_fn(self, t: torch.Tensor, x: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor]:
         """
         Apply variant-preserving sde to a batch of images.

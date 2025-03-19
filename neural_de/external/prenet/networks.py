@@ -13,56 +13,56 @@ class PReNet(nn.Module):
         self.conv0 = nn.Sequential(
             nn.Conv2d(6, 32, 3, 1, 1),
             nn.ReLU()
-            )
+        )
         self.res_conv1 = nn.Sequential(
             nn.Conv2d(32, 32, 3, 1, 1),
             nn.ReLU(),
             nn.Conv2d(32, 32, 3, 1, 1),
             nn.ReLU()
-            )
+        )
         self.res_conv2 = nn.Sequential(
             nn.Conv2d(32, 32, 3, 1, 1),
             nn.ReLU(),
             nn.Conv2d(32, 32, 3, 1, 1),
             nn.ReLU()
-            )
+        )
         self.res_conv3 = nn.Sequential(
             nn.Conv2d(32, 32, 3, 1, 1),
             nn.ReLU(),
             nn.Conv2d(32, 32, 3, 1, 1),
             nn.ReLU()
-            )
+        )
         self.res_conv4 = nn.Sequential(
             nn.Conv2d(32, 32, 3, 1, 1),
             nn.ReLU(),
             nn.Conv2d(32, 32, 3, 1, 1),
             nn.ReLU()
-            )
+        )
         self.res_conv5 = nn.Sequential(
             nn.Conv2d(32, 32, 3, 1, 1),
             nn.ReLU(),
             nn.Conv2d(32, 32, 3, 1, 1),
             nn.ReLU()
-            )
+        )
         self.conv_i = nn.Sequential(
             nn.Conv2d(32 + 32, 32, 3, 1, 1),
             nn.Sigmoid()
-            )
+        )
         self.conv_f = nn.Sequential(
             nn.Conv2d(32 + 32, 32, 3, 1, 1),
             nn.Sigmoid()
-            )
+        )
         self.conv_g = nn.Sequential(
             nn.Conv2d(32 + 32, 32, 3, 1, 1),
             nn.Tanh()
-            )
+        )
         self.conv_o = nn.Sequential(
             nn.Conv2d(32 + 32, 32, 3, 1, 1),
             nn.Sigmoid()
-            )
+        )
         self.conv = nn.Sequential(
             nn.Conv2d(32, 3, 3, 1, 1),
-            )
+        )
 
     def forward(self, input):
         batch_size, row, col = input.size(0), input.size(2), input.size(3)
@@ -71,20 +71,20 @@ class PReNet(nn.Module):
         h = Variable(torch.zeros(batch_size, 32, row, col))
         c = Variable(torch.zeros(batch_size, 32, row, col))
 
-        #Formats the tensor for GPU use (instead of regular CPU use)
+        # Formats the tensor for GPU use (instead of regular CPU use)
         if self.use_GPU:
             h = h.cuda()
             c = c.cuda()
 
-        x_list = [] #Stocks the output of the different stages
+        x_list = []  # Stocks the output of the different stages
 
-        #We iterate on the number of stages (6 in the paper)
+        # We iterate on the number of stages (6 in the paper)
         for i in range(self.iteration):
-            #Concatenation
+            # Concatenation
             x = torch.cat((input, x), 1)
             x = self.conv0(x)
 
-            #LSTM Cell before the ResBlock (cf Wikipedia LSTM Cell)
+            # LSTM Cell before the ResBlock (cf Wikipedia LSTM Cell)
             x = torch.cat((x, h), 1)
             i = self.conv_i(x)
             f = self.conv_f(x)
@@ -93,7 +93,7 @@ class PReNet(nn.Module):
             c = f * c + i * g
             h = o * torch.tanh(c)
 
-            #ResBlock from architecture, with 5 2-Conv blocks
+            # ResBlock from architecture, with 5 2-Conv blocks
             x = h
             resx = x
             x = F.relu(self.res_conv1(x) + resx)
@@ -105,7 +105,7 @@ class PReNet(nn.Module):
             x = F.relu(self.res_conv4(x) + resx)
             resx = x
             x = F.relu(self.res_conv5(x) + resx)
-            #Last conv block
+            # Last conv block
             x = self.conv(x)
 
             x = x + input
@@ -123,56 +123,56 @@ class PReNet_LSTM(nn.Module):
         self.conv0 = nn.Sequential(
             nn.Conv2d(6, 32, 3, 1, 1),
             nn.ReLU()
-            )
+        )
         self.res_conv1 = nn.Sequential(
             nn.Conv2d(32, 32, 3, 1, 1),
             nn.ReLU(),
             nn.Conv2d(32, 32, 3, 1, 1),
             nn.ReLU()
-            )
+        )
         self.res_conv2 = nn.Sequential(
             nn.Conv2d(32, 32, 3, 1, 1),
             nn.ReLU(),
             nn.Conv2d(32, 32, 3, 1, 1),
             nn.ReLU()
-            )
+        )
         self.res_conv3 = nn.Sequential(
             nn.Conv2d(32, 32, 3, 1, 1),
             nn.ReLU(),
             nn.Conv2d(32, 32, 3, 1, 1),
             nn.ReLU()
-            )
+        )
         self.res_conv4 = nn.Sequential(
             nn.Conv2d(32, 32, 3, 1, 1),
             nn.ReLU(),
             nn.Conv2d(32, 32, 3, 1, 1),
             nn.ReLU()
-            )
+        )
         self.res_conv5 = nn.Sequential(
             nn.Conv2d(32, 32, 3, 1, 1),
             nn.ReLU(),
             nn.Conv2d(32, 32, 3, 1, 1),
             nn.ReLU()
-            )
+        )
         self.conv_i = nn.Sequential(
             nn.Conv2d(32 + 32, 32, 3, 1, 1),
             nn.Sigmoid()
-            )
+        )
         self.conv_f = nn.Sequential(
             nn.Conv2d(32 + 32, 32, 3, 1, 1),
             nn.Sigmoid()
-            )
+        )
         self.conv_g = nn.Sequential(
             nn.Conv2d(32 + 32, 32, 3, 1, 1),
             nn.Tanh()
-            )
+        )
         self.conv_o = nn.Sequential(
             nn.Conv2d(32 + 32, 32, 3, 1, 1),
             nn.Sigmoid()
-            )
+        )
         self.conv = nn.Sequential(
             nn.Conv2d(32, 3, 3, 1, 1),
-            )
+        )
 
     def forward(self, input):
         batch_size, row, col = input.size(0), input.size(2), input.size(3)
@@ -187,7 +187,7 @@ class PReNet_LSTM(nn.Module):
 
         x_list = []
         for i in range(self.iteration):
-            x1 = x
+
             x = torch.cat((input, x), 1)
             x = self.conv0(x)
 
@@ -226,37 +226,37 @@ class PReNet_GRU(nn.Module):
         self.conv0 = nn.Sequential(
             nn.Conv2d(6, 32, 3, 1, 1),
             nn.ReLU()
-            )
+        )
         self.res_conv1 = nn.Sequential(
             nn.Conv2d(32, 32, 3, 1, 1),
             nn.ReLU(),
             nn.Conv2d(32, 32, 3, 1, 1),
             nn.ReLU()
-            )
+        )
         self.res_conv2 = nn.Sequential(
             nn.Conv2d(32, 32, 3, 1, 1),
             nn.ReLU(),
             nn.Conv2d(32, 32, 3, 1, 1),
             nn.ReLU()
-            )
+        )
         self.res_conv3 = nn.Sequential(
             nn.Conv2d(32, 32, 3, 1, 1),
             nn.ReLU(),
             nn.Conv2d(32, 32, 3, 1, 1),
             nn.ReLU()
-            )
+        )
         self.res_conv4 = nn.Sequential(
             nn.Conv2d(32, 32, 3, 1, 1),
             nn.ReLU(),
             nn.Conv2d(32, 32, 3, 1, 1),
             nn.ReLU()
-            )
+        )
         self.res_conv5 = nn.Sequential(
             nn.Conv2d(32, 32, 3, 1, 1),
             nn.ReLU(),
             nn.Conv2d(32, 32, 3, 1, 1),
             nn.ReLU()
-            )
+        )
         self.conv_z = nn.Sequential(
             nn.Conv2d(32 + 32, 32, 3, 1, 1),
             nn.Sigmoid()
@@ -275,7 +275,7 @@ class PReNet_GRU(nn.Module):
         #     )
         self.conv = nn.Sequential(
             nn.Conv2d(32, 3, 3, 1, 1),
-            )
+        )
 
     def forward(self, input):
         batch_size, row, col = input.size(0), input.size(2), input.size(3)
@@ -317,7 +317,7 @@ class PReNet_GRU(nn.Module):
         return x, x_list
 
 
-class PReNet_x(nn.Module): #PReNet without cat(x, input)
+class PReNet_x(nn.Module):  # PReNet without cat(x, input)
     def __init__(self, recurrent_iter=6, use_GPU=True):
         super(PReNet_x, self).__init__()
         self.iteration = recurrent_iter
@@ -326,56 +326,56 @@ class PReNet_x(nn.Module): #PReNet without cat(x, input)
         self.conv0 = nn.Sequential(
             nn.Conv2d(3, 32, 3, 1, 1),
             nn.ReLU()
-            )
+        )
         self.res_conv1 = nn.Sequential(
             nn.Conv2d(32, 32, 3, 1, 1),
             nn.ReLU(),
             nn.Conv2d(32, 32, 3, 1, 1),
             nn.ReLU()
-            )
+        )
         self.res_conv2 = nn.Sequential(
             nn.Conv2d(32, 32, 3, 1, 1),
             nn.ReLU(),
             nn.Conv2d(32, 32, 3, 1, 1),
             nn.ReLU()
-            )
+        )
         self.res_conv3 = nn.Sequential(
             nn.Conv2d(32, 32, 3, 1, 1),
             nn.ReLU(),
             nn.Conv2d(32, 32, 3, 1, 1),
             nn.ReLU()
-            )
+        )
         self.res_conv4 = nn.Sequential(
             nn.Conv2d(32, 32, 3, 1, 1),
             nn.ReLU(),
             nn.Conv2d(32, 32, 3, 1, 1),
             nn.ReLU()
-            )
+        )
         self.res_conv5 = nn.Sequential(
             nn.Conv2d(32, 32, 3, 1, 1),
             nn.ReLU(),
             nn.Conv2d(32, 32, 3, 1, 1),
             nn.ReLU()
-            )
+        )
         self.conv_i = nn.Sequential(
             nn.Conv2d(32 + 32, 32, 3, 1, 1),
             nn.Sigmoid()
-            )
+        )
         self.conv_f = nn.Sequential(
             nn.Conv2d(32 + 32, 32, 3, 1, 1),
             nn.Sigmoid()
-            )
+        )
         self.conv_g = nn.Sequential(
             nn.Conv2d(32 + 32, 32, 3, 1, 1),
             nn.Tanh()
-            )
+        )
         self.conv_o = nn.Sequential(
             nn.Conv2d(32 + 32, 32, 3, 1, 1),
             nn.Sigmoid()
-            )
+        )
         self.conv = nn.Sequential(
             nn.Conv2d(32, 3, 3, 1, 1),
-            )
+        )
 
     def forward(self, input):
         batch_size, row, col = input.size(0), input.size(2), input.size(3)
@@ -390,7 +390,7 @@ class PReNet_x(nn.Module): #PReNet without cat(x, input)
 
         x_list = []
         for i in range(self.iteration):
-            #x = torch.cat((input, x), 1)
+            # x = torch.cat((input, x), 1)
             x = self.conv0(x)
 
             x = torch.cat((x, h), 1)
@@ -419,7 +419,7 @@ class PReNet_x(nn.Module): #PReNet without cat(x, input)
         return x, x_list
 
 
-class PReNet_r(nn.Module):#PReNet with the same ResNet layer in the ResBlock
+class PReNet_r(nn.Module):  # PReNet with the same ResNet layer in the ResBlock
     def __init__(self, recurrent_iter=6, use_GPU=True):
         super(PReNet_r, self).__init__()
         self.iteration = recurrent_iter
@@ -428,37 +428,36 @@ class PReNet_r(nn.Module):#PReNet with the same ResNet layer in the ResBlock
         self.conv0 = nn.Sequential(
             nn.Conv2d(6, 32, 3, 1, 1),
             nn.ReLU()
-            )
+        )
         self.res_conv1 = nn.Sequential(
             nn.Conv2d(32, 32, 3, 1, 1),
             nn.ReLU(),
             nn.Conv2d(32, 32, 3, 1, 1),
             nn.ReLU()
-            )
+        )
         self.conv_i = nn.Sequential(
             nn.Conv2d(32 + 32, 32, 3, 1, 1),
             nn.Sigmoid()
-            )
+        )
         self.conv_f = nn.Sequential(
             nn.Conv2d(32 + 32, 32, 3, 1, 1),
             nn.Sigmoid()
-            )
+        )
         self.conv_g = nn.Sequential(
             nn.Conv2d(32 + 32, 32, 3, 1, 1),
             nn.Tanh()
-            )
+        )
         self.conv_o = nn.Sequential(
             nn.Conv2d(32 + 32, 32, 3, 1, 1),
             nn.Sigmoid()
-            )
+        )
         self.conv = nn.Sequential(
             nn.Conv2d(32, 3, 3, 1, 1),
-            )
-
+        )
 
     def forward(self, input):
         batch_size, row, col = input.size(0), input.size(2), input.size(3)
-        #mask = Variable(torch.ones(batch_size, 3, row, col)).cuda()
+        # mask = Variable(torch.ones(batch_size, 3, row, col)).cuda()
         x = input
         h = Variable(torch.zeros(batch_size, 32, row, col))
         c = Variable(torch.zeros(batch_size, 32, row, col))
@@ -492,7 +491,7 @@ class PReNet_r(nn.Module):#PReNet with the same ResNet layer in the ResBlock
         return x, x_list
 
 
-## PRN
+# PRN
 class PRN(nn.Module):
     def __init__(self, recurrent_iter=6, use_GPU=True):
         super(PRN, self).__init__()
@@ -538,7 +537,6 @@ class PRN(nn.Module):
         )
 
     def forward(self, input):
-
         x = input
 
         x_list = []
@@ -572,17 +570,17 @@ class PRN_r(nn.Module):
         self.conv0 = nn.Sequential(
             nn.Conv2d(6, 32, 3, 1, 1),
             nn.ReLU()
-            )
+        )
         self.res_conv1 = nn.Sequential(
             nn.Conv2d(32, 32, 3, 1, 1),
             nn.ReLU(),
             nn.Conv2d(32, 32, 3, 1, 1),
             nn.ReLU()
-            )
+        )
 
         self.conv = nn.Sequential(
             nn.Conv2d(32, 3, 3, 1, 1),
-            )
+        )
 
     def forward(self, input):
 

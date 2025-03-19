@@ -5,8 +5,7 @@ from pathlib import Path
 # where the weights will be download and store
 ENHANCER = "diffpure"
 MODEL_FILENAME = "256x256_diffusion_uncond.pt"
-NEURALDE_MODEL_DOWNLOAD_PATH = Path(os.path.expanduser("~")) / ".neuralde" / ENHANCER / \
-                         MODEL_FILENAME
+NEURALDE_MODEL_DOWNLOAD_PATH = Path(os.path.expanduser("~")) / ".neuralde" / ENHANCER / MODEL_FILENAME
 
 # automatic channel_mult values depending on input image size
 CHANNEL_MULT = dict([

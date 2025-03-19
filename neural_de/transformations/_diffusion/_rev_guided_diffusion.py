@@ -28,7 +28,7 @@ class RevGuidedDiffusion(torch.nn.Module):
 
         self._device = device
 
-        self._logger.info(f'Building DiffPure model')
+        self._logger.info('Building DiffPure model')
         self._logger.debug(f'Model Diffpure loaded with config : {self._config}')
         if not torch.cuda.is_available():
             self._config.use_fp16 = False
@@ -41,8 +41,7 @@ class RevGuidedDiffusion(torch.nn.Module):
             except KeyError:
                 raise NotImplementedError(f"unsupported image size: {config.image_size}")
 
-        config.attention_resolutions = config.image_size \
-                                       // np.array(config.attention_resolutions).astype(np.int32)
+        config.attention_resolutions = config.image_size // np.array(config.attention_resolutions).astype(np.int32)
 
         out_channels = 3 if not self._config.learn_sigma else 6
         self._model = UNetModel(in_channels=3, out_channels=out_channels, config=self._config,
@@ -55,7 +54,7 @@ class RevGuidedDiffusion(torch.nn.Module):
 
         self._model.eval().to(self._device)
         self._rev_vpsde = RevVPSDE(model=self._model, img_shape=self._config.img_shape,
-                                  logger=self._logger).to(self._device)
+                                   logger=self._logger).to(self._device)
         self._betas = self._rev_vpsde.discrete_betas.float().to(self._device)
 
     def image_editing_sample(self, img: torch.Tensor):
@@ -86,7 +85,7 @@ class RevGuidedDiffusion(torch.nn.Module):
             t0, t1 = 1 - self._config.t * 1. / 1000 + epsilon_dt0, 1 - epsilon_dt1
             t_size = 2
             ts = torch.linspace(t0, t1, t_size).to(self._device)
-            x_ = x.reshape(batch_size, -1) # (batch_size, state_size)
+            x_ = x.reshape(batch_size, -1)  # (batch_size, state_size)
             if self._config.use_bm:
                 bm = torchsde.BrownianInterval(t0=t0, t1=t1, size=(batch_size, state_size),
                                                device=self._device)
