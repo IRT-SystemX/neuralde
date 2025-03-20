@@ -61,7 +61,7 @@
 We’ve crafted a tutorial or guide and believe it could assist others in their journey with `NEURAL_DE`, we encourage you to share it with our vibrant community! [Submit Your Tutorial Here](LINK_TO_SUBMIT_TUTORIAL)
 
 ## 🔄 Changelog
-Stay up-to-date with the changes and improvements made to `NEURAL_DE` in our changelog. Each release provides a summary of new features, fixes, and enhancements. Check out our [changelog](Changelog.md) to see what's new and improved!
+Stay up-to-date with the changes and improvements made to `NEURAL_DE` in our changelog. Each release provides a summary of new features, fixes, and enhancements. Check out our [changelog](../../Changelog.md) to see what's new and improved!
 
 <div id='contributing'/>
 
