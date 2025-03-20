@@ -1,4 +1,4 @@
-from neural_de.transformations import KernelDeblurringEnhancer
+from neural_de.transformations.kernel_deblurring_enhancer import KernelDeblurringEnhancer
 from neural_de.transformations.kernel_deblurring_enhancer import _KERNELS
 import numpy as np
 from pytest import raises

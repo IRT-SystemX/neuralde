@@ -5,7 +5,7 @@ from pathlib import Path
 import cv2
 import numpy as np
 
-from neural_de.transformations import DeRainEnhancer
+from neural_de.transformations.de_rain_enhancer import DeRainEnhancer
 
 TESTS_FOLDER = Path(__file__).parent.parent.parent.resolve()
 

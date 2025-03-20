@@ -1,0 +1,21 @@
+[project]
+name = "neural_de"
+dynamic = ["version", "dependencies"]
+description='Image enhancement library: corruption (noise, meteorological...), removal"'
+author='IRT SystemX, Air Liquide'
+author_email='fondation@support'
+url='https://www.irt-systemx.fr/en/'
+readme = "README.md"
+#requires-python = "==3.9"
+
+
+[build-system]
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
+
+[tool.hatch]
+version.source = "vcs"
+build.hooks.vcs.version-file = "neural_de/_version_.py"
+
+[tool.hatch.dependencies]
+path = "requirements_python39.txt"

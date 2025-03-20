@@ -1,4 +1,4 @@
-from neural_de.transformations import BrightnessEnhancer
+from neural_de.transformations.brightness_enhancer import BrightnessEnhancer
 from neural_de.external.nplie.nplie import NPLIE
 import numpy as np
 

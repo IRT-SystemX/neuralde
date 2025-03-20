@@ -1,7 +1,7 @@
 import os
 
-from neural_de.transformations import KernelDeblurringEnhancer
-from neural_de.utils import get_logger
+from neural_de.transformations.kernel_deblurring_enhancer import KernelDeblurringEnhancer
+from neural_de.utils.twe_logger import get_logger
 
 
 def test_get_logger():

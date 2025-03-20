@@ -1,4 +1,4 @@
-from neural_de.transformations import DiffusionEnhancer, DiffPureConfig
+from neural_de.transformations.diffusion.diffusion_enhancer import DiffusionEnhancer, DiffPureConfig
 import numpy as np
 import torch
 from pytest import raises

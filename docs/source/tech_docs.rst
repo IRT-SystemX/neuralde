@@ -8,34 +8,34 @@ The classes of neuralde are simple to use. Create an instance and apply the meth
 The prediction methods from the documentations ensures the
 compliance of models from various ML/DL libraries (such as Keras and scikit-learn) to **neuralde**.
 
-.. autoclass:: neural_de.transformations._transformation.BaseTransformation
+.. autoclass:: neural_de.transformations.transformation.BaseTransformation
    :noindex:
 
-.. autoclass:: neural_de.transformations._brightness_enhancer.BrightnessEnhancer
+.. autoclass:: neural_de.transformations.brightness_enhancer.BrightnessEnhancer
    :noindex:
 
-.. autoclass:: neural_de.transformations._centered_zoom.CenteredZoom
+.. autoclass:: neural_de.transformations.centered_zoom.CenteredZoom
    :noindex:
 
-.. autoclass:: neural_de.transformations._derain_enhancer.DeRainEnhancer
+.. autoclass:: neural_de.transformations.de_rain_enhancer.DeRainEnhancer
    :noindex:
 
-.. autoclass:: neural_de.transformations._desnow_enhancer.DeSnowEnhancer
+.. autoclass:: neural_de.transformations.de_snow_enhancer.DeSnowEnhancer
    :noindex:
 
-.. autoclass:: neural_de.transformations._kernel_deblurring_enhancer.KernelDeblurringEnhancer
+.. autoclass:: neural_de.transformations.kernel_deblurring_enhancer.KernelDeblurringEnhancer
    :noindex:
 
-.. autoclass:: neural_de.transformations._night_image_enhancer.NightImageEnhancer
+.. autoclass:: neural_de.transformations.night_image_enhancer.NightImageEnhancer
    :noindex:
 
-.. autoclass:: neural_de.transformations._resolution_enhancer.ResolutionEnhancer
+.. autoclass:: neural_de.transformations.resolution_enhancer.ResolutionEnhancer
    :noindex:
 
-.. autoclass:: neural_de.transformations._transformation_pipeline.TransformationPipeline
+.. autoclass:: neural_de.transformations.transformation_pipeline.TransformationPipeline
    :noindex:
 
-.. autoclass:: neural_de.transformations._diffusion._diffusion_enhancer.DiffusionEnhancer
+.. autoclass:: neural_de.transformations.diffusion.diffusion_enhancer.DiffusionEnhancer
    :noindex:
 
 The neuralDE library provides several methods to preprocess images.

@@ -3,3 +3,6 @@ neural_de.egg*
 *__pycache__*
 *.ipynb_checkpoints*
 *_build*
+.dockerignore
+.idea/
+*/_version_.py

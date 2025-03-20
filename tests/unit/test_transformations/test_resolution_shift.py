@@ -1,4 +1,4 @@
-from neural_de.transformations import ResolutionEnhancer
+from neural_de.transformations.resolution_enhancer import ResolutionEnhancer
 from transformers import Swin2SRForImageSuperResolution, Swin2SRImageProcessor
 from unittest.mock import MagicMock
 from pytest import raises

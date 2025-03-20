@@ -1,4 +1,4 @@
-from neural_de.transformations import CenteredZoom
+from neural_de.transformations.centered_zoom import CenteredZoom
 import numpy as np
 from pathlib import Path
 import cv2

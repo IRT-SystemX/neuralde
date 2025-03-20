@@ -1,4 +1,4 @@
-from neural_de.transformations import BrightnessEnhancer
+from neural_de.transformations.brightness_enhancer import BrightnessEnhancer
 import numpy as np
 from pathlib import Path
 import cv2

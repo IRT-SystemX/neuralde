@@ -6,7 +6,7 @@ import numpy as np
 import torch
 from pytest import raises
 
-from neural_de.transformations import DeRainEnhancer
+from neural_de.transformations.de_rain_enhancer import DeRainEnhancer
 
 TESTS_DIR = Path(__file__).parent.parent.parent.resolve()
 

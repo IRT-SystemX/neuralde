@@ -1,4 +1,4 @@
-from neural_de.transformations import NightImageEnhancer
+from neural_de.transformations.night_image_enhancer import NightImageEnhancer
 import numpy as np
 from pytest import raises
 from unittest.mock import MagicMock

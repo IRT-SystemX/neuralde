@@ -1,4 +1,4 @@
-from neural_de.transformations import ResolutionEnhancer
+from neural_de.transformations.resolution_enhancer import ResolutionEnhancer
 import numpy as np
 from pathlib import Path
 import cv2

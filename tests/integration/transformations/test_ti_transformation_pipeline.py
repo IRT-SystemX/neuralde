@@ -1,7 +1,15 @@
 import numpy as np
 from pathlib import Path
-from neural_de.transformations import (TransformationPipeline, DeSnowEnhancer, KernelDeblurringEnhancer,
-                                       NightImageEnhancer, ResolutionEnhancer, DeRainEnhancer)
+# from neural_de.transformations import (TransformationPipeline, , KernelDeblurringEnhancer,
+#                                        NightImageEnhancer, ResolutionEnhancer, DeRainEnhancer)
+
+from neural_de.transformations.transformation_pipeline import TransformationPipeline
+from neural_de.transformations.de_snow_enhancer import DeSnowEnhancer
+from neural_de.transformations.kernel_deblurring_enhancer import KernelDeblurringEnhancer
+from neural_de.transformations.night_image_enhancer import NightImageEnhancer
+from neural_de.transformations.resolution_enhancer import ResolutionEnhancer
+from neural_de.transformations.de_rain_enhancer import DeRainEnhancer
+
 import itertools
 
 TESTS_FOLDER = Path(__file__).parent.parent.parent.resolve()

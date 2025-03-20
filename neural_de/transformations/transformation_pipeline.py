@@ -9,8 +9,14 @@ import numpy as np
 import yaml
 
 from neural_de.transformations.transformation import BaseTransformation
-from neural_de import transformations
+# from neural_de import transformations
 from neural_de.utils.twe_logger import log_and_raise
+import importlib
+
+
+def camel_to_snake(s):
+    """ This function convert input strings s from Camelcase format to snake case format"""
+    return ''.join(['_' + c.lower() if c.isupper() else c for c in s]).lstrip('_')
 
 
 class TransformationPipeline(BaseTransformation):
@@ -70,16 +76,22 @@ class TransformationPipeline(BaseTransformation):
             for transformation_conf in self._pipeline_conf:
                 transformation_name: str = transformation_conf['name']
                 parameters = transformation_conf.get('init_param', {})
-                transformation = getattr(transformations, transformation_name)
+
+                # Get module name corresponding to tranformation
+
+                module_transformation = importlib.import_module("neural_de.transformations." +
+                                                                camel_to_snake(transformation_name))
+
+                transformation = getattr(module_transformation, transformation_name)
                 self._pipeline.append(transformation(**parameters))
         except KeyError:
-            log_and_raise(self._logger, KeyError, "Invalid structure for method " + transformation_conf)
+            log_and_raise(self._logger, KeyError, "Invalid structure for method " +  transformation_conf["name"])
         except AttributeError:
             log_and_raise(self._logger, AttributeError, "Transformation " + transformation_name +
                           "not found in neural.transformations")
         except TypeError:
             log_and_raise(self._logger, TypeError, "Invalid call during initialization of " +
-                          transformation.__name__)
+                          transformation_conf["name"])
         self._logger.info("All pipeline models successfully loaded")
 
     def transform(self, images: Union[list, np.ndarray]) -> Union[list, np.ndarray]:

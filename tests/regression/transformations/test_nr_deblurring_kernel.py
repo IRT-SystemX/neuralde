@@ -1,4 +1,4 @@
-from neural_de.transformations import KernelDeblurringEnhancer
+from neural_de.transformations.kernel_deblurring_enhancer import KernelDeblurringEnhancer
 import numpy as np
 from pathlib import Path
 import cv2

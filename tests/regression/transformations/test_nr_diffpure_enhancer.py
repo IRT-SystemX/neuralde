@@ -4,7 +4,7 @@ import cv2
 import numpy as np
 import torch
 
-from neural_de.transformations import DiffusionEnhancer, DiffPureConfig
+from neural_de.transformations.diffusion.diffusion_enhancer import DiffusionEnhancer, DiffPureConfig
 
 TESTS_DIR = Path(__file__).parent.parent.parent.resolve()
 

@@ -1,10 +1,9 @@
 import numpy as np
 from pathlib import Path
-from neural_de.transformations import TransformationPipeline
+from neural_de.transformations.transformation_pipeline import TransformationPipeline
 from unittest.mock import MagicMock
 from pytest import raises
-from neural_de.transformations import ResolutionEnhancer
-
+from neural_de.transformations.resolution_enhancer import ResolutionEnhancer
 
 TESTS_FOLDER = Path(__file__).parent.parent.parent.resolve()
 CONFIG_PATH = Path(TESTS_FOLDER / 'unit/config/conf_test.yaml')
@@ -50,13 +49,13 @@ class TestTransformationPipeline:
             pipeline._init_pipeline()
 
         # verify it raises an attributeerror when the method is not a neuralde transformation
-        pipeline._pipeline_conf = [{"name":"Not_a_neural_de_method", "init_params": {}}]
-        with raises(AttributeError):
+        pipeline._pipeline_conf = [{"name": "Not_a_neural_de_method", "init_params": {}}]
+        with raises(ModuleNotFoundError):
             pipeline._init_pipeline()
 
         # verify it raises a TypeError when called with invalid parameter values
         ref_conf = [{"name": 'ResolutionEnhancer', "init_param": {'not_a_valid_param': 'cpu'},
-                         "transform": {'target_shape': [5, 5], 'crop_ratio': 0.}}]
+                     "transform": {'target_shape': [5, 5], 'crop_ratio': 0.}}]
         pipeline = TransformationPipeline(config=ref_conf)
         with raises(TypeError):
             pipeline._init_pipeline()
@@ -72,7 +71,7 @@ class TestTransformationPipeline:
         pipeline = TransformationPipeline(config=[], logger=MagicMock())
         pipeline._pipeline = []
         with raises(ValueError):
-            pipeline.transform(np.array((3,3,11,11,5)))
+            pipeline.transform(np.array((3, 3, 11, 11, 5)))
 
         # test pipeline with a single method
         img = np.ndarray((3, 10, 10, 3))
@@ -96,4 +95,4 @@ class TestTransformationPipeline:
         pipeline._pipeline = [transformation, transformation]
         res_img = pipeline.transform(images=img)
         assert res_img.shape == (3, 11, 11, 1)  # check target_shape parameter
-        assert transformation.transform.call_count == 2 # should be called 2 times
+        assert transformation.transform.call_count == 2  # should be called 2 times

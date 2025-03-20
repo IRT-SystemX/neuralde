@@ -1,4 +1,4 @@
-from neural_de.transformations import DeRainEnhancer
+from neural_de.transformations.de_rain_enhancer import DeRainEnhancer
 import numpy as np
 
 

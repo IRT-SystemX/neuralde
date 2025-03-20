@@ -5,7 +5,7 @@ import cv2
 import numpy as np
 from sympy import reduced_totient
 
-from neural_de.transformations import DeSnowEnhancer
+from neural_de.transformations.de_snow_enhancer import DeSnowEnhancer
 
 TESTS_DIR = Path(__file__).parent.parent.parent.resolve()
 
