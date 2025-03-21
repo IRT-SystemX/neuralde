@@ -49,9 +49,23 @@
   <hr />
 </div>
 
-# NEURAL_DE
-## Description
-NeuralDe is a library made to improve the robustness of your models at test time. It proposes a set of methods 
+# Presentation
+
+🔍 Specifications
+-----------------
+
+-  Version: 1.1.0
+-  Python Version: python 3.9
+-  Strong Dependencies: Tensorflow, pytorch
+-  Thematic: 
+-  Trustworthy: Robustness
+-  Hardware : CPU / GPU
+-  Engineering activities : Data Engineer, ML-Algorithm Engineer
+-  Functional set : Robustness, Operation, Evaluation
+
+
+## General presentation
+NeuralDe is a python library made to improve the robustness of your models at test time. It proposes a set of methods 
 that will allow you to remove identified corruptions in your data before you send it to your model. 
 This library addresses issues such as meteorological corruptions, distribution shifts etc.
 
@@ -59,9 +73,29 @@ All methods provided by the library are associated with examples based on open s
 You can refer to each jupyter notebook for specifics.
 These notebooks are linked directly in the technical documentation.
 
-## User Guidelines
+This library can be used in two way:
+- Call it as a main executable to direct process a batch of input images. 
+- Import the lib within your python code for an explicit call of included transformations functions 
 
-## Setup your environment
+## I/O description
+The executable version of the component take as input :
+- A single image or a folder containing all images to process
+- A yaml configuration file describing the sequence of transformations you want to apply on your input images
+
+As return as output
+
+- The processed single image or a folder containing all processed images from your input folder
+
+This can be summed-up by the schema below
+
+![Drag Racing](docs/assets/schema.png)
+
+The executable version can be run directly by installing the python library or by running the dockerized verison.
+We describe in the following the process in two cases.
+
+# Use the component
+
+### Set up a clean virtual environnement
 Validated python version : 3.9.18
 
 Linux setting:
@@ -80,21 +114,99 @@ virtualenv myenv
 .\myenv\Scripts\activate
 ```
 
-## Installation
-If you are installing it from source please instead refers to the section 
-"Installation from source".
+### Install the library
+
+You can install it by a direct downloading from PyPi using the command 
+
 ````
 pip install neural_de
-pip show neural_de
 ````
-## Identity card
-See the [component identity card](identity_card.yml) for a synthetic view of its properties.
-## Required Hardware
-All methods have been tested on CPU and GPU. 
 
-## Available methods in release 1.0.0
+You can installing it from it github sources by launching the following command
+````
+pip install git+https://github.com/IRT-SystemX/NeuralDE
+````
+
+### Use the executable
+
+The neural_de executable has 4 parameters : 
+
+- **input_source_path** : This a required arg representing the path to the input source to process. If path represent a single file path. The single file will be \
+             processed. If the input source path represents a directory, all images present in directory will be processed. Warning : In that case, all images shall have the same resolution as
+             some method requires this constraint and will raise an error if they don't.
+
+- **output_target_path** : Output path where results are stored. If input path is a file, this path represents the output file, \
+            else this is the path to oupput direcotry"
+
+- **output_prefix** : 0utput_prefix to add to output images filenames in target directory. By default,original names are conserved
+
+- **pipeline_file_path** : Pipeline Configuration file to use
+
+For example, with this command:
+
+```neural_de --input_source_path test_image/test_snow.png  --output_target_path /pipeline_result/snow_processed.png --pipeline_file_path=user_conf_1.yaml ```
+
+The image ```test_snow.png``` in folder ``` test_image```  is processed through the transformation pipeline defined in ``` user_conf_1.yaml ``` and the results image is stored as a file named ```snow_processed.png```
+in ```pipeline_results``` directory
+
+With this command
+
+``` neural_de --input_source_path test_images/snow_test  --output_target_path pipeline_res/snow/snow_pipeline_res --output_prefix "transformed_"    --pipeline_file_path=conf_test_1.yaml ``` 
+
+All images present in subfolder ``` test_images/snow_test```  are is processed through the transformation pipeline defined in ``` user_conf_1.yaml ``` and all results images are stored in directory  ``` pipeline_res/snow/snow_pipeline_res``` 
+with their name preced of prefix "transformed_"
+
+# Use the docker version
+
+You can build manually the image from the source, by cloning the source repository from this url https://github.com/IRT-SystemX/NeuralDE
+And from cloned repository source directory type
+
+```docker build . -f DOCKERFILE -t neural_de```
+
+Ot you can direct download the docker image neural_de from dockerhub by typing :
+
+```docker pull neural_de:latest``` 
+
+The docker pass the input args of neural de executable through environnement variables.
+The only difference is that corresponding source and target dir shall be mounted in the container sotrage to be acessible
+forlder ```tmp/in``` and ```tmp/out``` and ```/tmp``` folder are used to store source_dir and target_dir and pipeline_config_file in container.
+
+Thus, to process a directory as source input use the following command
+
+```docker run -e INPUT_SOURCE_PATH=your_dir -e OUTPUT_TARGET_PATH=your_target_dir -e PIPELINE_PATH=path_to_your_config_  -v your_=target_dir:/tmp/in/your_target_dir -v your_config_file:/tmp/your_config_file neural_de```
+
+
+# Define your configuration pipeline
+
+A pipeline configuraiton file is a yaml file containing the list of transformation method to call
+and for each of them eventually the name of user paremeters to overload:
+
+Here is below an example of such yaml file:
+```
+- name: CenteredZoom
+  init_param:
+    keep_ratio: 0.4
+- name: DeSnowEnhancer
+  init_param:
+    device: 'cpu'
+- name: KernelDeblurringEnhancer
+  init_param:
+    kernel: "medium"
+- name: ResolutionEnhancer
+  init_param:
+    device: 'cpu'
+  transform:
+    target_shape: [800, 800]
+    crop_ratio: .3
+```    
+The defined pipeline apply sequentially on input images the four tranformations
+CenteredZoom, DeSnowEnhancer, KernelDeblurringEnhancer and ResolutionEnhancer.
+Each transformation has its own parameters.
+To see in details the parameters of available transformation see the seciton technical docs
+
+## Available methods in release 1.1.0
 * [Resolution_Enhancer](neural_de.transformations.rst#resolution-enhancer-label) : enhance image resolution (GPU compat)
-* [NightImageEnhancer](neural_de.transformations.rst#night-image-enhancer-label) : transform night images into daylight ones (GPU compat)
+* [NightImageEnhancer](neural_de.transformations.rst#night-image-enhancer-label) : Inmprove quality of night images (GPU compat)
 * [KernelDeblurringEnhancer](neural_de.transformations.rst#kernel-deblurring-enhancer-label) : Improve blurry images
 * [DeSnowEnhancer](neural_de.transformations.rst#desnow-enhancer-label) : Removes snow from images (GPU compat)
 * [DeRainEnhancer](neural_de.transformations.rst#derain-enhancer-label) : Removes rain from images (GPU compat)
@@ -102,7 +214,11 @@ All methods have been tested on CPU and GPU.
 * [CenteredZoom](neural_de.transformations.rst#centered-zoom-label) : Zoom in the middle of the image, with a given zoom ratio.
 * [DiffusionEnhancer](neural_de_transformations.rst#diffusion-enhancer-label) : Purify noise on images and increase robustness against attack.
 
-## Usage
+## Required Hardware
+All methods have been tested on CPU and GPU. 
+
+
+## Usage of the lib inside your python code
 
 All methods in neurelDE follow the same syntax.
 ```
@@ -137,7 +253,7 @@ To understand how to use these methods, click on the link to see the following n
 To guide you through the specifics and the best practises to implement this approach you'll find dedicated
 guidelines [here](pdf/NeuralDE_Confiance.ai_Methodological_Guideline_v2.0.pdf)
 
-## Description of Inputs and Outputs
+## Additional informations 
 NeuralDE is an **Image2Image library**, thus it is made to process **images batches**. 
 It is composed of a list of classes called "enhancers". Each enhancer will have specific options that 
 will be defined by the user at object initialisation. 
@@ -156,34 +272,5 @@ The concerned which can be run on GPU are:
 - DiffusionEnhancer
 
 Please refer to the html documentation of each method for more detailed informations.
-### Installation from source
-To install neuralde directly from the source repository :
-- In a terminal in the project root directory (the one containing ./docs and ./neural_de), type :
-  - Ensure you do have wheel installed in your virtual env. If not, install it (pip install wheel).
-```
- python setup.py bdist_wheel
-```
-It will create in ./dist a wheel with all the dependency for neuralde.
-- Then in you desired python environment, install the wheel with pip :
-```
- pip install PATH_TO_THE_WHEEL/neuralde-0.1-py3-none-any.whl
-```
 
-## How to recompile the doc sphinx
 
-If you need to reload the generation of the sphinx documentation, you need to install some packages.
-To begin, install the sphinx packages:
-'''
-pip install --upgrade sphinx myst-parser[sphinx]
-pip install nbsphinx
-pip install autotyping
-pip install pandoc
-winget install --source winget --exact --id JohnMacFarlane.Pandoc
-'''
-
-In your file "conf.py", in the list of extensions, add "myst-parser" and "nbsphinx".
-To generate the documentation, go to the "docs" directory and run this command in your terminal:
-'''
-.\make html
-'''
-To finish, reload your IDE.

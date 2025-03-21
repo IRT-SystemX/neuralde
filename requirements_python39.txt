@@ -4,6 +4,7 @@ torch==2.0.1
 tensorflow==2.10.0
 tensorflow-hub==0.14.0
 einops==0.6.1
+opencv-python-headless==4.8.0.76
 opencv-python==4.8.0.76
 transformers==4.33.2
 torchvision==0.15.2
