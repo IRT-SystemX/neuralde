@@ -3,9 +3,10 @@ name = "neural_de"
 dynamic = ["version", "dependencies"]
 description='Image enhancement library: corruption (noise, meteorological...), removal"'
 author='IRT SystemX, Air Liquide'
-author_email='fondation@support'
+author_email="contact@confiance.ai"
 url='https://www.irt-systemx.fr/en/'
 readme = "README.md"
+license ="MPL-2.0"
 #requires-python = "==3.9"
 
 
@@ -19,3 +20,6 @@ build.hooks.vcs.version-file = "neural_de/_version_.py"
 
 [tool.hatch.dependencies]
 path = "requirements_python39.txt"
+
+[project.scripts]
+neural_de  = "neural_de.main:main"

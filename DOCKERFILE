@@ -1,12 +1,33 @@
-FROM python:3.12
+FROM python:3.9
 WORKDIR /usr/local/app
 
 # Install the application dependencies
 COPY * .
 
+# Copy required file
+RUN mkdir /usr/local/app/neural_de
+
+# Copier le fichier local dans le conteneur
+COPY neural_de/_version_.py /usr/local/app/neural_de/_version_.py
+
+
 RUN python -m pip install .
 
-ENV INPUT_PATH=""
-ENV OUTPUT_PATH=""
 
-CMD [“neural_de”] 
+# Var env set by user
+ENV INPUT_SOURCE_PATH=""
+ENV OUTPUT_TARGET_PATH=""
+ENV OUTPUT_PREFIX=""
+ENV PIPELINE_FILE_PATH=""
+
+# Var env passed to neuralde execution
+ENV ARG1_INPUT="/tmp/in"/$INPUT_SOURCE_PATH
+ENV ARG2_OUTPUT="/tmp/out"/$OUTPUT_TARGET_PATH
+ENV ARG3_PREFIX=$OUTPUT_PREFIX
+ENV ARG4_PIPELINE="tmp"/$PIPELINE_FILE_PATH
+
+# Run of container with correct args
+CMD [neural_de, $ARG1_INPUT , $ARG2_OUTPUT, $ARG3_PREFIX, $ARG4_PIPELINE]
+
+
+# docker run -e INPUT_SOURCE_PATH="toto.jpg" -v  /local/dsfsdf/cdsfsdf/sdfds/:/tmp/in -v
