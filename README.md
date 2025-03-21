@@ -51,14 +51,13 @@
 
 # Presentation
 
-🔍 Specifications
+🔍 Identity card
 -----------------
 
 -  Version: 1.1.0
 -  Python Version: python 3.9
 -  Strong Dependencies: Tensorflow, pytorch
--  Thematic: 
--  Trustworthy: Robustness
+-  Trustworthy attributes : Robustness
 -  Hardware : CPU / GPU
 -  Engineering activities : Data Engineer, ML-Algorithm Engineer
 -  Functional set : Robustness, Operation, Evaluation
@@ -88,14 +87,14 @@ As return as output
 
 This can be summed-up by the schema below
 
-![Drag Racing](docs/assets/schema.png)
+![Drag Racing](_static/schema.png)
 
 The executable version can be run directly by installing the python library or by running the dockerized verison.
 We describe in the following the process in two cases.
 
-# Use the component
+# Getting started 
 
-### Set up a clean virtual environnement
+## Set up a clean virtual environnement
 Validated python version : 3.9.18
 
 Linux setting:
@@ -114,7 +113,7 @@ virtualenv myenv
 .\myenv\Scripts\activate
 ```
 
-### Install the library
+## Install the library (restricted access)
 
 You can install it by a direct downloading from PyPi using the command 
 
@@ -127,7 +126,7 @@ You can installing it from it github sources by launching the following command
 pip install git+https://github.com/IRT-SystemX/NeuralDE
 ````
 
-### Use the executable
+## Use the executable
 
 The neural_de executable has 4 parameters : 
 
@@ -138,34 +137,42 @@ The neural_de executable has 4 parameters :
 - **output_target_path** : Output path where results are stored. If input path is a file, this path represents the output file, \
             else this is the path to oupput direcotry"
 
-- **output_prefix** : 0utput_prefix to add to output images filenames in target directory. By default,original names are conserved
+- **pipeline_file_path** : Yaml Pipeline Configuration file to use. 
 
-- **pipeline_file_path** : Pipeline Configuration file to use
+- **output_prefix** : (optional) 0utput_prefix to add to output image filenames in target directory. By default,original names are kept.
 
 For example, with this command:
 
-```neural_de --input_source_path test_image/test_snow.png  --output_target_path /pipeline_result/snow_processed.png --pipeline_file_path=user_conf_1.yaml ```
+```
+neural_de --input_source_path test_image/test_snow.png  --output_target_path /pipeline_result/snow_processed.png --pipeline_file_path=user_conf_1.yaml 
+```
 
 The image ```test_snow.png``` in folder ``` test_image```  is processed through the transformation pipeline defined in ``` user_conf_1.yaml ``` and the results image is stored as a file named ```snow_processed.png```
 in ```pipeline_results``` directory
 
 With this command
 
-``` neural_de --input_source_path test_images/snow_test  --output_target_path pipeline_res/snow/snow_pipeline_res --output_prefix "transformed_"    --pipeline_file_path=conf_test_1.yaml ``` 
+``` 
+neural_de --input_source_path test_images/snow_test  --output_target_path pipeline_res/snow/snow_pipeline_res --output_prefix "transformed_"    --pipeline_file_path=conf_test_1.yaml 
+``` 
 
 All images present in subfolder ``` test_images/snow_test```  are is processed through the transformation pipeline defined in ``` user_conf_1.yaml ``` and all results images are stored in directory  ``` pipeline_res/snow/snow_pipeline_res``` 
 with their name preced of prefix "transformed_"
 
-# Use the docker version
+## Use the docker version
 
 You can build manually the image from the source, by cloning the source repository from this url https://github.com/IRT-SystemX/NeuralDE
 And from cloned repository source directory type
 
-```docker build . -f DOCKERFILE -t neural_de```
+```
+docker build . -f DOCKERFILE -t neural_de
+```
 
 Ot you can direct download the docker image neural_de from dockerhub by typing :
 
-```docker pull neural_de:latest``` 
+```
+docker pull neural_de
+``` 
 
 The docker pass the input args of neural de executable through environnement variables.
 The only difference is that corresponding source and target dir shall be mounted in the container sotrage to be acessible
@@ -173,8 +180,22 @@ forlder ```tmp/in``` and ```tmp/out``` and ```/tmp``` folder are used to store s
 
 Thus, to process a directory as source input use the following command
 
-```docker run -e INPUT_SOURCE_PATH=your_dir -e OUTPUT_TARGET_PATH=your_target_dir -e PIPELINE_PATH=path_to_your_config_  -v your_=target_dir:/tmp/in/your_target_dir -v your_config_file:/tmp/your_config_file neural_de```
+```
+docker run -e INPUT_SOURCE_PATH=your_dir -e OUTPUT_TARGET_PATH=your_target_dir -e PIPELINE_PATH=path_to_your_config_  -v your_=target_dir:/tmp/in/your_target_dir -v your_config_file:/tmp/your_config_file neural_de
+```
 
+For example, if your images to process are in a subfolder named ```test_images/snow_test``` your config file is at path ```conf_test_1.yaml``` and you want that processed images
+to be in output folder ```docker_res2/snow_test```, you will launch the following command :
+
+```
+docker run -e INPUT_SOURCE_PATH="test_images/snow_test" -e OUTPUT_TARGET_PATH="docker_res" -e PIPELINE_FILE_PATH="conf_test_1.yaml" -v  ${PWD}/conf_test_1.yaml:/tmp/conf_test_1.yaml -v ${PWD}/test_images/snow_test:/tmp/in/test_images/snow_test -v ${PWD}/docker_res_2/snow_test:/tmp/out/docker_res/ neural_de
+```
+For example, if your images to process are in a subfolder named ```test_images/snow_test``` and your config file is at path ```conf_test_1.yaml``` and you want that processed images
+to be in output folder ```docker_res2/snow_test```, you will launch the following command :
+
+```
+docker run -e INPUT_SOURCE_PATH="test_images/test_snow.webp" -e OUTPUT_TARGET_PATH="docker_res/res.png" -e PIPELINE_FILE_PATH="conf_test_1.yaml" -v  ${PWD}/conf_test_1.yaml:/tmp/conf_test_1.yaml -v ${PWD}/test_images/test_snow.webp:/tmp/in/test_images/test_snow.webp -v ${PWD}/docker_res_2/:/tmp/out/docker_res/ neural_de
+```
 
 # Define your configuration pipeline
 
@@ -214,11 +235,11 @@ To see in details the parameters of available transformation see the seciton tec
 * [CenteredZoom](neural_de.transformations.rst#centered-zoom-label) : Zoom in the middle of the image, with a given zoom ratio.
 * [DiffusionEnhancer](neural_de_transformations.rst#diffusion-enhancer-label) : Purify noise on images and increase robustness against attack.
 
-## Required Hardware
+# Required Hardware
 All methods have been tested on CPU and GPU. 
 
 
-## Usage of the lib inside your python code
+# Usage of the lib inside your python code
 
 All methods in neurelDE follow the same syntax.
 ```
@@ -227,7 +248,7 @@ method = <Method()>
 transformed_image_batch = method.transform(image_batch)
 ```
 
-### Detailed examples with notebooks
+## Detailed examples with notebooks
 
 The neuralDE library provides several methods to preprocess images.
 To understand how to use these methods, click on the link to see the following notebooks.
@@ -248,12 +269,7 @@ To understand how to use these methods, click on the link to see the following n
 * [Diffusion_Enhancer](./examples/DiffpurEnhancer_example.ipynb)
 : Notebook to present how to use the Diffusion_Enhancer class. This method allows us to purify noise into images. 
 
-### Good practises and scientific guidelines
-
-To guide you through the specifics and the best practises to implement this approach you'll find dedicated
-guidelines [here](pdf/NeuralDE_Confiance.ai_Methodological_Guideline_v2.0.pdf)
-
-## Additional informations 
+# Additional informations 
 NeuralDE is an **Image2Image library**, thus it is made to process **images batches**. 
 It is composed of a list of classes called "enhancers". Each enhancer will have specific options that 
 will be defined by the user at object initialisation. 
@@ -270,6 +286,11 @@ The concerned which can be run on GPU are:
 - DerainEnhancer
 - ResolutionEnhancer
 - DiffusionEnhancer
+
+# Good practices and scientific guidelines
+
+To guide you through the specifics and the best practises to implement this approach you'll find dedicated
+guidelines [here](docs/source/_static/NeuralDE_Confiance.ai_Methodological_Guideline_v2.0.pdf)
 
 Please refer to the html documentation of each method for more detailed informations.
 

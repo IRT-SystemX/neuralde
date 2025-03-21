@@ -5,23 +5,12 @@ RUN apt-get update && apt-get install -y libgl1 libglib2.0-0
 COPY * .
 COPY neural_de ./neural_de
 RUN python -m pip install .
+
 ADD neural_de/main.py .
 
-# Var env set by user
-ENV INPUT_SOURCE_PATH=""
-ENV OUTPUT_TARGET_PATH=""
-ENV OUTPUT_PREFIX=""
-ENV PIPELINE_FILE_PATH=""
+ENTRYPOINT python main.py \
+    --input_source_path "/tmp/in"/"$INPUT_SOURCE_PATH" \
+    --output_target_path "/tmp/out"/"$OUTPUT_TARGET_PATH" \
+    --output_prefix "$OUTPUT_PREFIX" \
+    --pipeline_file_path "/tmp"/"$PIPELINE_FILE_PATH"
 
-# Var env passed to neuralde execution
-ENV ARG1_INPUT="/tmp/in"/$INPUT_SOURCE_PATH
-ENV ARG2_OUTPUT="/tmp/out"/$OUTPUT_TARGET_PATH
-ENV ARG3_PREFIX=$OUTPUT_PREFIX
-ENV ARG4_PIPELINE="tmp"/$PIPELINE_FILE_PATH
-
-# Run of container with correct args
-
-ENTRYPOINT ["python", "main.py", "--input_source_path",$ARG1_INPUT ,"--output_target_path", $ARG2_OUTPUT,"--output_prefix",$ARG3_PREFIX,"--pipeline_config_path", $ARG4_PIPELINE]
-
-
-# docker run -e INPUT_SOURCE_PATH="toto.jpg" -v  /local/dsfsdf/cdsfsdf/sdfds/:/tmp/in -v

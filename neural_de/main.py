@@ -13,7 +13,15 @@ from neural_de.transformations.transformation_pipeline import TransformationPipe
 
 def main():
     """
-    Main script of neural de component
+    Main script of neural de component:
+
+    Args:
+        input_source_path: str - Path to the input source to process. If path represent a single file path. The single file will be \
+             processed. If path represents a directory, all images present in directory will be processed
+        output_target_path: str - Output path where results are stored. If input path is a file, this path represents the output file, \
+            else this is the path to output direcotry
+        pipeline_file_path: str -  Pipeline Configuration file to use
+        output_prefix: str (optionnal) - Output_prefix to add to output images filenames
     """
     parser = argparse.ArgumentParser(description="Main script of Neural DE")
 
@@ -57,17 +65,19 @@ def main():
     # Create working path lists of images to process
 
     if directory:
+        print("Input source is a directory",args.input_source_path)
         image_paths_list = glob.glob(args.input_source_path + "/*")
         output_paths_list = [
             args.output_target_path + os.sep + args.output_prefix + x.split(os.sep)[-1]
             for x in image_paths_list
         ]  # Adding prefix
     else:
+        print("Input source is a file")
         image_paths_list = [args.input_source_path]
         output_paths_list = [args.output_target_path]
 
-    print("input image list", image_paths_list)
-    print("output image list", output_paths_list)
+    #print("input image list", image_paths_list)
+    #print("output image list", output_paths_list)
 
     # Create output dir if needed
 
@@ -77,10 +87,9 @@ def main():
         Path(args.output_target_path).mkdir(parents=True, exist_ok=True)
     else:
         target_dir = os.sep.join(str(args.output_target_path).split("/")[:-1])
-        print("targetdir", target_dir)
+        print("targetdir for image output : ", target_dir)
         Path(target_dir).mkdir(parents=True, exist_ok=True)
 
-    print("output dir", str(args.output_target_path))
 
     # Create list of input batch to pass (interpret files as numpy array of tensors)
     input_images_list = [cv2.imread(x) for x in image_paths_list]

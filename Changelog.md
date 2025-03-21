@@ -1,13 +1,14 @@
-# 🔄 Changelog
+# Changelog
 
-## 1.1.0 (2025-03-31)
+## v 1.1.0 (2025-03-31)
 
 * Deleted relative and hidden module names to improve sphinx compatibilty
+* Changed modules names for all transformations 
 * Added main entry point and dockerization file
-* Added yaml file listing all external models url
-* Deleted minio dependancy and renamed old module as "model_manager" module .
+* Added yaml file listing all external models urls
+* Deleted minio dependency and renamed old module as "model_manager" module.
 
-## v1.0.0 (2024-01-31) - ([gitlab_url](https://git.irt-systemx.fr/confianceai/ec_4/neuralde/-/tree/1.0.0-rc))
+## v 1.0.0 (2024-01-31)
 
-* Add diffpur method, finalized documentation and compatibility with industrial demonstrator.
+* Added diffpur method, finalized documentation and compatibility with industrial demonstrator.
 

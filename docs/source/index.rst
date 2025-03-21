@@ -6,23 +6,22 @@
 Welcome to NeuralDe's documentation!
 ====================================
 .. |version| replace:: Version : {version}
-.. include:: ./README.md
+.. include:: ../../README.md
    :parser: myst_parser.sphinx_
-   :end-before: # NEURAL_DE
+   :end-before: ## I/O description
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :caption: Contents:
 
    guidelines
    tech_docs
    theory_overview
    changelog
-   neural_de
+   modules
 
-.. include:: ./README.md
-   :parser: myst_parser.sphinx_
-   :start-after: <!-- start-tutorial -->
+
+
 
 Indices and tables
 ==================
