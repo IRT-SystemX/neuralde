@@ -328,9 +328,8 @@ The concerned which can be run on GPU are:
 
 # Good practices and scientific guidelines
 
-To guide you through the specifics and the best practises to implement this approach you'll find dedicated
-guidelines [here](docs/source/_static/NeuralDE_Confiance.ai_Methodological_Guideline_v2.0.pdf)
-
+To understand good practices and learn more about the neural_de library, please refer to the following document:
+[Methodological Guideline for Neural DE](https://catalog.confiance.ai/records/g3s07-wc213/files/EC4N36_NeuralDE_Confiance.ai_Methodological_Guideline_v2.0.pdf?download=1)
 Please refer to the html documentation of each method for more detailed informations.
 
 

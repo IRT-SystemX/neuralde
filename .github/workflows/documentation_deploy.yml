@@ -31,7 +31,6 @@ jobs:
       run: |
         apt-get update && apt-get install -y pandoc
         python -m pip install --upgrade pip
-        pip install -r requirements_python39.txt
         pip install .
         pip install sphinx sphinx-rtd-theme sphinx-autodoc-typehints myst_parser nbsphinx
 
