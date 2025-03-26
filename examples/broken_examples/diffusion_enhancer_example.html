@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How to use NeuralDE’s DiffusionEnhancer &mdash; neuralde 1.1.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/nbsphinx-code-cells.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=fc837d61"></script>
+        <script src="../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            neuralde
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../guidelines.html">📖 Guidelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tech_docs.html">📚 Technical docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../theory_overview.html">💡 Theory Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html">🔄 Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">🎡 Package neural_de</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">neuralde</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">How to use NeuralDE’s DiffusionEnhancer</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/examples/broken_examples/diffusion_enhancer_example.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="How-to-use-NeuralDE's-DiffusionEnhancer">
+<h1>How to use NeuralDE’s DiffusionEnhancer<a class="headerlink" href="#How-to-use-NeuralDE's-DiffusionEnhancer" title="Link to this heading"></a></h1>
+<section id="Load-pretrained-models-and-attacked-images">
+<h2>Load pretrained models and attacked images<a class="headerlink" href="#Load-pretrained-models-and-attacked-images" title="Link to this heading"></a></h2>
+<p>First we load a diffusion probabilistic model (2) pretrained in the Imagenet dataset. Due to its size, we use Hugging Face’s accelerator library to easily manage the use of the available GPUs. To run this notebook, we recommend a 32 GB GPU with cuda toolkit 11 or higher installed.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import sys
+sys.path.append(&quot;..&quot;)
+import time
+#%load_ext autoreload
+#%autoreload 2
+
+#import numpy as np
+#np.random.seed(42)
+#import torch
+#torch.manual_seed(42)
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from neural_de.transformations import DiffusionEnhancer
+from neural_de.transformations._diffusion._diffpure_config import DiffPureConfig
+
+
+start=time.time()
+#from accelerate import Accelerator
+
+#accelerator = Accelerator()
+#device = accelerator.device
+#device = &quot;cpu&quot;
+# Load ADVpurifier
+config= DiffPureConfig()
+config.t = 15
+device = &quot;cuda&quot;
+purifier = DiffusionEnhancer(device=device, config=config)
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+2025-03-06 17:34:50.742958: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-03-06 17:34:50.758433: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:477] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+E0000 00:00:1741282490.776288    1657 cuda_dnn.cc:8310] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+E0000 00:00:1741282490.781648    1657 cuda_blas.cc:1418] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2025-03-06 17:34:50.799431: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+/home/jovyan/Maturation/env-testneural_github312/lib/python3.12/site-packages/tqdm/auto.py:21: TqdmWarning: IProgress not found. Please update jupyter and ipywidgets. See https://ipywidgets.readthedocs.io/en/stable/user_install.html
+  from .autonotebook import tqdm as notebook_tqdm
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[03-06 17:34:53] {/home/jovyan/Maturation/env-testneural_github312/lib/python3.12/site-packages/neural_de/utils/_twe_logger.py:123} INFO - Logger: name: neural_de_logger, handlers: [&lt;StreamHandler stdout (DEBUG)&gt;]
+[03-06 17:34:57] {/home/jovyan/Maturation/env-testneural_github312/lib/python3.12/site-packages/neural_de/utils/_minio.py:67} INFO - Model already available locally, skipping download
+[03-06 17:34:57] {/home/jovyan/Maturation/env-testneural_github312/lib/python3.12/site-packages/neural_de/transformations/_diffusion/_rev_guided_diffusion.py:31} INFO - Building DiffPure model
+[03-06 17:34:57] {/home/jovyan/Maturation/env-testneural_github312/lib/python3.12/site-packages/neural_de/transformations/_diffusion/_rev_guided_diffusion.py:32} DEBUG - Model Diffpure loaded with config : DiffPureConfig(weights_path=PosixPath(&#39;/home/jovyan/.neuralde/diffpure/256x256_diffusion_uncond.pt&#39;), img_shape=(3, 256, 256), attention_resolutions=[32, 16, 8], num_classes=None, dims=2, learn_sigma=True, num_channels=256, num_head_channels=64, num_res_blocks=2, resblock_updown=True, use_fp16=True, use_scale_shift_norm=True, num_heads=4, num_heads_upsample=-1, channel_mult=None, dropout=0.0, use_new_attention_order=False, t=15, t_delta=15, use_bm=False, use_checkpoint=False, conv_resample=True, sample_step=1, rand_t=False)
+[03-06 17:35:01] {/home/jovyan/Maturation/env-testneural_github312/lib/python3.12/site-packages/neural_de/transformations/_diffusion/_rev_guided_diffusion.py:50} INFO - Loading DiffPure weights to device : cuda
+</pre></div></div>
+</div>
+<p>Now we load a pre-trained model of the welding classifier that outputs class 0 for normal and 1 to non compliante weldings respectively. Previously, we have selected randomly a group of 128 images from the test set, and attacked them using the standard version of the autoattack library (3). For convenience the images, and their attacked versions are stored in Pytorch tensors.</p>
+<p>As will be noted, the accuracy of the classifier drops from 95.31% in the original images to 0% after the adversarial attack. This evidences the success of the method to trick the classifier making him predict defectuous weldings as conformal, and the opposite.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Load a pre-trained model
+import torch
+
+# Load the classifier pretrained weights
+weights_dir = &#39;../neuralde_renault/pretrained_classifier/resnet_renault_epoch_4.pth&#39;
+classifier = torch.load(weights_dir,  map_location=torch.device(device))#.to(&quot;cpu&quot;)
+
+# Load the batch of 128 images and its attacked versions
+X_attacked, Y_attacked = torch.load(&#39;../neuralde_renault/data/attacked_X.pth&#39;).to(device), torch.load(&#39;../neuralde_renault/data/attacked_Y.pth&#39;).to(device)
+X, Y = torch.load(&#39;../neuralde_renault/data/X.pth&#39;).to(device), torch.load(&#39;../neuralde_renault/data/Y.pth&#39;).to(device)
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">FileNotFoundError</span>                         Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[3]</span><span class="ansi-green-fg">, line 6</span>
+<span class="ansi-green-fg">      4</span> <span style="color: rgb(95,135,135)"># Load the classifier pretrained weights</span>
+<span class="ansi-green-fg">      5</span> weights_dir = <span class="ansi-yellow-fg">&#39;</span><span class="ansi-yellow-fg">../neuralde_renault/pretrained_classifier/resnet_renault_epoch_4.pth</span><span class="ansi-yellow-fg">&#39;</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">6</span> classifier = <span class="ansi-yellow-bg">torch</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">load</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">weights_dir</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg">  </span><span class="ansi-yellow-bg">map_location</span><span class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">torch</span><span class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">device</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">device</span><span class="ansi-yellow-bg">)</span><span class="ansi-yellow-bg">)</span><span style="color: rgb(95,135,135)">#.to(&#34;cpu&#34;)</span>
+<span class="ansi-green-fg">      8</span> <span style="color: rgb(95,135,135)"># Load the batch of 128 images and its attacked versions</span>
+<span class="ansi-green-fg">      9</span> X_attacked, Y_attacked = torch.load(<span class="ansi-yellow-fg">&#39;</span><span class="ansi-yellow-fg">../neuralde_renault/data/attacked_X.pth</span><span class="ansi-yellow-fg">&#39;</span>).to(device), torch.load(<span class="ansi-yellow-fg">&#39;</span><span class="ansi-yellow-fg">../neuralde_renault/data/attacked_Y.pth</span><span class="ansi-yellow-fg">&#39;</span>).to(device)
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/Maturation/env-testneural_github312/lib/python3.12/site-packages/torch/serialization.py:1425</span>, in <span class="ansi-cyan-fg">load</span><span class="ansi-blue-fg">(f, map_location, pickle_module, weights_only, mmap, **pickle_load_args)</span>
+<span class="ansi-green-fg">   1422</span> <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> <span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">encoding</span><span class="ansi-yellow-fg">&#34;</span> <span class="ansi-bold" style="color: rgb(175,0,255)">not</span> <span class="ansi-bold" style="color: rgb(175,0,255)">in</span> pickle_load_args.keys():
+<span class="ansi-green-fg">   1423</span>     pickle_load_args[<span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">encoding</span><span class="ansi-yellow-fg">&#34;</span>] = <span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">utf-8</span><span class="ansi-yellow-fg">&#34;</span>
+<span class="ansi-green-fg">-&gt; </span><span class="ansi-green-fg">1425</span> <span class="ansi-bold" style="color: rgb(0,135,0)">with</span> <span class="ansi-yellow-bg">_open_file_like</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">f</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-fg ansi-yellow-bg">&#34;</span><span class="ansi-yellow-fg ansi-yellow-bg">rb</span><span class="ansi-yellow-fg ansi-yellow-bg">&#34;</span><span class="ansi-yellow-bg">)</span> <span class="ansi-bold" style="color: rgb(0,135,0)">as</span> opened_file:
+<span class="ansi-green-fg">   1426</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> _is_zipfile(opened_file):
+<span class="ansi-green-fg">   1427</span>         <span style="color: rgb(95,135,135)"># The zipfile reader is going to advance the current file position.</span>
+<span class="ansi-green-fg">   1428</span>         <span style="color: rgb(95,135,135)"># If we want to actually tail call to torch.jit.load, we need to</span>
+<span class="ansi-green-fg">   1429</span>         <span style="color: rgb(95,135,135)"># reset back to the original position.</span>
+<span class="ansi-green-fg">   1430</span>         orig_position = opened_file.tell()
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/Maturation/env-testneural_github312/lib/python3.12/site-packages/torch/serialization.py:751</span>, in <span class="ansi-cyan-fg">_open_file_like</span><span class="ansi-blue-fg">(name_or_buffer, mode)</span>
+<span class="ansi-green-fg">    749</span> <span class="ansi-bold" style="color: rgb(0,135,0)">def</span><span style="color: rgb(188,188,188)"> </span><span class="ansi-blue-fg">_open_file_like</span>(name_or_buffer, mode):
+<span class="ansi-green-fg">    750</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> _is_path(name_or_buffer):
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">751</span>         <span class="ansi-bold" style="color: rgb(0,135,0)">return</span> <span class="ansi-yellow-bg">_open_file</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">name_or_buffer</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">mode</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg">    752</span>     <span class="ansi-bold" style="color: rgb(0,135,0)">else</span>:
+<span class="ansi-green-fg">    753</span>         <span class="ansi-bold" style="color: rgb(0,135,0)">if</span> <span class="ansi-yellow-fg">&#34;</span><span class="ansi-yellow-fg">w</span><span class="ansi-yellow-fg">&#34;</span> <span class="ansi-bold" style="color: rgb(175,0,255)">in</span> mode:
+
+<span class="ansi-cyan-fg">File </span><span class="ansi-green-fg">~/Maturation/env-testneural_github312/lib/python3.12/site-packages/torch/serialization.py:732</span>, in <span class="ansi-cyan-fg">_open_file.__init__</span><span class="ansi-blue-fg">(self, name, mode)</span>
+<span class="ansi-green-fg">    731</span> <span class="ansi-bold" style="color: rgb(0,135,0)">def</span><span style="color: rgb(188,188,188)"> </span><span class="ansi-blue-fg">__init__</span>(<span style="color: rgb(0,135,0)">self</span>, name, mode):
+<span class="ansi-green-fg">--&gt; </span><span class="ansi-green-fg">732</span>     <span style="color: rgb(0,135,0)">super</span>().<span class="ansi-blue-fg">__init__</span>(<span class="ansi-yellow-bg" style="color: rgb(0,135,0)">open</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">name</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">mode</span><span class="ansi-yellow-bg">)</span>)
+
+<span class="ansi-red-fg">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;../neuralde_renault/pretrained_classifier/resnet_renault_epoch_4.pth&#39;
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from autoattack import AutoAttack
+
+# Create instance of standard attacks
+attack = AutoAttack(classifier.eval(), device=device)
+
+# Caculate the accuracy of the model in the clean and attacked images
+original_acc = attack.clean_accuracy(X, Y)
+attacked_acc = attack.clean_accuracy(X_attacked, Y_attacked)
+<br/></pre></div>
+</div>
+</div>
+<p>Now let’s visualize an example of the original and attacked images. As can be seen in the following plot, the adversarial attack is imperceptible to the human eye. Nevertheless, it tricks the classifier reducing its accuracy to 0%. The accuracy shown has been calculated using the whole batch of 128 test images.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import matplotlib.pyplot as plt
+
+fig, axs = plt.subplots(1, 2, figsize=(15, 5))  # Adjust figsize as needed
+titles = [f&#39;original acc. {original_acc}%&#39;, f&#39;attacked acc. {attacked_acc}%&#39;]
+
+for i, img in enumerate([X[0].permute(1,2,0).detach().cpu(),
+                         X_attacked[0].permute(1,2,0).detach().cpu()]):
+
+    axs[i].imshow(img)
+    axs[i].axis(&#39;off&#39;)  # Turn off axis
+    axs[i].set_title(titles[i])  # Set title for each subplot
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[4]</span><span class="ansi-green-fg">, line 4</span>
+<span class="ansi-green-fg">      1</span> <span class="ansi-bold" style="color: rgb(0,135,0)">import</span><span style="color: rgb(188,188,188)"> </span><span class="ansi-blue-intense-fg ansi-bold">matplotlib</span><span class="ansi-blue-intense-fg ansi-bold">.</span><span class="ansi-blue-intense-fg ansi-bold">pyplot</span><span style="color: rgb(188,188,188)"> </span><span class="ansi-bold" style="color: rgb(0,135,0)">as</span><span style="color: rgb(188,188,188)"> </span><span class="ansi-blue-intense-fg ansi-bold">plt</span>
+<span class="ansi-green-fg">      3</span> fig, axs = plt.subplots(<span class="ansi-green-fg">1</span>, <span class="ansi-green-fg">2</span>, figsize=(<span class="ansi-green-fg">15</span>, <span class="ansi-green-fg">5</span>))  <span style="color: rgb(95,135,135)"># Adjust figsize as needed</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">4</span> titles = [<span class="ansi-yellow-fg">f</span><span class="ansi-yellow-fg">&#39;</span><span class="ansi-yellow-fg">original acc. </span><span class="ansi-bold" style="color: rgb(175,95,135)">{</span><span class="ansi-yellow-bg">original_acc</span><span class="ansi-bold" style="color: rgb(175,95,135)">}</span><span class="ansi-yellow-fg">%</span><span class="ansi-yellow-fg">&#39;</span>, <span class="ansi-yellow-fg">f</span><span class="ansi-yellow-fg">&#39;</span><span class="ansi-yellow-fg">attacked acc. </span><span class="ansi-bold" style="color: rgb(175,95,135)">{</span>attacked_acc<span class="ansi-bold" style="color: rgb(175,95,135)">}</span><span class="ansi-yellow-fg">%</span><span class="ansi-yellow-fg">&#39;</span>]
+<span class="ansi-green-fg">      6</span> <span class="ansi-bold" style="color: rgb(0,135,0)">for</span> i, img <span class="ansi-bold" style="color: rgb(175,0,255)">in</span> <span style="color: rgb(0,135,0)">enumerate</span>([X[<span class="ansi-green-fg">0</span>].permute(<span class="ansi-green-fg">1</span>,<span class="ansi-green-fg">2</span>,<span class="ansi-green-fg">0</span>).detach().cpu(),
+<span class="ansi-green-fg">      7</span>                          X_attacked[<span class="ansi-green-fg">0</span>].permute(<span class="ansi-green-fg">1</span>,<span class="ansi-green-fg">2</span>,<span class="ansi-green-fg">0</span>).detach().cpu()]):
+<span class="ansi-green-fg">      9</span>     axs[i].imshow(img)
+
+<span class="ansi-red-fg">NameError</span>: name &#39;original_acc&#39; is not defined
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../../_images/examples_broken_examples_diffusion_enhancer_example_8_1.png" src="../../_images/examples_broken_examples_diffusion_enhancer_example_8_1.png" />
+</div>
+</div>
+<p>Now let’s apply the diffpure technique to the attacked images. If the purification is sucessfull, the accuracy of the classifier should sharply increase. This means that the adversarial noise was not only removed, but the image preseves the right semantic to be recognizable by the classifier.</p>
+<p>After using the diffpure architecture the classifier accuracy is increased from 0% to 77.34%.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import torch
+from torch.utils.data import DataLoader, TensorDataset
+from tqdm import tqdm
+
+# Create a dataloader from the attacked images
+attacked_data = TensorDataset(X_attacked, Y_attacked)
+attacked_loader = DataLoader(attacked_data, batch_size=1)  # set the batch size according to your hardware capacities
+
+# Wrap the models and dataloaders using the accelerator class so it takes care of the GPU managment
+#purifier, attacked_loader, classifier = accelerator.prepare(purifier, attacked_loader, classifier)
+<br/></pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Purify the images iterating on the batch loader
+purified_images = []
+i = 0
+for batch in tqdm(attacked_loader):
+    if i&lt; 1:
+        inputs, targets = batch
+        outputs = purifier.transform(inputs)
+        purified_images.append(outputs)
+        i += 1
+# Stack the purified images in a single object.
+purified_images = torch.vstack(purified_images)
+
+# Calculate the acurracy of the purified images
+purified_acc = attack.clean_accuracy(purified_images, Y)*100
+print(f&#39;Accuracy after purification {purified_acc}%&#39;)
+<br/></pre></div>
+</div>
+</div>
+<p>Upon visual inspection, it is observed that the purified image appears less sharp than the original. This is potentially due to the purification process introducing noisy artifacts altering the real texture of the welding and the material. However, despite these details, the overall semantic integrity of the image, including the size of the weld and its contact points, is preserved. The accuracies reported are calculated on the whole 128 test image batch.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import matplotlib.pyplot as plt
+
+fig, axs = plt.subplots(1, 3, figsize=(15, 5))
+titles = [f&#39;original. Acc {original_acc}%&#39;, f&#39;purified. Acc {purified_acc}%&#39;, f&#39;attacked. Acc {attacked_acc}%&#39;]
+
+for i, img in enumerate([X[0].permute(1,2,0).detach().cpu(),
+                         purified_images[0].permute(1,2,0).detach().cpu(),
+                         X_attacked[0].permute(1,2,0).detach().cpu()]):
+
+    axs[i].imshow(img)
+    axs[i].axis(&#39;off&#39;)
+    axs[i].set_title(titles[i])
+<br/></pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Model&#39;s predictions on the original data
+original_outputs = classifier(X)
+original_outputs.argmax(1)
+<br/></pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Model&#39;s predictions on the attacked data
+attacked_outputs = classifier(X_attacked)
+attacked_outputs.argmax(1)
+<br/></pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Y true labels
+Y
+<br/></pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Model&#39;s predictions on the purified data
+classifier = classifier.eval()
+purified_outputs = classifier(purified_images)
+purified_outputs.argmax(1)
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>end=time.time()
+print(&quot;temps final : &quot;,end-start)
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, IRT-SystemX.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
