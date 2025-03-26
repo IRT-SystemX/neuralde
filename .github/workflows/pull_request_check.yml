@@ -71,6 +71,7 @@ jobs:
 #    needs:
 #      [black-format-check, prettier-check, cspell-check, version-upgrade-check]
 #    runs-on: ubuntu-latest
+#    if: contains(github.ref, "develop")
 #    steps:
 #      - uses: actions/checkout@v2
 #      - name: Set up Docker Buildx
