@@ -3,7 +3,7 @@ name: Deploy Sphinx Docs to GitHub Pages
 on:
   push:
     branches:
-      - main
+      - develop
 
   pull_request:
     branches:
@@ -39,6 +39,7 @@ jobs:
       run: |
         cd docs
         make html
+        ls -l lint_results/pylint.svg
 
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@v4

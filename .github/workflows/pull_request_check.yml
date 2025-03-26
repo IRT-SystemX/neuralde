@@ -47,8 +47,6 @@ jobs:
           elif [ "$SEVERITY" = "sev-3" ]; then FLAKE8_COLOR="yellow"
           else FLAKE8_COLOR="green"; fi
           anybadge --overwrite --label flake8 --value="report" --file=docs/flake8/flake8.svg --color $FLAKE8_COLOR
- 
-
           
     
   # python-tests: # Install dependencies and run tests with pytest
