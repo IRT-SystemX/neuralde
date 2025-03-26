@@ -49,6 +49,9 @@
         <img src="https://img.shields.io/badge/Python-3.9-efefef">
     </a>
     <a href="#">
+        <img src="https://img.shields.io/badge/Python-3.10-efefef">
+    </a>
+    <a href="#">
         <img src="https://img.shields.io/badge/License-MPL-2">
     </a>
 </div>
@@ -91,7 +94,7 @@
 -----------------
 
 -  Version: 1.1.0
--  Python Version: python 3.9
+-  Python Version: python 3.9, 3.10
 -  Strong Dependencies: Tensorflow, pytorch
 -  Trustworthy attributes : Robustness
 -  Hardware : CPU / GPU

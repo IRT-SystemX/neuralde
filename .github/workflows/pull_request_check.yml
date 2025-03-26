@@ -15,7 +15,7 @@ on:
 jobs:
 
   quality-check: # Check that the codebase does not contain linting errors
-    name: Flake8 check
+    name: Quality check
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
