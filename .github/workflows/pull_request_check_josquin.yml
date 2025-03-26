@@ -1,0 +1,101 @@
+name: Pull request checks
+
+on:
+  push:
+    branches:
+      - develop
+
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+jobs:
+
+  format-check: # Check that the codebase is formatted with black
+    name: Pylint and flake8 format check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.12
+      - name: Install dependencies and check black format
+        run: |
+          python -m pip install --upgrade pip
+          mkdir -p docs/lint_results
+          pylint neural_de/ --output-format=json > docs/lint_results/pylint_report.json || true
+          pylint neural_de/ --output-format=text > docs/lint_results/pylint_report.txt || true
+
+      - name: Run flake8 and export report
+        run: |
+          flake8 neural_de/ --output-file=docs/lint_results/flake8_report.txt || true      
+
+      - name: Convert reports to HTML (optional)
+        run: |
+         echo "<h1>Pylint Report</h1><pre>$(cat docs/lint_results/pylint_report.txt)</pre>" > docs/lint_results/pylint_report.html
+         echo "<h1>Flake8 Report</h1><pre>$(cat docs/lint_results/flake8_report.txt)</pre>" > docs/lint_results/flake8_report.html
+
+      - name: Convert reports to Markdown for Sphinx
+        run: |
+          echo "# Pylint Report\n\`\`\`\n$(cat docs/lint_results/pylint_report.txt)\n\`\`\`" > docs/lint_results/pylint_report.md
+          echo "# Flake8 Report\n\`\`\`\n$(cat docs/lint_results/flake8_report.txt)\n\`\`\`" > docs/lint_results/flake8_report.md
+
+      - name: Check Pylint score
+        run: |
+          SCORE=$(pylint src/ --output-format=json | jq '.[].score')
+          if (( $(echo "$SCORE < 8" | bc -l) )); then exit 1; fi
+
+    
+
+  documentation_build_and_deploy:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+
+    steps:
+      - uses: docker://pandoc/core:3.5
+
+      - name: Build Sphinx Docs (if using Sphinx)
+        run: |
+          pip install sphinx sphinx-rtd-theme sphinx-autodoc-typehints myst_parser nbsphinx
+          cd docs 
+          make html
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs/_build/html  # Si Sphinx
+
+
+  python-tests: # Install dependencies and run tests with pytest
+    name: Python tests
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        python-version: ["3.9"]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          apt-get update && apt-get install -y libgl1 libglib2.0-0 libgl1-mesa-glx
+          pip install .
+          pip install pytest
+          pip install -r requirements_python39.txt
+
+      - name: Test with pytest
+        run: |
+          pytest tests/
