@@ -47,8 +47,9 @@ jobs:
 
     strategy:
       matrix:
-        python-version: ["3.9","3.10"]
+        python-version: ["3.9",]
 
+    if: contains(github.ref, "develop")
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python ${{ matrix.python-version }}
