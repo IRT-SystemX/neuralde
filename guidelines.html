@@ -1,22 +1,22 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="./">
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>📖 Guidelines: &mdash; neuralde 1.1.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
-
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
-      <script src="_static/jquery.js?v=5d32c60e"></script>
-      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=fc837d61"></script>
-      <script src="_static/doctools.js?v=9bcbadda"></script>
-      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=fc837d61"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -46,22 +46,29 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">📖 Guidelines:</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#description">📝 Description</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#specifications">🔍 Specifications</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#quickstart">🚀 Quickstart</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#setting-environement">Setting environement</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#getting-started">Getting started</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#set-up-a-clean-virtual-environnement">Set up a clean virtual environnement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#install-the-library-restricted-access">Install the library (restricted access)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#use-the-executable">Use the executable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#use-the-docker-version">Use the docker version</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#usage">🎮 Usage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#format">🔀 Format</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#hardware">💻 Hardware</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#references">📚 References</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#define-your-configuration-pipeline">Define your configuration pipeline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#available-methods-in-release-1-1-0">Available methods in release 1.1.0</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#required-hardware">Required Hardware</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#usage-of-the-lib-inside-your-python-code">Usage of the lib inside your python code</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#detailed-examples-with-notebooks">Detailed examples with notebooks</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#additional-informations">Additional informations</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tech_docs.html">📚 Technical docs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="theory_overview.html">💡 Theory Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">🔄 Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">🎡 Package neural_de</a></li>
 </ul>
 
         </div>
@@ -89,103 +96,182 @@
            <div itemprop="articleBody">
              
   <section id="guidelines">
-<span id="readme"></span><h1>📖 Guidelines:<a class="headerlink" href="#guidelines" title="Link to this heading"></a></h1>
+<span id="id1"></span><h1>📖 Guidelines:<a class="headerlink" href="#guidelines" title="Link to this heading"></a></h1>
+<p>The executable version of the component take as input :</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#description"><span class="std std-ref">📝 Description</span></a></p></li>
-<li><p><a class="reference internal" href="#specifications"><span class="std std-ref">🔍 Specifications</span></a></p></li>
-<li><p><a class="reference internal" href="#quickstart"><span class="std std-ref">🚀 Quick Start</span></a></p></li>
-<li><p><a class="reference internal" href="#usage"><span class="std std-ref">🎮 Usage</span></a></p></li>
-<li><p><a class="reference internal" href="#format"><span class="std std-ref">🔀 Description of Inputs and Outputs</span></a></p></li>
-<li><p><a class="reference internal" href="#hardware"><span class="std std-ref">💻 Required Hardware</span></a></p></li>
-<li><p><a class="reference internal" href="#references"><span class="std std-ref">📚 References</span></a></p></li>
+<li><p>A single image or a folder containing all images to process</p></li>
+<li><p>A yaml configuration file describing the sequence of transformations you want to apply on your input images</p></li>
 </ul>
-<div id='description'/><section id="description">
-<h2>📝 Description<a class="headerlink" href="#description" title="Link to this heading"></a></h2>
-<p>This library offers <em>neuralde methods</em> to help proving ownership
-on the machine learning models you train.</p>
-<p>NeuralDe is a library made to improve the robustness of your models at test time. It proposes a set of methods
-that will allow you to remove identified corruptions in your data before you send it to your model.
-This library addresses issues such as meteorological corruptions, distribution shifts etc.</p>
-<p>All methods provided by the library are associated with examples based on open sourced images.
-You can refer to each jupyter notebook for specifics.
-These notebooks are linked directly in the technical documentation.</p>
-<div id='specifications'/></section>
-<section id="specifications">
-<h2>🔍 Specifications<a class="headerlink" href="#specifications" title="Link to this heading"></a></h2>
+<p>As return as output</p>
 <ul class="simple">
-<li><p>Version: 1.0.0</p></li>
-<li><p>Python Version: python 3.9</p></li>
-<li><p>Strong Dependencies: tensorflow, pytorch</p></li>
-<li><p>Thematic:</p></li>
-<li><p>Trustworthy:</p></li>
-<li><p>Hardware : CPU / GPU</p></li>
-<li><p>Engineering activities :</p></li>
-<li><p>Scientific challenge:</p></li>
-<li><p>Functional set :</p></li>
+<li><p>The processed single image or a folder containing all processed images from your input folder</p></li>
 </ul>
-<div id='Quick Start'/></section>
-<section id="quickstart">
-<h2>🚀 Quickstart<a class="headerlink" href="#quickstart" title="Link to this heading"></a></h2>
-<p>To install and use the neural_de library, it is recommended to create a
-Python virtual environment. You can do that with virtualenv, as follows:</p>
-<section id="setting-environement">
-<h3>Setting environement<a class="headerlink" href="#setting-environement" title="Link to this heading"></a></h3>
+<p>This can be summed-up by the schema below</p>
+<p><img alt="Drag Racing" src="_images/schema.png" /></p>
+<p>The executable version can be run directly by installing the python library or by running the dockerized verison.
+We describe in the following the process in two cases.</p>
+<section id="getting-started">
+<h2>Getting started<a class="headerlink" href="#getting-started" title="Link to this heading"></a></h2>
+<section id="set-up-a-clean-virtual-environnement">
+<h3>Set up a clean virtual environnement<a class="headerlink" href="#set-up-a-clean-virtual-environnement" title="Link to this heading"></a></h3>
+<p>Validated python version : 3.9.18</p>
 <p>Linux setting:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>virtualenv
-virtualenv<span class="w"> </span>myenv
-<span class="nb">source</span><span class="w"> </span>myenv/bin/activate
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">virtualenv</span>
+<span class="n">virtualenv</span> <span class="n">myenv</span>
+<span class="n">source</span> <span class="n">myenv</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">activate</span>
 </pre></div>
 </div>
 <p>Windows setting:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>virtual<span class="w"> </span>env
-virtualenv<span class="w"> </span>myenv
-.<span class="se">\m</span>yenv<span class="se">\S</span>cripts<span class="se">\a</span>ctivate
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">virtual</span> <span class="n">env</span>
+<span class="n">virtualenv</span> <span class="n">myenv</span>
+<span class="o">.</span>\<span class="n">myenv</span>\<span class="n">Scripts</span>\<span class="n">activate</span>
 </pre></div>
 </div>
 </section>
-<section id="installation">
-<h3>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h3>
-<p>Once your virtual environment is activated, you can install the neural_de
-library. In the confiance environnement:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://git.irt-systemx.fr/confianceai/ec_4/neuralde.git
-<span class="nb">cd</span><span class="w"> </span>neuralde
-pip<span class="w"> </span>install<span class="w"> </span>.
+<section id="install-the-library-restricted-access">
+<h3>Install the library (restricted access)<a class="headerlink" href="#install-the-library-restricted-access" title="Link to this heading"></a></h3>
+<p>You can install it by a direct downloading from PyPi using the command</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">neural_de</span>
 </pre></div>
 </div>
-<p>or install the component from Nexus</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>neuralde
-pip<span class="w"> </span>show<span class="w"> </span>neuralde
+<p>You can installing it from it github sources by launching the following command</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">git</span><span class="o">+</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">IRT</span><span class="o">-</span><span class="n">SystemX</span><span class="o">/</span><span class="n">NeuralDE</span>
 </pre></div>
 </div>
-<p>This command will install the uqmodels package and all required
-dependencies.</p>
-<div id='usage'/></section>
 </section>
-<section id="usage">
-<h2>🎮 Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h2>
-<p>NeuralDe is a library made to improve the robustness of your models at test time. It proposes a set of methods
-that will allow you to remove identified corruptions in your data before you send it to your model.
-This library addresses issues such as meteorological corruptions, distribution shifts etc.</p>
-<p>All methods provided by the library are associated with examples based on open sourced images.
-You can refer to each jupyter notebook for specifics.
-These notebooks are linked directly in the technical documentation.</p>
-<p>All methods in neuralde follow the same syntax</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">neural_de.transformations</span><span class="w"> </span><span class="kn">import</span> <span class="o">&lt;</span><span class="n">Method</span><span class="o">&gt;</span>
+<section id="use-the-executable">
+<h3>Use the executable<a class="headerlink" href="#use-the-executable" title="Link to this heading"></a></h3>
+<p>The neural_de executable has 4 parameters :</p>
+<ul class="simple">
+<li><p><strong>input_source_path</strong> : This a required arg representing the path to the input source to process. If path represent a single file path. The single file will be <br />
+processed. If the input source path represents a directory, all images present in directory will be processed. Warning : In that case, all images shall have the same resolution as
+some method requires this constraint and will raise an error if they don’t.</p></li>
+<li><p><strong>output_target_path</strong> : Output path where results are stored. If input path is a file, this path represents the output file, <br />
+else this is the path to oupput direcotry”</p></li>
+<li><p><strong>pipeline_file_path</strong> : Yaml Pipeline Configuration file to use.</p></li>
+<li><p><strong>output_prefix</strong> : (optional) 0utput_prefix to add to output image filenames in target directory. By default,original names are kept.</p></li>
+</ul>
+<p>For example, with this command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">neural_de</span> <span class="o">--</span><span class="n">input_source_path</span> <span class="n">test_image</span><span class="o">/</span><span class="n">test_snow</span><span class="o">.</span><span class="n">png</span>  <span class="o">--</span><span class="n">output_target_path</span> <span class="o">/</span><span class="n">pipeline_result</span><span class="o">/</span><span class="n">snow_processed</span><span class="o">.</span><span class="n">png</span> <span class="o">--</span><span class="n">pipeline_file_path</span><span class="o">=</span><span class="n">user_conf_1</span><span class="o">.</span><span class="n">yaml</span>
+</pre></div>
+</div>
+<p>The image <code class="docutils literal notranslate"><span class="pre">test_snow.png</span></code> in folder <code class="docutils literal notranslate"> <span class="pre">test_image</span></code>  is processed through the transformation pipeline defined in <code class="docutils literal notranslate"><span class="pre">user_conf_1.yaml</span></code> and the results image is stored as a file named <code class="docutils literal notranslate"><span class="pre">snow_processed.png</span></code>
+in <code class="docutils literal notranslate"><span class="pre">pipeline_results</span></code> directory</p>
+<p>With this command</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">neural_de</span> <span class="o">--</span><span class="n">input_source_path</span> <span class="n">test_images</span><span class="o">/</span><span class="n">snow_test</span>  <span class="o">--</span><span class="n">output_target_path</span> <span class="n">pipeline_res</span><span class="o">/</span><span class="n">snow</span><span class="o">/</span><span class="n">snow_pipeline_res</span> <span class="o">--</span><span class="n">output_prefix</span> <span class="s2">&quot;transformed_&quot;</span>    <span class="o">--</span><span class="n">pipeline_file_path</span><span class="o">=</span><span class="n">conf_test_1</span><span class="o">.</span><span class="n">yaml</span>
+</pre></div>
+</div>
+<p>All images present in subfolder <code class="docutils literal notranslate"> <span class="pre">test_images/snow_test</span></code>  are is processed through the transformation pipeline defined in <code class="docutils literal notranslate"><span class="pre">user_conf_1.yaml</span></code> and all results images are stored in directory  <code class="docutils literal notranslate"> <span class="pre">pipeline_res/snow/snow_pipeline_res</span></code>
+with their name preced of prefix “transformed_”</p>
+</section>
+<section id="use-the-docker-version">
+<h3>Use the docker version<a class="headerlink" href="#use-the-docker-version" title="Link to this heading"></a></h3>
+<p>You can build manually the image from the source, by cloning the source repository from this url https://github.com/IRT-SystemX/NeuralDE
+And from cloned repository source directory type</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">build</span> <span class="o">.</span> <span class="o">-</span><span class="n">f</span> <span class="n">DOCKERFILE</span> <span class="o">-</span><span class="n">t</span> <span class="n">neural_de</span>
+</pre></div>
+</div>
+<p>Ot you can direct download the docker image neural_de from dockerhub by typing :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">pull</span> <span class="n">neural_de</span>
+</pre></div>
+</div>
+<p>The docker pass the input args of neural de executable through environnement variables.
+The only difference is that corresponding source and target dir shall be mounted in the container sotrage to be acessible
+forlder <code class="docutils literal notranslate"><span class="pre">tmp/in</span></code> and <code class="docutils literal notranslate"><span class="pre">tmp/out</span></code> and <code class="docutils literal notranslate"><span class="pre">/tmp</span></code> folder are used to store source_dir and target_dir and pipeline_config_file in container.</p>
+<p>Thus, to process a directory as source input use the following command</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">e</span> <span class="n">INPUT_SOURCE_PATH</span><span class="o">=</span><span class="n">your_dir</span> <span class="o">-</span><span class="n">e</span> <span class="n">OUTPUT_TARGET_PATH</span><span class="o">=</span><span class="n">your_target_dir</span> <span class="o">-</span><span class="n">e</span> <span class="n">PIPELINE_PATH</span><span class="o">=</span><span class="n">path_to_your_config_</span>  <span class="o">-</span><span class="n">v</span> <span class="n">your_</span><span class="o">=</span><span class="n">target_dir</span><span class="p">:</span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="ow">in</span><span class="o">/</span><span class="n">your_target_dir</span> <span class="o">-</span><span class="n">v</span> <span class="n">your_config_file</span><span class="p">:</span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">your_config_file</span> <span class="n">neural_de</span>
+</pre></div>
+</div>
+<p>For example, if your images to process are in a subfolder named <code class="docutils literal notranslate"><span class="pre">test_images/snow_test</span></code> your config file is at path <code class="docutils literal notranslate"><span class="pre">conf_test_1.yaml</span></code> and you want that processed images
+to be in output folder <code class="docutils literal notranslate"><span class="pre">docker_res2/snow_test</span></code>, you will launch the following command :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>docker run -e INPUT_SOURCE_PATH=&quot;test_images/snow_test&quot; -e OUTPUT_TARGET_PATH=&quot;docker_res&quot; -e PIPELINE_FILE_PATH=&quot;conf_test_1.yaml&quot; -v  ${PWD}/conf_test_1.yaml:/tmp/conf_test_1.yaml -v ${PWD}/test_images/snow_test:/tmp/in/test_images/snow_test -v ${PWD}/docker_res_2/snow_test:/tmp/out/docker_res/ neural_de
+</pre></div>
+</div>
+<p>For example, if your images to process are in a subfolder named <code class="docutils literal notranslate"><span class="pre">test_images/snow_test</span></code> and your config file is at path <code class="docutils literal notranslate"><span class="pre">conf_test_1.yaml</span></code> and you want that processed images
+to be in output folder <code class="docutils literal notranslate"><span class="pre">docker_res2/snow_test</span></code>, you will launch the following command :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>docker run -e INPUT_SOURCE_PATH=&quot;test_images/test_snow.webp&quot; -e OUTPUT_TARGET_PATH=&quot;docker_res/res.png&quot; -e PIPELINE_FILE_PATH=&quot;conf_test_1.yaml&quot; -v  ${PWD}/conf_test_1.yaml:/tmp/conf_test_1.yaml -v ${PWD}/test_images/test_snow.webp:/tmp/in/test_images/test_snow.webp -v ${PWD}/docker_res_2/:/tmp/out/docker_res/ neural_de
+</pre></div>
+</div>
+</section>
+</section>
+<section id="define-your-configuration-pipeline">
+<h2>Define your configuration pipeline<a class="headerlink" href="#define-your-configuration-pipeline" title="Link to this heading"></a></h2>
+<p>A pipeline configuraiton file is a yaml file containing the list of transformation method to call
+and for each of them eventually the name of user paremeters to overload:</p>
+<p>Here is below an example of such yaml file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">CenteredZoom</span>
+  <span class="n">init_param</span><span class="p">:</span>
+    <span class="n">keep_ratio</span><span class="p">:</span> <span class="mf">0.4</span>
+<span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">DeSnowEnhancer</span>
+  <span class="n">init_param</span><span class="p">:</span>
+    <span class="n">device</span><span class="p">:</span> <span class="s1">&#39;cpu&#39;</span>
+<span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">KernelDeblurringEnhancer</span>
+  <span class="n">init_param</span><span class="p">:</span>
+    <span class="n">kernel</span><span class="p">:</span> <span class="s2">&quot;medium&quot;</span>
+<span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">ResolutionEnhancer</span>
+  <span class="n">init_param</span><span class="p">:</span>
+    <span class="n">device</span><span class="p">:</span> <span class="s1">&#39;cpu&#39;</span>
+  <span class="n">transform</span><span class="p">:</span>
+    <span class="n">target_shape</span><span class="p">:</span> <span class="p">[</span><span class="mi">800</span><span class="p">,</span> <span class="mi">800</span><span class="p">]</span>
+    <span class="n">crop_ratio</span><span class="p">:</span> <span class="mf">.3</span>
+</pre></div>
+</div>
+<p>The defined pipeline apply sequentially on input images the four tranformations
+CenteredZoom, DeSnowEnhancer, KernelDeblurringEnhancer and ResolutionEnhancer.
+Each transformation has its own parameters.
+To see in details the parameters of available transformation see the seciton technical docs</p>
+<section id="available-methods-in-release-1-1-0">
+<h3>Available methods in release 1.1.0<a class="headerlink" href="#available-methods-in-release-1-1-0" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><a class="reference internal" href="neural_de.transformations.html#resolution-enhancer-label"><span class="std std-ref">Resolution_Enhancer</span></a> : enhance image resolution (GPU compat)</p></li>
+<li><p><a class="reference internal" href="neural_de.transformations.html#night-image-enhancer-label"><span class="std std-ref">NightImageEnhancer</span></a> : Inmprove quality of night images (GPU compat)</p></li>
+<li><p><a class="reference internal" href="neural_de.transformations.html#kernel-deblurring-enhancer-label"><span class="std std-ref">KernelDeblurringEnhancer</span></a> : Improve blurry images</p></li>
+<li><p><a class="reference internal" href="neural_de.transformations.html#desnow-enhancer-label"><span class="std std-ref">DeSnowEnhancer</span></a> : Removes snow from images (GPU compat)</p></li>
+<li><p><a class="reference internal" href="neural_de.transformations.html#derain-enhancer-label"><span class="std std-ref">DeRainEnhancer</span></a> : Removes rain from images (GPU compat)</p></li>
+<li><p><a class="reference internal" href="neural_de.transformations.html#brightness-enhancer-label"><span class="std std-ref">BrightnessEnhancer</span></a> : Improve luminosity</p></li>
+<li><p><a class="reference internal" href="neural_de.transformations.html#centered-zoom-label"><span class="std std-ref">CenteredZoom</span></a> : Zoom in the middle of the image, with a given zoom ratio.</p></li>
+<li><p><a class="reference internal" href="#neural_de_transformations.rst#diffusion-enhancer-label"><span class="xref myst">DiffusionEnhancer</span></a> : Purify noise on images and increase robustness against attack.</p></li>
+</ul>
+</section>
+</section>
+<section id="required-hardware">
+<h2>Required Hardware<a class="headerlink" href="#required-hardware" title="Link to this heading"></a></h2>
+<p>All methods have been tested on CPU and GPU.</p>
+</section>
+<section id="usage-of-the-lib-inside-your-python-code">
+<h2>Usage of the lib inside your python code<a class="headerlink" href="#usage-of-the-lib-inside-your-python-code" title="Link to this heading"></a></h2>
+<p>All methods in neurelDE follow the same syntax.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">neural_de.transformations</span><span class="w"> </span><span class="kn">import</span> <span class="o">&lt;</span><span class="n">Method</span><span class="o">&gt;</span>
 <span class="n">method</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">Method</span><span class="p">()</span><span class="o">&gt;</span>
 <span class="n">transformed_image_batch</span> <span class="o">=</span> <span class="n">method</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">image_batch</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>For more detailed usage and explanations of the different options and
-settings available in neural_de, please refer to the full
-<a class="reference external" href="mettre%20le%20lien%20de%20la%20documentation">documentation</a>.</p>
-<p>📚 For more practical examples and detailed usage scenarios, please refer
-to the Examples directory in our <a class="reference external" href="https://git.irt-systemx.fr/confianceai/ec_4/neuralde.git">GitLab
-repository</a>.
-These examples provide a variety of use cases that can help you
-understand how to utilize ml_watermarking in your own projects.</p>
-<div id='io'/></section>
-<section id="format">
-<h2>🔀 Format<a class="headerlink" href="#format" title="Link to this heading"></a></h2>
+<section id="detailed-examples-with-notebooks">
+<h3>Detailed examples with notebooks<a class="headerlink" href="#detailed-examples-with-notebooks" title="Link to this heading"></a></h3>
+<p>The neuralDE library provides several methods to preprocess images.
+To understand how to use these methods, click on the link to see the following notebooks.</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="examples/Brightness_Enhancered_examples.html"><span class="std std-doc">Brightness_Enhancer</span></a>
+: Notebook to present how to use the Brightness_Enhancered class. This method allows us to brighten images.</p></li>
+<li><p><a class="reference internal" href="examples/CenteredZoom_example.html"><span class="std std-doc">CenteredZoom</span></a>
+: Notebook to present how to use the Centered_zoom class. This method allows us to zoom on the center of images.</p></li>
+<li><p><a class="reference internal" href="examples/DeRainEnhancer_example.html"><span class="std std-doc">Derain_Enhancer</span></a>
+: Notebook to present how to use the Derain_Enhancer class. This method allows us to remove the rain on images.</p></li>
+<li><p><a class="reference internal" href="examples/SnowRemoval.html"><span class="std std-doc">Desnow_Enhancer</span></a>
+: Notebook to present how to use the Desnow_Enhancer class. This method allows us to remove the snow on images.</p></li>
+<li><p><a class="reference internal" href="examples/KernelDeblurringEnhancer.html"><span class="std std-doc">Kernel_Deblurring_Enhancer</span></a>
+: Notebook to present how to use the Kernel_Deblurring class. This method allows us to deblur the images.</p></li>
+<li><p><a class="reference internal" href="examples/NightEnhancer_example.html"><span class="std std-doc">Night_Image_Enhancer</span></a>
+: Notebook to present how to use the Night_Image_Enhancer class. This method allows us to improve the clarity of night images.</p></li>
+<li><p><a class="reference internal" href="examples/ResolutionEnhancer_example.html"><span class="std std-doc">Resolution_Enhancer</span></a>
+: Notebook to present how to use the Resolution_Enhancer class. This method allows us to increase the resolution of an zoomed image.</p></li>
+<li><p><a class="reference internal" href="examples/DiffpurEnhancer_example.html"><span class="std std-doc">Diffusion_Enhancer</span></a>
+: Notebook to present how to use the Diffusion_Enhancer class. This method allows us to purify noise into images.</p></li>
+</ul>
+</section>
+</section>
+<section id="additional-informations">
+<h2>Additional informations<a class="headerlink" href="#additional-informations" title="Link to this heading"></a></h2>
 <p>NeuralDE is an <strong>Image2Image library</strong>, thus it is made to process <strong>images batches</strong>.
 It is composed of a list of classes called “enhancers”. Each enhancer will have specific options that
 will be defined by the user at object initialisation.</p>
@@ -194,23 +280,14 @@ configurations using the parameters on initialisation.</p>
 <p>All the methods using computationally-expensive models (based on different kinds of neural networks
 architectures, mostly CNN or transformer-based architectures) can be run on GPU.
 To do so, set the parameter device=”cuda” at class instantiation.
-The concerned which can be run on GPU are:
-- NightImageEnhancer
-- DesnowEnhancer
-- DerainEnhancer
-- ResolutionEnhancer
-- DiffusionEnhancer</p>
-<p>Please refer to the html documentation of each method for more detailed informations.</p>
-<div id='hardware'/></section>
-<section id="hardware">
-<h2>💻 Hardware<a class="headerlink" href="#hardware" title="Link to this heading"></a></h2>
-<p>The neuralde library is designed to run efficiently on modern CPU
-architectures and GPU. The computational load involved in the tasks performed by
-this library needs an GPU.</p>
-<div id='references'/></section>
-<section id="references">
-<h2>📚 References<a class="headerlink" href="#references" title="Link to this heading"></a></h2>
-<p>To display the component’s references, <a class="reference external" href="_static/test_docs_pdf.pdf">Open the PDF file</a></p>
+The concerned which can be run on GPU are:</p>
+<ul class="simple">
+<li><p>NightImageEnhancer</p></li>
+<li><p>DesnowEnhancer</p></li>
+<li><p>DerainEnhancer</p></li>
+<li><p>ResolutionEnhancer</p></li>
+<li><p>DiffusionEnhancer</p></li>
+</ul>
 </section>
 </section>
 

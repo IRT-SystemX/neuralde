@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Instructions &mdash; neuralde 1.1.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/nbsphinx-code-cells.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=fc837d61"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            neuralde
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../guidelines.html">📖 Guidelines:</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tech_docs.html">📚 Technical docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../theory_overview.html">💡 Theory Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">🔄 Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules.html">🎡 Package neural_de</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">neuralde</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Instructions</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/examples/DiffpurEnhancer_example.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="Instructions">
+<h1>Instructions<a class="headerlink" href="#Instructions" title="Link to this heading"></a></h1>
+<p>We can skip the next cell if neural_de was installed from pip install.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import sys
+sys.path.append(&quot;..&quot;)
+</pre></div>
+</div>
+</div>
+<p>Let’s import from neural_de the brightness method</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import matplotlib.pyplot as plt
+import torch
+import cv2
+import numpy as np
+from random import randint
+from torch.utils.data import DataLoader, TensorDataset
+from tqdm import tqdm
+from pathlib import Path
+from neural_de.transformations.diffusion.diffusion_enhancer import DiffusionEnhancer
+from neural_de.transformations.diffusion.diffpure_config import DiffPureConfig
+import time
+</pre></div>
+</div>
+</div>
+<p>We load an example image</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>start=time.time()
+input_path = Path(&#39;../examples/images/fox.jpg&#39;)
+image = cv2.imread(str(input_path))
+image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+plt.title(image.shape)
+plt.imshow(image);
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_DiffpurEnhancer_example_6_0.png" src="../_images/examples_DiffpurEnhancer_example_6_0.png" />
+</div>
+</div>
+<p>We select a region of this image (to see details), for exemple the head, to obtain an image 256x256. You can use all size for your images, but the model is trained and is configured to compute with the size 256x256.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plt.imshow(image[100:356, 250:506]);
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_DiffpurEnhancer_example_8_0.png" src="../_images/examples_DiffpurEnhancer_example_8_0.png" />
+</div>
+</div>
+</section>
+<section id="Enhancing-an-image">
+<h1>Enhancing an image<a class="headerlink" href="#Enhancing-an-image" title="Link to this heading"></a></h1>
+<p>We create an instance of DiffpurEnhancer</p>
+<p>To start the process, you can modify the config parameters. The most important are:</p>
+<ul class="simple">
+<li><p>t : number of times the diffusion model will clean the image per sample_step (150 by default).</p></li>
+<li><p>sample_step : number of steps we want the model computes the diffusion process (1 by default).</p></li>
+<li><p>t_delta : (15 by default)</p></li>
+</ul>
+<p>Don’t forget, il you have a gpu, select “cuda” in device parameter.</p>
+<p>In the case where you have a gpu but it’s full charged, you can run on your cpu with the following parameters:</p>
+<ul class="simple">
+<li><p>device = “cpu”</p></li>
+<li><p>config.use_fp16 = False</p></li>
+</ul>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Load ADVpurifier
+
+#Initiate config
+config= DiffPureConfig()
+config.t = 150
+config.t_delta = 15
+config.sample_step = 1
+
+#Select &quot;cuda&quot; for gpu ortherwise &quot;cpu&quot;
+device = &quot;cuda&quot;
+
+#Create instance of the diffusion model
+purifier = DiffusionEnhancer(device=device, config=config)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[03-20 09:03:50] {/home/jovyan/Maturation/NeuralDE/examples/../neural_de/utils/twe_logger.py:123} INFO - Logger: name: neural_de_logger, handlers: [&lt;StreamHandler stdout (DEBUG)&gt;]
+[03-20 09:04:12] {/home/jovyan/Maturation/NeuralDE/examples/../neural_de/utils/model_manager.py:88} INFO - Model already available locally, skipping download
+[03-20 09:04:12] {/home/jovyan/Maturation/NeuralDE/examples/../neural_de/transformations/diffusion/rev_guided_diffusion.py:31} INFO - Building DiffPure model
+[03-20 09:04:12] {/home/jovyan/Maturation/NeuralDE/examples/../neural_de/transformations/diffusion/rev_guided_diffusion.py:32} DEBUG - Model Diffpure loaded with config : DiffPureConfig(weights_path=PosixPath(&#39;/home/jovyan/.neuralde/diffpure/256x256_diffusion_uncond.pt&#39;), img_shape=(3, 256, 256), attention_resolutions=[32, 16, 8], num_classes=None, dims=2, learn_sigma=True, num_channels=256, num_head_channels=64, num_res_blocks=2, resblock_updown=True, use_fp16=True, use_scale_shift_norm=True, num_heads=4, num_heads_upsample=-1, channel_mult=None, dropout=0.0, use_new_attention_order=False, t=150, t_delta=15, use_bm=False, use_checkpoint=False, conv_resample=True, sample_step=1, rand_t=False)
+[03-20 09:04:16] {/home/jovyan/Maturation/NeuralDE/examples/../neural_de/transformations/diffusion/rev_guided_diffusion.py:49} INFO - Loading DiffPure weights to device : cuda
+</pre></div></div>
+</div>
+<p>We generate some noise on the image</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>mean = 0
+sigma = 20
+gaussian = np.random.normal(mean, sigma, image.shape)
+noisy_image = np.zeros(image.shape, np.float32)
+noisy_image = image + gaussian
+noisy_image[noisy_image &gt; 255] = 255
+noisy_image[noisy_image &lt; 0] = 0
+noisy_image = noisy_image.astype(np.uint8)
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>#Apply the transform method to compute the purified image
+#tensor = torch.Tensor([noisy_image[100:356, 250:506]]).permute(0, -1, -3, -2) /255
+#purified = purifier.transform(tensor).permute(0, 2, 3, 1).cpu().detach().numpy()[0]
+purified = purifier.transform([noisy_image[100:356, 250:506]])
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plt.figure(figsize=(12,12))
+plt.subplot(1,3,1)
+plt.title(&quot;Noisy image&quot;)
+plt.imshow(noisy_image[100:356, 250:506])
+plt.subplot(1,3,2)
+plt.title(&quot;Purified image&quot;)
+plt.imshow(purified[0])
+plt.subplot(1,3,3)
+plt.title(&quot;Original image&quot;)
+plt.imshow(image[100:356, 250:506])
+plt.show();
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Clipping input data to the valid range for imshow with RGB data ([0..1] for floats or [0..255] for integers).
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_DiffpurEnhancer_example_15_1.png" src="../_images/examples_DiffpurEnhancer_example_15_1.png" />
+</div>
+</div>
+<p>As we can see, our image is purified ! The noise pixels are attenuated. It should also be noted that the purification of the images is one property of this model. The other property is important, this model is resistant to the noise attacks.</p>
+</section>
+<section id="Second-test">
+<h1>Second test<a class="headerlink" href="#Second-test" title="Link to this heading"></a></h1>
+<p>We can load another test with more steps to improve the result.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>#Initiate config
+config2= DiffPureConfig()
+config2.t = 150
+config2.t_delta = 15
+config2.sample_step = 7
+
+#Select &quot;cuda&quot; for gpu ortherwise &quot;cpu&quot;
+device = &quot;cuda&quot;
+
+#Create instance of the diffusion model
+purifier2 = DiffusionEnhancer(device=device, config=config2)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[03-20 09:04:33] {/home/jovyan/Maturation/NeuralDE/examples/../neural_de/utils/twe_logger.py:123} INFO - Logger: name: neural_de_logger, handlers: [&lt;StreamHandler stdout (DEBUG)&gt;]
+[03-20 09:04:37] {/home/jovyan/Maturation/NeuralDE/examples/../neural_de/utils/model_manager.py:88} INFO - Model already available locally, skipping download
+[03-20 09:04:37] {/home/jovyan/Maturation/NeuralDE/examples/../neural_de/transformations/diffusion/rev_guided_diffusion.py:31} INFO - Building DiffPure model
+[03-20 09:04:37] {/home/jovyan/Maturation/NeuralDE/examples/../neural_de/transformations/diffusion/rev_guided_diffusion.py:32} DEBUG - Model Diffpure loaded with config : DiffPureConfig(weights_path=PosixPath(&#39;/home/jovyan/.neuralde/diffpure/256x256_diffusion_uncond.pt&#39;), img_shape=(3, 256, 256), attention_resolutions=[32, 16, 8], num_classes=None, dims=2, learn_sigma=True, num_channels=256, num_head_channels=64, num_res_blocks=2, resblock_updown=True, use_fp16=True, use_scale_shift_norm=True, num_heads=4, num_heads_upsample=-1, channel_mult=None, dropout=0.0, use_new_attention_order=False, t=150, t_delta=15, use_bm=False, use_checkpoint=False, conv_resample=True, sample_step=7, rand_t=False)
+[03-20 09:04:40] {/home/jovyan/Maturation/NeuralDE/examples/../neural_de/transformations/diffusion/rev_guided_diffusion.py:49} INFO - Loading DiffPure weights to device : cuda
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>#mean = 0
+#sigma = 20
+#gaussian = np.random.normal(mean, sigma, image.shape)
+noisy_image2 = np.zeros(image.shape, np.float32)
+noisy_image2 = image + gaussian
+noisy_image2[noisy_image2 &gt; 255] = 255
+noisy_image2[noisy_image2 &lt; 0] = 0
+noisy_image2 = noisy_image2.astype(np.uint8)
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>purified2 = purifier2.transform([noisy_image2[100:356, 250:506]])
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plt.figure(figsize=(12,12))
+plt.subplot(1,3,1)
+plt.title(&quot;Noisy image&quot;)
+plt.imshow(noisy_image2[100:356, 250:506])
+plt.subplot(1,3,2)
+plt.title(&quot;Purified image&quot;)
+plt.imshow(purified2[0])
+plt.subplot(1,3,3)
+plt.title(&quot;Original image&quot;)
+plt.imshow(image[100:356, 250:506])
+plt.show();
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+Clipping input data to the valid range for imshow with RGB data ([0..1] for floats or [0..255] for integers).
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/examples_DiffpurEnhancer_example_21_1.png" src="../_images/examples_DiffpurEnhancer_example_21_1.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>end=time.time()
+print(&quot;temps final : &quot;,end-start)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+temps final :  140.4699993133545
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, IRT-SystemX.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

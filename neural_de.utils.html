@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>neural_de.utils package &mdash; neuralde 1.1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=fc837d61"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="neural_de.transformations.diffusion.unet package" href="neural_de.transformations.diffusion.unet.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            neuralde
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="guidelines.html">📖 Guidelines:</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tech_docs.html">📚 Technical docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="theory_overview.html">💡 Theory Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">🔄 Changelog</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">🎡 Package neural_de</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="neural_de.html">neural_de package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="neural_de.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="neural_de.external.html">neural_de.external package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="neural_de.transformations.html">neural_de.transformations package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">neural_de.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="neural_de.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="neural_de.html#module-neural_de.main">neural_de.main module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="neural_de.html#module-neural_de">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">neuralde</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">🎡 Package neural_de</a></li>
+          <li class="breadcrumb-item"><a href="neural_de.html">neural_de package</a></li>
+      <li class="breadcrumb-item active">neural_de.utils package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/neural_de.utils.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="neural-de-utils-package">
+<h1>neural_de.utils package<a class="headerlink" href="#neural-de-utils-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-neural_de.utils.math">
+<span id="neural-de-utils-math-module"></span><h2>neural_de.utils.math module<a class="headerlink" href="#module-neural_de.utils.math" title="Link to this heading"></a></h2>
+<p>Collection of utility math-based utility methods</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="neural_de.utils.math.crop_image">
+<span class="sig-prename descclassname"><span class="pre">neural_de.utils.math.</span></span><span class="sig-name descname"><span class="pre">crop_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ratio</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/utils/math.html#crop_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.utils.math.crop_image" title="Link to this definition"></a></dt>
+<dd><p>Return cropped image depends on a ratio of its size
+Ratio = .3 =&gt; crop 30% of image size</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>) – original image</p></li>
+<li><p><strong>ratio</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – Value in rage [0., 1.[</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Cropped image from its center</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neural_de.utils.math.get_pad_value">
+<span class="sig-prename descclassname"><span class="pre">neural_de.utils.math.</span></span><span class="sig-name descname"><span class="pre">get_pad_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ratio</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/utils/math.html#get_pad_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.utils.math.get_pad_value" title="Link to this definition"></a></dt>
+<dd><p>Return the number of pixel to add to <em>dim</em> so that it will be a multiple of <em>ratio</em></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dim</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Actual number of pixel in a dimension</p></li>
+<li><p><strong>ratio</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Value <em>dim</em> should be a multiple of</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Number of pixel to pad</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neural_de.utils.math.is_scaled">
+<span class="sig-prename descclassname"><span class="pre">neural_de.utils.math.</span></span><span class="sig-name descname"><span class="pre">is_scaled</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/utils/math.html#is_scaled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.utils.math.is_scaled" title="Link to this definition"></a></dt>
+<dd><p>Checks to see whether the pixel values have already been rescaled to [0, 1].</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>image</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>) – image batch</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if image_batch is already scaled</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-neural_de.utils.model_manager">
+<span id="neural-de-utils-model-manager-module"></span><h2>neural_de.utils.model_manager module<a class="headerlink" href="#module-neural_de.utils.model_manager" title="Link to this heading"></a></h2>
+<p>This module implements tools functions to manage external models used within the component</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="neural_de.utils.model_manager.ModelManager">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">neural_de.utils.model_manager.</span></span><span class="sig-name descname"><span class="pre">ModelManager</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enhancer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">required_model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/utils/model_manager.html#ModelManager"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.utils.model_manager.ModelManager" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Manages all external models required by the library</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="neural_de.utils.model_manager.ModelManager.download_model">
+<span class="sig-name descname"><span class="pre">download_model</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/utils/model_manager.html#ModelManager.download_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.utils.model_manager.ModelManager.download_model" title="Link to this definition"></a></dt>
+<dd><p>Download weights for an enhancer if they are not already available locally.
+Weights will be stored at ~/.neuralde/{enhancer_name}/model.pth</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-neural_de.utils.twe_logger">
+<span id="neural-de-utils-twe-logger-module"></span><h2>neural_de.utils.twe_logger module<a class="headerlink" href="#module-neural_de.utils.twe_logger" title="Link to this heading"></a></h2>
+<p>This module provides a logger, adapted from the original Confiance logger, for logging messages
+with specified formatting and output control. It can log messages to the standard output,
+to a specified file, or both.</p>
+<dl>
+<dt>Usage:</dt><dd><p>Import the module, then get the default logger:</p>
+<p>. code-block:: python</p>
+<blockquote>
+<div><p>import twe_logger
+logger = twe_logger.get_logger()</p>
+</div></blockquote>
+<p>If you need a logger with different parameters, call <code class="docutils literal notranslate"><span class="pre">get_logger(.)</span></code> with the desired
+parameters:</p>
+<p>. code-block:: python</p>
+<blockquote>
+<div><p>logger = twe_logger.get_logger(filename=”my_logs.log”) logger = twe_logger.get_logger(
+name=”my_logger”, level=’debug’,filename=’my_logs.log’, output=”both”)</p>
+</div></blockquote>
+<p>Then, use the logger within your code:</p>
+<p>. code-block:: python</p>
+<blockquote>
+<div><p>logger.info(“This is an info message”)
+logger.error(“This is an error message”)</p>
+</div></blockquote>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="neural_de.utils.twe_logger.LOGGER_DEFAULT_NAME">
+<span class="sig-prename descclassname"><span class="pre">neural_de.utils.twe_logger.</span></span><span class="sig-name descname"><span class="pre">LOGGER_DEFAULT_NAME</span></span><a class="headerlink" href="#neural_de.utils.twe_logger.LOGGER_DEFAULT_NAME" title="Link to this definition"></a></dt>
+<dd><p>Default name for the neural_de logger</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="neural_de.utils.twe_logger.LOG_LEVEL">
+<span class="sig-prename descclassname"><span class="pre">neural_de.utils.twe_logger.</span></span><span class="sig-name descname"><span class="pre">LOG_LEVEL</span></span><a class="headerlink" href="#neural_de.utils.twe_logger.LOG_LEVEL" title="Link to this definition"></a></dt>
+<dd><p>Logging level for all the methods. Options are <code class="docutils literal notranslate"><span class="pre">&quot;info&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;debug&quot;</span></code>,
+“warning”<code class="docutils literal notranslate"><span class="pre">,</span> <span class="pre">and</span> <span class="pre">``&quot;critical&quot;</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="neural_de.utils.twe_logger.LOG_OUTPUT">
+<span class="sig-prename descclassname"><span class="pre">neural_de.utils.twe_logger.</span></span><span class="sig-name descname"><span class="pre">LOG_OUTPUT</span></span><a class="headerlink" href="#neural_de.utils.twe_logger.LOG_OUTPUT" title="Link to this definition"></a></dt>
+<dd><p>Logging target. Should be <code class="docutils literal notranslate"><span class="pre">&quot;stdout&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;file&quot;</span></code>, or <code class="docutils literal notranslate"><span class="pre">&quot;both&quot;</span></code>. If <code class="docutils literal notranslate"><span class="pre">'file'</span></code> or
+<code class="docutils literal notranslate"><span class="pre">'both'</span></code>, <code class="docutils literal notranslate"><span class="pre">LOG_FILE</span></code> will be used as the destination file.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="neural_de.utils.twe_logger.LOG_FILE">
+<span class="sig-prename descclassname"><span class="pre">neural_de.utils.twe_logger.</span></span><span class="sig-name descname"><span class="pre">LOG_FILE</span></span><a class="headerlink" href="#neural_de.utils.twe_logger.LOG_FILE" title="Link to this definition"></a></dt>
+<dd><p>Name of the file where the logger should write.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neural_de.utils.twe_logger.get_logger">
+<span class="sig-prename descclassname"><span class="pre">neural_de.utils.twe_logger.</span></span><span class="sig-name descname"><span class="pre">get_logger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'neural_de_logger'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'debug'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'log.csv'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'stdout'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/utils/twe_logger.html#get_logger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.utils.twe_logger.get_logger" title="Link to this definition"></a></dt>
+<dd><p>Creates and returns a logger.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Optional, the name of the logger.</p></li>
+<li><p><strong>level</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – Optional, the logging level.</p></li>
+<li><p><strong>filename</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Optional, name of the file where the logger should write.</p></li>
+<li><p><strong>output</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Optional, where should the logger write. Can be <code class="docutils literal notranslate"><span class="pre">stdout</span></code>, <code class="docutils literal notranslate"><span class="pre">file</span></code>, or <code class="docutils literal notranslate"><span class="pre">both</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Logger</span></code></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The logger.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neural_de.utils.twe_logger.log_and_raise">
+<span class="sig-prename descclassname"><span class="pre">neural_de.utils.twe_logger.</span></span><span class="sig-name descname"><span class="pre">log_and_raise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logger</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exception</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">content</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/utils/twe_logger.html#log_and_raise"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.utils.twe_logger.log_and_raise" title="Link to this definition"></a></dt>
+<dd><p>Log an error message then raising an exception with the same message.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>logger</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Logger</span></code>) – Logger instance.</p></li>
+<li><p><strong>exception</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code>]) – The exception we want to raise.</p></li>
+<li><p><strong>content</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Text content to log and add to the raised exception.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>exception</strong> – Raises the provided Exception with the provided message</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neural_de.utils.twe_logger.log_str_to_level">
+<span class="sig-prename descclassname"><span class="pre">neural_de.utils.twe_logger.</span></span><span class="sig-name descname"><span class="pre">log_str_to_level</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">str_level</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/utils/twe_logger.html#log_str_to_level"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.utils.twe_logger.log_str_to_level" title="Link to this definition"></a></dt>
+<dd><p>Converts a string to a corresponding logging level.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>str_level</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The logging level as a string.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The corresponding logging level.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-neural_de.utils.validation">
+<span id="neural-de-utils-validation-module"></span><h2>neural_de.utils.validation module<a class="headerlink" href="#module-neural_de.utils.validation" title="Link to this heading"></a></h2>
+<p>This module contains a collection of utility functions to verify that the inputs of the
+transformation methods are valid.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="neural_de.utils.validation.is_batch_valid">
+<span class="sig-prename descclassname"><span class="pre">neural_de.utils.validation.</span></span><span class="sig-name descname"><span class="pre">is_batch_valid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image_batch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">same_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/utils/validation.html#is_batch_valid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.utils.validation.is_batch_valid" title="Link to this definition"></a></dt>
+<dd><p>Check if <code class="docutils literal notranslate"><span class="pre">images</span></code> is a valid batch of image: either a list of array numpy of dimension
+3 (h,w, c), or a single numpy array of dimension 4 (batch_size, h, w, c).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image_batch</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>]) – Input to check.</p></li>
+<li><p><strong>same_dim</strong> – If True, will also verify that every image has the same dimension</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>The bool is True if the input is a valid batch of images, and</dt><dd><p>False otherwise. The string is empty if the bool is True, if not it contains the reason
+of the non validation.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple of (bool,string)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neural_de.utils.validation.is_device_valid">
+<span class="sig-prename descclassname"><span class="pre">neural_de.utils.validation.</span></span><span class="sig-name descname"><span class="pre">is_device_valid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/utils/validation.html#is_device_valid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.utils.validation.is_device_valid" title="Link to this definition"></a></dt>
+<dd><p>Verify if <code class="docutils literal notranslate"><span class="pre">device</span></code> is a valid torch device.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>device</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – the device we want to check the validity</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if the input string is a valid torch device, false if not.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neural_de.utils.validation.is_power_of_two">
+<span class="sig-prename descclassname"><span class="pre">neural_de.utils.validation.</span></span><span class="sig-name descname"><span class="pre">is_power_of_two</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/utils/validation.html#is_power_of_two"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.utils.validation.is_power_of_two" title="Link to this definition"></a></dt>
+<dd><p>Check if the integer <code class="docutils literal notranslate"><span class="pre">value</span></code> is a power of 2.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Integer to check</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if value is a power of 2, else otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-neural_de.utils">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-neural_de.utils" title="Link to this heading"></a></h2>
+<p>Modules with the different utility methods of the library :</p>
+<ul class="simple">
+<li><p>logging</p></li>
+<li><p>model download and checking</p></li>
+<li><p>input validation</p></li>
+<li><p>mathematical operations</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="neural_de.transformations.diffusion.unet.html" class="btn btn-neutral float-left" title="neural_de.transformations.diffusion.unet package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, IRT-SystemX.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,22 +1,22 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="./">
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Welcome to NeuralDe’s documentation! &mdash; neuralde 1.1.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
-
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
-      <script src="_static/jquery.js?v=5d32c60e"></script>
-      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=fc837d61"></script>
-      <script src="_static/doctools.js?v=9bcbadda"></script>
-      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=fc837d61"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -48,6 +48,7 @@
 <li class="toctree-l1"><a class="reference internal" href="tech_docs.html">📚 Technical docs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="theory_overview.html">💡 Theory Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">🔄 Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">🎡 Package neural_de</a></li>
 </ul>
 
         </div>
@@ -77,87 +78,92 @@
   <section id="welcome-to-neuralde-s-documentation">
 <h1>Welcome to NeuralDe’s documentation!<a class="headerlink" href="#welcome-to-neuralde-s-documentation" title="Link to this heading"></a></h1>
 <div align="center">
-    <img src="docs/assets/Logo_ConfianceAI.png" width="20%" alt="ConfianceAI Logo" />
+    <img src="_static/logo-confiance-ai.png" width="20%" alt="ConfianceAI Logo" />
     <h1 style="font-size: large; font-weight: bold;">neural_de</h1>
-</div>
-<div align="center">
-    <a href="#">
-        <img src="https://img.shields.io/badge/Python-3.10-efefef">
-    </a>
-    <a href="#">
-        <img src="https://img.shields.io/badge/License-MIT-efefef">
-    </a>
-    <!-- Pylint Score Badge -->
-    <a href="http://confianceai.pages.irt-systemx.fr/ec_4/neuralde/pylint/index.html">
-        <img src="http://confianceai.pages.irt-systemx.fr/ec_4/neuralde/pylint/pylint.svg" alt="Pylint Score">
-    </a>
-    <!-- Flake8 Report Badge -->
-    <a href="http://confianceai.pages.irt-systemx.fr/ec_4/neuralde/flake8/index.html">
-        <img src="http://confianceai.pages.irt-systemx.fr/ec_4/neuralde/flake8/flake8.svg" alt="Flake8 Report">
-    </a>
-    <!-- Coverage Badge -->
-    <a href="http://confianceai.pages.irt-systemx.fr/ec_4/neuralde/coverage/index.html">
-        <img src="http://confianceai.pages.irt-systemx.fr/ec_4/neuralde/coverage/coverage.svg" alt="Code Coverage">
-    </a>
 </div>
 <div align="center">
     <a href="#">
         <img src="https://img.shields.io/badge/Python-3.9-efefef">
     </a>
     <a href="#">
-        <img src="https://img.shields.io/badge/License-MIT-efefef">
+        <img src="https://img.shields.io/badge/Python-3.10-efefef">
+    </a>
+    <a href="#">
+        <img src="https://img.shields.io/badge/License-MPL-2">
     </a>
 </div>
 <br>
-<div align="center">
-  <a href="">Quickstart</a>
-  <span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
-  <a href="">Docs</a>
-  <span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
-  <a href="">Examples</a>
-  <span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
-  <a href="https://www.confiance.ai/">Confiance.ai</a>
-&nbsp;
-  <hr />
-</div>
+<section id="presentation">
+<h2>Presentation<a class="headerlink" href="#presentation" title="Link to this heading"></a></h2>
+<section id="identity-card">
+<h3>🔍 Identity card<a class="headerlink" href="#identity-card" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>Version: 1.1.0</p></li>
+<li><p>Python Version: python 3.9, 3.10, [3.12]</p></li>
+<li><p>Strong Dependencies: Tensorflow, pytorch</p></li>
+<li><p>Trustworthy attributes : Robustness</p></li>
+<li><p>Hardware : CPU / GPU</p></li>
+<li><p>Engineering activities : Data Engineer, ML-Algorithm Engineer</p></li>
+<li><p>Functional set : Robustness, Operation, Evaluation</p></li>
+</ul>
+</section>
+<section id="general-presentation">
+<h3>General presentation<a class="headerlink" href="#general-presentation" title="Link to this heading"></a></h3>
+<p>NeuralDe is a python library made to improve the robustness of your models at test time. It proposes a set of methods
+that will allow you to remove identified corruptions in your data before you send it to your model.
+This library addresses issues such as meteorological corruptions, distribution shifts etc.</p>
+<p>All methods provided by the library are associated with examples based on open sourced images.
+You can refer to each jupyter notebook for specifics.
+These notebooks are linked directly in the technical documentation.</p>
+<p>This library can be used in two way:</p>
+<ul class="simple">
+<li><p>Call it as a main executable to direct process a batch of input images.</p></li>
+<li><p>Import the lib within your python code for an explicit call of included transformations functions</p></li>
+</ul>
+</section>
+</section>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="guidelines.html">📖 Guidelines:</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="guidelines.html#description">📝 Description</a></li>
-<li class="toctree-l2"><a class="reference internal" href="guidelines.html#specifications">🔍 Specifications</a></li>
-<li class="toctree-l2"><a class="reference internal" href="guidelines.html#quickstart">🚀 Quickstart</a></li>
-<li class="toctree-l2"><a class="reference internal" href="guidelines.html#usage">🎮 Usage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="guidelines.html#format">🔀 Format</a></li>
-<li class="toctree-l2"><a class="reference internal" href="guidelines.html#hardware">💻 Hardware</a></li>
-<li class="toctree-l2"><a class="reference internal" href="guidelines.html#references">📚 References</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guidelines.html#getting-started">Getting started</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="guidelines.html#set-up-a-clean-virtual-environnement">Set up a clean virtual environnement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guidelines.html#install-the-library-restricted-access">Install the library (restricted access)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guidelines.html#use-the-executable">Use the executable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guidelines.html#use-the-docker-version">Use the docker version</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="tech_docs.html">📚 Technical docs</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="guidelines.html#define-your-configuration-pipeline">Define your configuration pipeline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="guidelines.html#available-methods-in-release-1-1-0">Available methods in release 1.1.0</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="guidelines.html#required-hardware">Required Hardware</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guidelines.html#usage-of-the-lib-inside-your-python-code">Usage of the lib inside your python code</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="guidelines.html#detailed-examples-with-notebooks">Detailed examples with notebooks</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="guidelines.html#additional-informations">Additional informations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tech_docs.html">📚 Technical docs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="theory_overview.html">💡 Theory Overview</a></li>
-<li class="toctree-l1"><a class="reference internal" href="changelog.html">🔄 Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">🔄 Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v-1-1-0-2025-03-31">v 1.1.0 (2025-03-31)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#v-1-0-0-2024-01-31">v 1.0.0 (2024-01-31)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">🎡 Package neural_de</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="neural_de.html">neural_de package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="neural_de.html#subpackages">Subpackages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="neural_de.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="neural_de.html#module-neural_de.main">neural_de.main module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="neural_de.html#module-neural_de">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </div>
-<section id="tutorial">
-<h2>💡 Tutorial<a class="headerlink" href="#tutorial" title="Link to this heading"></a></h2>
-<p>We’ve crafted a tutorial or guide and believe it could assist others in their journey with <code class="docutils literal notranslate"><span class="pre">NEURAL_DE</span></code>, we encourage you to share it with our vibrant community! <a class="reference internal" href="#LINK_TO_SUBMIT_TUTORIAL"><span class="xref myst">Submit Your Tutorial Here</span></a></p>
-</section>
-<section id="changelog">
-<h2>🔄 Changelog<a class="headerlink" href="#changelog" title="Link to this heading"></a></h2>
-<p>Stay up-to-date with the changes and improvements made to <code class="docutils literal notranslate"><span class="pre">NEURAL_DE</span></code> in our changelog. Each release provides a summary of new features, fixes, and enhancements. Check out our <span class="xref myst">changelog</span> to see what’s new and improved!</p>
-<div id='contributing'/>
-</section>
-<section id="contributing">
-<h2>🤝 Contributing<a class="headerlink" href="#contributing" title="Link to this heading"></a></h2>
-<p>We warmly welcome and appreciate contributions from the community! To get started, please read our <a class="reference internal" href="#CONTRIBUTING_GUIDELINES_LINK"><span class="xref myst">contributing guidelines</span></a>. If you have questions or need help, feel free to open an issue.</p>
-<div id='license'/>
-</section>
-<section id="license">
-<h2>📄 License<a class="headerlink" href="#license" title="Link to this heading"></a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">neuralde</span></code> is licensed under the XYZ license. For more details, please check the <a class="reference internal" href="#LICENSE_FILE_LINK"><span class="xref myst">license file</span></a> in our repository.</p>
-</section>
 </section>
 <section id="indices-and-tables">
 <h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Link to this heading"></a></h1>

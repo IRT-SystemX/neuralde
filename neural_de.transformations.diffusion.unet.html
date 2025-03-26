@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>neural_de.transformations.diffusion.unet package &mdash; neuralde 1.1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=fc837d61"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="neural_de.utils package" href="neural_de.utils.html" />
+    <link rel="prev" title="neural_de.transformations.diffusion package" href="neural_de.transformations.diffusion.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            neuralde
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="guidelines.html">📖 Guidelines:</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tech_docs.html">📚 Technical docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="theory_overview.html">💡 Theory Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">🔄 Changelog</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">🎡 Package neural_de</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="neural_de.html">neural_de package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="neural_de.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="neural_de.external.html">neural_de.external package</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="neural_de.transformations.html">neural_de.transformations package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="neural_de.utils.html">neural_de.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="neural_de.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="neural_de.html#module-neural_de.main">neural_de.main module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="neural_de.html#module-neural_de">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">neuralde</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">🎡 Package neural_de</a></li>
+          <li class="breadcrumb-item"><a href="neural_de.html">neural_de package</a></li>
+          <li class="breadcrumb-item"><a href="neural_de.transformations.html">neural_de.transformations package</a></li>
+          <li class="breadcrumb-item"><a href="neural_de.transformations.diffusion.html">neural_de.transformations.diffusion package</a></li>
+      <li class="breadcrumb-item active">neural_de.transformations.diffusion.unet package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/neural_de.transformations.diffusion.unet.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="neural-de-transformations-diffusion-unet-package">
+<h1>neural_de.transformations.diffusion.unet package<a class="headerlink" href="#neural-de-transformations-diffusion-unet-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-neural_de.transformations.diffusion.unet.attention_block">
+<span id="neural-de-transformations-diffusion-unet-attention-block-module"></span><h2>neural_de.transformations.diffusion.unet.attention_block module<a class="headerlink" href="#module-neural_de.transformations.diffusion.unet.attention_block" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="neural_de.transformations.diffusion.unet.attention_block.AttentionBlock">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">neural_de.transformations.diffusion.unet.attention_block.</span></span><span class="sig-name descname"><span class="pre">AttentionBlock</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_heads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_head_channels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_checkpoint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_new_attention_order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/transformations/diffusion/unet/attention_block.html#AttentionBlock"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.transformations.diffusion.unet.attention_block.AttentionBlock" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>An attention block that allows spatial positions to attend to each other.</p>
+<p>Originally ported from here, but adapted to the N-d case.
+<a class="reference external" href="https://github.com/hojonathanho/diffusion/blob/1e0dceb3b3495bbe19116a5e1b3596cd0706c543/diffusion_tf/models/unet.py#L66">https://github.com/hojonathanho/diffusion/blob/1e0dceb3b3495bbe19116a5e1b3596cd0706c543/diffusion_tf/models/unet.py#L66</a>.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="neural_de.transformations.diffusion.unet.attention_block.AttentionBlock.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/transformations/diffusion/unet/attention_block.html#AttentionBlock.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.transformations.diffusion.unet.attention_block.AttentionBlock.forward" title="Link to this definition"></a></dt>
+<dd><p>Defines the computation performed at every call.</p>
+<p>Should be overridden by all subclasses.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Although the recipe for forward pass needs to be defined within
+this function, one should call the <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code> instance afterwards
+instead of this since the former takes care of running the
+registered hooks while the latter silently ignores them.</p>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="neural_de.transformations.diffusion.unet.attention_block.AttentionBlock.training">
+<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><a class="headerlink" href="#neural_de.transformations.diffusion.unet.attention_block.AttentionBlock.training" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-neural_de.transformations.diffusion.unet.downsample">
+<span id="neural-de-transformations-diffusion-unet-downsample-module"></span><h2>neural_de.transformations.diffusion.unet.downsample module<a class="headerlink" href="#module-neural_de.transformations.diffusion.unet.downsample" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="neural_de.transformations.diffusion.unet.downsample.Downsample">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">neural_de.transformations.diffusion.unet.downsample.</span></span><span class="sig-name descname"><span class="pre">Downsample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_conv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_channels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/transformations/diffusion/unet/downsample.html#Downsample"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.transformations.diffusion.unet.downsample.Downsample" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>A downsampling layer with an optional convolution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>channels</strong> – channels in the inputs and outputs.</p></li>
+<li><p><strong>use_conv</strong> – a bool determining if a convolution is applied.</p></li>
+<li><p><strong>dims</strong> – determines if the signal is 1D, 2D, or 3D. If 3D, then
+downsampling occurs in the inner-two dimensions.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="neural_de.transformations.diffusion.unet.downsample.Downsample.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/transformations/diffusion/unet/downsample.html#Downsample.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.transformations.diffusion.unet.downsample.Downsample.forward" title="Link to this definition"></a></dt>
+<dd><p>Defines the computation performed at every call.</p>
+<p>Should be overridden by all subclasses.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Although the recipe for forward pass needs to be defined within
+this function, one should call the <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code> instance afterwards
+instead of this since the former takes care of running the
+registered hooks while the latter silently ignores them.</p>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="neural_de.transformations.diffusion.unet.downsample.Downsample.training">
+<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><a class="headerlink" href="#neural_de.transformations.diffusion.unet.downsample.Downsample.training" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-neural_de.transformations.diffusion.unet.nn">
+<span id="neural-de-transformations-diffusion-unet-nn-module"></span><h2>neural_de.transformations.diffusion.unet.nn module<a class="headerlink" href="#module-neural_de.transformations.diffusion.unet.nn" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="neural_de.transformations.diffusion.unet.nn.CheckpointFunction">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">neural_de.transformations.diffusion.unet.nn.</span></span><span class="sig-name descname"><span class="pre">CheckpointFunction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/transformations/diffusion/unet/nn.html#CheckpointFunction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.transformations.diffusion.unet.nn.CheckpointFunction" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Function</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="neural_de.transformations.diffusion.unet.nn.CheckpointFunction.backward">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">backward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">output_grads</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/transformations/diffusion/unet/nn.html#CheckpointFunction.backward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.transformations.diffusion.unet.nn.CheckpointFunction.backward" title="Link to this definition"></a></dt>
+<dd><p>Defines a formula for differentiating the operation with backward mode
+automatic differentiation (alias to the vjp function).</p>
+<p>This function is to be overridden by all subclasses.</p>
+<p>It must accept a context <code class="xref py py-attr docutils literal notranslate"><span class="pre">ctx</span></code> as the first argument, followed by
+as many outputs as the <a class="reference internal" href="#neural_de.transformations.diffusion.unet.nn.CheckpointFunction.forward" title="neural_de.transformations.diffusion.unet.nn.CheckpointFunction.forward"><code class="xref py py-func docutils literal notranslate"><span class="pre">forward()</span></code></a> returned (None will be passed in
+for non tensor outputs of the forward function),
+and it should return as many tensors, as there were inputs to
+<a class="reference internal" href="#neural_de.transformations.diffusion.unet.nn.CheckpointFunction.forward" title="neural_de.transformations.diffusion.unet.nn.CheckpointFunction.forward"><code class="xref py py-func docutils literal notranslate"><span class="pre">forward()</span></code></a>. Each argument is the gradient w.r.t the given output,
+and each returned value should be the gradient w.r.t. the
+corresponding input. If an input is not a Tensor or is a Tensor not
+requiring grads, you can just pass None as a gradient for that input.</p>
+<p>The context can be used to retrieve tensors saved during the forward
+pass. It also has an attribute <code class="xref py py-attr docutils literal notranslate"><span class="pre">ctx.needs_input_grad</span></code> as a tuple
+of booleans representing whether each input needs gradient. E.g.,
+<a class="reference internal" href="#neural_de.transformations.diffusion.unet.nn.CheckpointFunction.backward" title="neural_de.transformations.diffusion.unet.nn.CheckpointFunction.backward"><code class="xref py py-func docutils literal notranslate"><span class="pre">backward()</span></code></a> will have <code class="docutils literal notranslate"><span class="pre">ctx.needs_input_grad[0]</span> <span class="pre">=</span> <span class="pre">True</span></code> if the
+first input to <a class="reference internal" href="#neural_de.transformations.diffusion.unet.nn.CheckpointFunction.forward" title="neural_de.transformations.diffusion.unet.nn.CheckpointFunction.forward"><code class="xref py py-func docutils literal notranslate"><span class="pre">forward()</span></code></a> needs gradient computated w.r.t. the
+output.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="neural_de.transformations.diffusion.unet.nn.CheckpointFunction.forward">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">length</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/transformations/diffusion/unet/nn.html#CheckpointFunction.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.transformations.diffusion.unet.nn.CheckpointFunction.forward" title="Link to this definition"></a></dt>
+<dd><p>This function is to be overridden by all subclasses. There are two ways
+to define forward:</p>
+<p>Usage 1 (Combined forward and ctx):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@staticmethod</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>It must accept a context ctx as the first argument, followed by any
+number of arguments (tensors or other types).</p></li>
+<li><p>See <span class="xref std std-ref">combining-forward-context</span> for more details</p></li>
+</ul>
+<p>Usage 2 (Separate forward and ctx):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@staticmethod</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+    <span class="k">pass</span>
+
+<span class="nd">@staticmethod</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">setup_context</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">inputs</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">output</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>The forward no longer accepts a ctx argument.</p></li>
+<li><p>Instead, you must also override the <code class="xref py py-meth docutils literal notranslate"><span class="pre">torch.autograd.Function.setup_context()</span></code>
+staticmethod to handle setting up the <code class="docutils literal notranslate"><span class="pre">ctx</span></code> object.
+<code class="docutils literal notranslate"><span class="pre">output</span></code> is the output of the forward, <code class="docutils literal notranslate"><span class="pre">inputs</span></code> are a Tuple of inputs
+to the forward.</p></li>
+<li><p>See <span class="xref std std-ref">extending-autograd</span> for more details</p></li>
+</ul>
+<p>The context can be used to store arbitrary data that can be then
+retrieved during the backward pass. Tensors should not be stored
+directly on <cite>ctx</cite> (though this is not currently enforced for
+backward compatibility). Instead, tensors should be saved either with
+<code class="xref py py-func docutils literal notranslate"><span class="pre">ctx.save_for_backward()</span></code> if they are intended to be used in
+<code class="docutils literal notranslate"><span class="pre">backward</span></code> (equivalently, <code class="docutils literal notranslate"><span class="pre">vjp</span></code>) or <code class="xref py py-func docutils literal notranslate"><span class="pre">ctx.save_for_forward()</span></code>
+if they are intended to be used for in <code class="docutils literal notranslate"><span class="pre">jvp</span></code>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="neural_de.transformations.diffusion.unet.nn.GroupNorm32">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">neural_de.transformations.diffusion.unet.nn.</span></span><span class="sig-name descname"><span class="pre">GroupNorm32</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_groups</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">affine</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/transformations/diffusion/unet/nn.html#GroupNorm32"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.transformations.diffusion.unet.nn.GroupNorm32" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">GroupNorm</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="neural_de.transformations.diffusion.unet.nn.GroupNorm32.affine">
+<span class="sig-name descname"><span class="pre">affine</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><a class="headerlink" href="#neural_de.transformations.diffusion.unet.nn.GroupNorm32.affine" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="neural_de.transformations.diffusion.unet.nn.GroupNorm32.eps">
+<span class="sig-name descname"><span class="pre">eps</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></em><a class="headerlink" href="#neural_de.transformations.diffusion.unet.nn.GroupNorm32.eps" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="neural_de.transformations.diffusion.unet.nn.GroupNorm32.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/transformations/diffusion/unet/nn.html#GroupNorm32.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.transformations.diffusion.unet.nn.GroupNorm32.forward" title="Link to this definition"></a></dt>
+<dd><p>Defines the computation performed at every call.</p>
+<p>Should be overridden by all subclasses.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Although the recipe for forward pass needs to be defined within
+this function, one should call the <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code> instance afterwards
+instead of this since the former takes care of running the
+registered hooks while the latter silently ignores them.</p>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="neural_de.transformations.diffusion.unet.nn.GroupNorm32.num_channels">
+<span class="sig-name descname"><span class="pre">num_channels</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#neural_de.transformations.diffusion.unet.nn.GroupNorm32.num_channels" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="neural_de.transformations.diffusion.unet.nn.GroupNorm32.num_groups">
+<span class="sig-name descname"><span class="pre">num_groups</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></em><a class="headerlink" href="#neural_de.transformations.diffusion.unet.nn.GroupNorm32.num_groups" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neural_de.transformations.diffusion.unet.nn.avg_pool_nd">
+<span class="sig-prename descclassname"><span class="pre">neural_de.transformations.diffusion.unet.nn.</span></span><span class="sig-name descname"><span class="pre">avg_pool_nd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dims</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/transformations/diffusion/unet/nn.html#avg_pool_nd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.transformations.diffusion.unet.nn.avg_pool_nd" title="Link to this definition"></a></dt>
+<dd><p>Create a 1D, 2D, or 3D average pooling module.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neural_de.transformations.diffusion.unet.nn.checkpoint">
+<span class="sig-prename descclassname"><span class="pre">neural_de.transformations.diffusion.unet.nn.</span></span><span class="sig-name descname"><span class="pre">checkpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flag</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/transformations/diffusion/unet/nn.html#checkpoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.transformations.diffusion.unet.nn.checkpoint" title="Link to this definition"></a></dt>
+<dd><p>Evaluate a function without caching intermediate activations, allowing for
+reduced memory at the expense of extra compute in the backward pass.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func</strong> – the function to evaluate.</p></li>
+<li><p><strong>inputs</strong> – the argument sequence to pass to <cite>func</cite>.</p></li>
+<li><p><strong>params</strong> – a sequence of parameters <cite>func</cite> depends on but does not
+explicitly take as arguments.</p></li>
+<li><p><strong>flag</strong> – if False, disable gradient checkpointing.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neural_de.transformations.diffusion.unet.nn.conv_nd">
+<span class="sig-prename descclassname"><span class="pre">neural_de.transformations.diffusion.unet.nn.</span></span><span class="sig-name descname"><span class="pre">conv_nd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dims</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/transformations/diffusion/unet/nn.html#conv_nd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.transformations.diffusion.unet.nn.conv_nd" title="Link to this definition"></a></dt>
+<dd><p>Create a 1D, 2D, or 3D convolution module.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neural_de.transformations.diffusion.unet.nn.linear">
+<span class="sig-prename descclassname"><span class="pre">neural_de.transformations.diffusion.unet.nn.</span></span><span class="sig-name descname"><span class="pre">linear</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/transformations/diffusion/unet/nn.html#linear"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.transformations.diffusion.unet.nn.linear" title="Link to this definition"></a></dt>
+<dd><p>Create a linear module.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neural_de.transformations.diffusion.unet.nn.normalization">
+<span class="sig-prename descclassname"><span class="pre">neural_de.transformations.diffusion.unet.nn.</span></span><span class="sig-name descname"><span class="pre">normalization</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channels</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/transformations/diffusion/unet/nn.html#normalization"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.transformations.diffusion.unet.nn.normalization" title="Link to this definition"></a></dt>
+<dd><p>Make a standard normalization layer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>channels</strong> – number of input channels.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>an nn.Module for normalization.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neural_de.transformations.diffusion.unet.nn.timestep_embedding">
+<span class="sig-prename descclassname"><span class="pre">neural_de.transformations.diffusion.unet.nn.</span></span><span class="sig-name descname"><span class="pre">timestep_embedding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timesteps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_period</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10000</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/transformations/diffusion/unet/nn.html#timestep_embedding"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.transformations.diffusion.unet.nn.timestep_embedding" title="Link to this definition"></a></dt>
+<dd><p>Create sinusoidal timestep embeddings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>timesteps</strong> – a 1-D Tensor of N indices, one per batch element.
+These may be fractional.</p></li>
+<li><p><strong>dim</strong> – the dimension of the output.</p></li>
+<li><p><strong>max_period</strong> – controls the minimum frequency of the embeddings.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>an [N x dim] Tensor of positional embeddings.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neural_de.transformations.diffusion.unet.nn.zero_module">
+<span class="sig-prename descclassname"><span class="pre">neural_de.transformations.diffusion.unet.nn.</span></span><span class="sig-name descname"><span class="pre">zero_module</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/transformations/diffusion/unet/nn.html#zero_module"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.transformations.diffusion.unet.nn.zero_module" title="Link to this definition"></a></dt>
+<dd><p>Zero out the parameters of a module and return it.</p>
+</dd></dl>
+
+</section>
+<section id="module-neural_de.transformations.diffusion.unet.qkv_attention">
+<span id="neural-de-transformations-diffusion-unet-qkv-attention-module"></span><h2>neural_de.transformations.diffusion.unet.qkv_attention module<a class="headerlink" href="#module-neural_de.transformations.diffusion.unet.qkv_attention" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="neural_de.transformations.diffusion.unet.qkv_attention.QKVAttention">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">neural_de.transformations.diffusion.unet.qkv_attention.</span></span><span class="sig-name descname"><span class="pre">QKVAttention</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_heads</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/transformations/diffusion/unet/qkv_attention.html#QKVAttention"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.transformations.diffusion.unet.qkv_attention.QKVAttention" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>A module which performs QKV attention and splits in a different order.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="neural_de.transformations.diffusion.unet.qkv_attention.QKVAttention.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qkv</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/transformations/diffusion/unet/qkv_attention.html#QKVAttention.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.transformations.diffusion.unet.qkv_attention.QKVAttention.forward" title="Link to this definition"></a></dt>
+<dd><p>Apply QKV attention.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>qkv</strong> – an [N x (3 * H * C) x T] tensor of Qs, Ks, and Vs.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>an [N x (H * C) x T] tensor after attention.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="neural_de.transformations.diffusion.unet.qkv_attention.QKVAttention.training">
+<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><a class="headerlink" href="#neural_de.transformations.diffusion.unet.qkv_attention.QKVAttention.training" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-neural_de.transformations.diffusion.unet.qkv_attention_legacy">
+<span id="neural-de-transformations-diffusion-unet-qkv-attention-legacy-module"></span><h2>neural_de.transformations.diffusion.unet.qkv_attention_legacy module<a class="headerlink" href="#module-neural_de.transformations.diffusion.unet.qkv_attention_legacy" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="neural_de.transformations.diffusion.unet.qkv_attention_legacy.QKVAttentionLegacy">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">neural_de.transformations.diffusion.unet.qkv_attention_legacy.</span></span><span class="sig-name descname"><span class="pre">QKVAttentionLegacy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_heads</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/transformations/diffusion/unet/qkv_attention_legacy.html#QKVAttentionLegacy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.transformations.diffusion.unet.qkv_attention_legacy.QKVAttentionLegacy" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>A module which performs QKV attention. Matches legacy QKVAttention + input/ouput heads shaping</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="neural_de.transformations.diffusion.unet.qkv_attention_legacy.QKVAttentionLegacy.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qkv</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/transformations/diffusion/unet/qkv_attention_legacy.html#QKVAttentionLegacy.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.transformations.diffusion.unet.qkv_attention_legacy.QKVAttentionLegacy.forward" title="Link to this definition"></a></dt>
+<dd><p>Apply QKV attention.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>qkv</strong> – an [N x (H * 3 * C) x T] tensor of Qs, Ks, and Vs.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>an [N x (H * C) x T] tensor after attention.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="neural_de.transformations.diffusion.unet.qkv_attention_legacy.QKVAttentionLegacy.training">
+<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><a class="headerlink" href="#neural_de.transformations.diffusion.unet.qkv_attention_legacy.QKVAttentionLegacy.training" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-neural_de.transformations.diffusion.unet.res_block">
+<span id="neural-de-transformations-diffusion-unet-res-block-module"></span><h2>neural_de.transformations.diffusion.unet.res_block module<a class="headerlink" href="#module-neural_de.transformations.diffusion.unet.res_block" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="neural_de.transformations.diffusion.unet.res_block.ResBlock">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">neural_de.transformations.diffusion.unet.res_block.</span></span><span class="sig-name descname"><span class="pre">ResBlock</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">emb_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropout</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_channels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_conv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_scale_shift_norm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_checkpoint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">up</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">down</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/transformations/diffusion/unet/res_block.html#ResBlock"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.transformations.diffusion.unet.res_block.ResBlock" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#neural_de.transformations.diffusion.unet.timestep_block.TimestepBlock" title="neural_de.transformations.diffusion.unet.timestep_block.TimestepBlock"><code class="xref py py-class docutils literal notranslate"><span class="pre">TimestepBlock</span></code></a></p>
+<p>A residual block that can optionally change the number of channels.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>channels</strong> – the number of input channels.</p></li>
+<li><p><strong>emb_channels</strong> – the number of timestep embedding channels.</p></li>
+<li><p><strong>dropout</strong> – the rate of dropout.</p></li>
+<li><p><strong>out_channels</strong> – if specified, the number of out channels.</p></li>
+<li><p><strong>use_conv</strong> – if True and out_channels is specified, use a spatial
+convolution instead of a smaller 1x1 convolution to change the
+channels in the skip connection.</p></li>
+<li><p><strong>dims</strong> – determines if the signal is 1D, 2D, or 3D.</p></li>
+<li><p><strong>use_checkpoint</strong> – if True, use gradient checkpointing on this module.</p></li>
+<li><p><strong>up</strong> – if True, use this block for upsampling.</p></li>
+<li><p><strong>down</strong> – if True, use this block for downsampling.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="neural_de.transformations.diffusion.unet.res_block.ResBlock.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">emb</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/transformations/diffusion/unet/res_block.html#ResBlock.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.transformations.diffusion.unet.res_block.ResBlock.forward" title="Link to this definition"></a></dt>
+<dd><p>Apply the block to a Tensor, conditioned on a timestep embedding.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – an [N x C x …] Tensor of features.</p></li>
+<li><p><strong>emb</strong> – an [N x emb_channels] Tensor of timestep embeddings.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>an [N x C x …] Tensor of outputs.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="neural_de.transformations.diffusion.unet.res_block.ResBlock.training">
+<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><a class="headerlink" href="#neural_de.transformations.diffusion.unet.res_block.ResBlock.training" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-neural_de.transformations.diffusion.unet.timestep_block">
+<span id="neural-de-transformations-diffusion-unet-timestep-block-module"></span><h2>neural_de.transformations.diffusion.unet.timestep_block module<a class="headerlink" href="#module-neural_de.transformations.diffusion.unet.timestep_block" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="neural_de.transformations.diffusion.unet.timestep_block.TimestepBlock">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">neural_de.transformations.diffusion.unet.timestep_block.</span></span><span class="sig-name descname"><span class="pre">TimestepBlock</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/transformations/diffusion/unet/timestep_block.html#TimestepBlock"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.transformations.diffusion.unet.timestep_block.TimestepBlock" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>Any module where forward() takes timestep embeddings as a second argument.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="neural_de.transformations.diffusion.unet.timestep_block.TimestepBlock.forward">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">emb</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/transformations/diffusion/unet/timestep_block.html#TimestepBlock.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.transformations.diffusion.unet.timestep_block.TimestepBlock.forward" title="Link to this definition"></a></dt>
+<dd><p>Apply the module to <cite>x</cite> given <cite>emb</cite> timestep embeddings.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="neural_de.transformations.diffusion.unet.timestep_block.TimestepBlock.training">
+<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><a class="headerlink" href="#neural_de.transformations.diffusion.unet.timestep_block.TimestepBlock.training" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-neural_de.transformations.diffusion.unet.timestep_embed_sequential">
+<span id="neural-de-transformations-diffusion-unet-timestep-embed-sequential-module"></span><h2>neural_de.transformations.diffusion.unet.timestep_embed_sequential module<a class="headerlink" href="#module-neural_de.transformations.diffusion.unet.timestep_embed_sequential" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="neural_de.transformations.diffusion.unet.timestep_embed_sequential.TimestepEmbedSequential">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">neural_de.transformations.diffusion.unet.timestep_embed_sequential.</span></span><span class="sig-name descname"><span class="pre">TimestepEmbedSequential</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Module</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/transformations/diffusion/unet/timestep_embed_sequential.html#TimestepEmbedSequential"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.transformations.diffusion.unet.timestep_embed_sequential.TimestepEmbedSequential" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">neural_de.transformations.diffusion.unet.timestep_embed_sequential.</span></span><span class="sig-name descname"><span class="pre">TimestepEmbedSequential</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">OrderedDict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Module</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Sequential</span></code>, <a class="reference internal" href="#neural_de.transformations.diffusion.unet.timestep_block.TimestepBlock" title="neural_de.transformations.diffusion.unet.timestep_block.TimestepBlock"><code class="xref py py-class docutils literal notranslate"><span class="pre">TimestepBlock</span></code></a></p>
+<p>A sequential module that passes timestep embeddings to the children that
+support it as an extra input.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="neural_de.transformations.diffusion.unet.timestep_embed_sequential.TimestepEmbedSequential.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">emb</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/transformations/diffusion/unet/timestep_embed_sequential.html#TimestepEmbedSequential.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.transformations.diffusion.unet.timestep_embed_sequential.TimestepEmbedSequential.forward" title="Link to this definition"></a></dt>
+<dd><p>Apply the module to <cite>x</cite> given <cite>emb</cite> timestep embeddings.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-neural_de.transformations.diffusion.unet.unet_model">
+<span id="neural-de-transformations-diffusion-unet-unet-model-module"></span><h2>neural_de.transformations.diffusion.unet.unet_model module<a class="headerlink" href="#module-neural_de.transformations.diffusion.unet.unet_model" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="neural_de.transformations.diffusion.unet.unet_model.UNetModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">neural_de.transformations.diffusion.unet.unet_model.</span></span><span class="sig-name descname"><span class="pre">UNetModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/transformations/diffusion/unet/unet_model.html#UNetModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.transformations.diffusion.unet.unet_model.UNetModel" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>The full UNet model with attention and timestep embedding.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="neural_de.transformations.diffusion.unet.unet_model.UNetModel.convert_to_fp16">
+<span class="sig-name descname"><span class="pre">convert_to_fp16</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/transformations/diffusion/unet/unet_model.html#UNetModel.convert_to_fp16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.transformations.diffusion.unet.unet_model.UNetModel.convert_to_fp16" title="Link to this definition"></a></dt>
+<dd><p>Convert the torso of the model to float16.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="neural_de.transformations.diffusion.unet.unet_model.UNetModel.convert_to_fp32">
+<span class="sig-name descname"><span class="pre">convert_to_fp32</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/transformations/diffusion/unet/unet_model.html#UNetModel.convert_to_fp32"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.transformations.diffusion.unet.unet_model.UNetModel.convert_to_fp32" title="Link to this definition"></a></dt>
+<dd><p>Convert the torso of the model to float32.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="neural_de.transformations.diffusion.unet.unet_model.UNetModel.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timesteps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/transformations/diffusion/unet/unet_model.html#UNetModel.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.transformations.diffusion.unet.unet_model.UNetModel.forward" title="Link to this definition"></a></dt>
+<dd><p>Apply the model to an input batch.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – an [N x C x …] Tensor of inputs.</p></li>
+<li><p><strong>timesteps</strong> – a 1-D batch of timesteps.</p></li>
+<li><p><strong>y</strong> – an [N] Tensor of labels, if class-conditional.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>an [N x C x …] Tensor of outputs.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="neural_de.transformations.diffusion.unet.unet_model.UNetModel.training">
+<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><a class="headerlink" href="#neural_de.transformations.diffusion.unet.unet_model.UNetModel.training" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-neural_de.transformations.diffusion.unet.upsample">
+<span id="neural-de-transformations-diffusion-unet-upsample-module"></span><h2>neural_de.transformations.diffusion.unet.upsample module<a class="headerlink" href="#module-neural_de.transformations.diffusion.unet.upsample" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="neural_de.transformations.diffusion.unet.upsample.Upsample">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">neural_de.transformations.diffusion.unet.upsample.</span></span><span class="sig-name descname"><span class="pre">Upsample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_conv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_channels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/transformations/diffusion/unet/upsample.html#Upsample"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.transformations.diffusion.unet.upsample.Upsample" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>An upsampling layer with an optional convolution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>channels</strong> – channels in the inputs and outputs.</p></li>
+<li><p><strong>use_conv</strong> – a bool determining if a convolution is applied.</p></li>
+<li><p><strong>dims</strong> – determines if the signal is 1D, 2D, or 3D. If 3D, then
+upsampling occurs in the inner-two dimensions.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="neural_de.transformations.diffusion.unet.upsample.Upsample.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/transformations/diffusion/unet/upsample.html#Upsample.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.transformations.diffusion.unet.upsample.Upsample.forward" title="Link to this definition"></a></dt>
+<dd><p>Defines the computation performed at every call.</p>
+<p>Should be overridden by all subclasses.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Although the recipe for forward pass needs to be defined within
+this function, one should call the <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code> instance afterwards
+instead of this since the former takes care of running the
+registered hooks while the latter silently ignores them.</p>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="neural_de.transformations.diffusion.unet.upsample.Upsample.training">
+<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><a class="headerlink" href="#neural_de.transformations.diffusion.unet.upsample.Upsample.training" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-neural_de.transformations.diffusion.unet.utils">
+<span id="neural-de-transformations-diffusion-unet-utils-module"></span><h2>neural_de.transformations.diffusion.unet.utils module<a class="headerlink" href="#module-neural_de.transformations.diffusion.unet.utils" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="neural_de.transformations.diffusion.unet.utils.convert_module_to_f16">
+<span class="sig-prename descclassname"><span class="pre">neural_de.transformations.diffusion.unet.utils.</span></span><span class="sig-name descname"><span class="pre">convert_module_to_f16</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ll</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/transformations/diffusion/unet/utils.html#convert_module_to_f16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.transformations.diffusion.unet.utils.convert_module_to_f16" title="Link to this definition"></a></dt>
+<dd><p>Convert primitive modules to float16.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neural_de.transformations.diffusion.unet.utils.convert_module_to_f32">
+<span class="sig-prename descclassname"><span class="pre">neural_de.transformations.diffusion.unet.utils.</span></span><span class="sig-name descname"><span class="pre">convert_module_to_f32</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ll</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/transformations/diffusion/unet/utils.html#convert_module_to_f32"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.transformations.diffusion.unet.utils.convert_module_to_f32" title="Link to this definition"></a></dt>
+<dd><p>Convert primitive modules to float32, undoing convert_module_to_f16().</p>
+</dd></dl>
+
+</section>
+<section id="module-neural_de.transformations.diffusion.unet">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-neural_de.transformations.diffusion.unet" title="Link to this heading"></a></h2>
+<p>This module contains the implementation of the unet architecture used par DiffPure.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="neural_de.transformations.diffusion.html" class="btn btn-neutral float-left" title="neural_de.transformations.diffusion package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="neural_de.utils.html" class="btn btn-neutral float-right" title="neural_de.utils package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, IRT-SystemX.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

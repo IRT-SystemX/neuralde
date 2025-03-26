@@ -1,25 +1,26 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="./">
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>🔄 Changelog &mdash; neuralde 1.1.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
-
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
-      <script src="_static/jquery.js?v=5d32c60e"></script>
-      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=fc837d61"></script>
-      <script src="_static/doctools.js?v=9bcbadda"></script>
-      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=fc837d61"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="🎡 Package neural_de" href="modules.html" />
     <link rel="prev" title="💡 Theory Overview" href="theory_overview.html" /> 
 </head>
 
@@ -47,7 +48,12 @@
 <li class="toctree-l1"><a class="reference internal" href="guidelines.html">📖 Guidelines:</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tech_docs.html">📚 Technical docs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="theory_overview.html">💡 Theory Overview</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">🔄 Changelog</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">🔄 Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#v-1-1-0-2025-03-31">v 1.1.0 (2025-03-31)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#v-1-0-0-2024-01-31">v 1.0.0 (2024-01-31)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">🎡 Package neural_de</a></li>
 </ul>
 
         </div>
@@ -76,6 +82,22 @@
              
   <section id="changelog">
 <span id="id1"></span><h1>🔄 Changelog<a class="headerlink" href="#changelog" title="Link to this heading"></a></h1>
+<section id="v-1-1-0-2025-03-31">
+<h2>v 1.1.0 (2025-03-31)<a class="headerlink" href="#v-1-1-0-2025-03-31" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Deleted relative and hidden module names to improve sphinx compatibilty</p></li>
+<li><p>Changed modules names for all transformations</p></li>
+<li><p>Added main entry point and dockerization file</p></li>
+<li><p>Added yaml file listing all external models urls</p></li>
+<li><p>Deleted minio dependency and renamed old module as “model_manager” module.</p></li>
+</ul>
+</section>
+<section id="v-1-0-0-2024-01-31">
+<h2>v 1.0.0 (2024-01-31)<a class="headerlink" href="#v-1-0-0-2024-01-31" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Added diffpur method, finalized documentation and compatibility with industrial demonstrator.</p></li>
+</ul>
+</section>
 </section>
 
 
@@ -83,6 +105,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="theory_overview.html" class="btn btn-neutral float-left" title="💡 Theory Overview" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="modules.html" class="btn btn-neutral float-right" title="🎡 Package neural_de" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
