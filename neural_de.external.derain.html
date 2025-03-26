@@ -58,7 +58,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="neural_de.html#submodules">Submodules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="neural_de.html#neural-de-main-module">neural_de.main module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="neural_de.html#module-neural_de.main">neural_de.main module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="neural_de.html#module-neural_de">Module contents</a></li>
 </ul>
 </li>
@@ -98,8 +98,210 @@
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
 </section>
-<section id="neural-de-external-derain-blocks-module">
-<h2>neural_de.external.derain.blocks module<a class="headerlink" href="#neural-de-external-derain-blocks-module" title="Link to this heading"></a></h2>
+<section id="module-neural_de.external.derain.blocks">
+<span id="neural-de-external-derain-blocks-module"></span><h2>neural_de.external.derain.blocks module<a class="headerlink" href="#module-neural_de.external.derain.blocks" title="Link to this heading"></a></h2>
+<p>2D convolution class</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="neural_de.external.derain.blocks.Conv2d">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">neural_de.external.derain.blocks.</span></span><span class="sig-name descname"><span class="pre">Conv2d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_size=3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stride=1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activation_func=LeakyReLU(negative_slope=0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inplace=True)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_layer=&lt;class</span> <span class="pre">'torch.nn.modules.batchnorm.BatchNorm2d'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_bias=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padding_type='reflect'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/external/derain/blocks.html#Conv2d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.external.derain.blocks.Conv2d" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>2D convolution class
+Args:
+in_channels : int - Number of input channels
+out_channels : int - Number of output channels
+kernel_size : int - Size of kernel
+stride : int - Stride of convolution
+activation_func : func - Activation function after convolution
+norm_layer : functools.partial - Normalization layer
+use_bias : bool - If set, then use bias
+padding_type : str - The name of padding layer: reflect | replicate | zero</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="neural_de.external.derain.blocks.Conv2d.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/external/derain/blocks.html#Conv2d.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.external.derain.blocks.Conv2d.forward" title="Link to this definition"></a></dt>
+<dd><p>Defines the computation performed at every call.</p>
+<p>Should be overridden by all subclasses.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Although the recipe for forward pass needs to be defined within
+this function, one should call the <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code> instance afterwards
+instead of this since the former takes care of running the
+registered hooks while the latter silently ignores them.</p>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="neural_de.external.derain.blocks.Conv2d.training">
+<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><a class="headerlink" href="#neural_de.external.derain.blocks.Conv2d.training" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="neural_de.external.derain.blocks.DecoderBlock">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">neural_de.external.derain.blocks.</span></span><span class="sig-name descname"><span class="pre">DecoderBlock</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activation_func=LeakyReLU(negative_slope=0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inplace=True)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_layer=&lt;class</span> <span class="pre">'torch.nn.modules.batchnorm.BatchNorm2d'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_bias=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padding_type='reflect'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">upsample_mode='transpose'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/external/derain/blocks.html#DecoderBlock"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.external.derain.blocks.DecoderBlock" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>Decoder block with skip connections
+Args:
+in_channels : int - number of input channels
+skip_channels : int - number of skip connection channels
+out_channels : int - number of output channels
+activation_func : func - activation function after convolution
+norm_layer : functools.partial - normalization layer
+use_bias : bool - if set, then use bias
+padding_type : str - the name of padding layer: reflect | replicate | zero
+upsample_mode : str - the mode for interpolation: transpose | bilinear | nearest</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="neural_de.external.derain.blocks.DecoderBlock.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/external/derain/blocks.html#DecoderBlock.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.external.derain.blocks.DecoderBlock.forward" title="Link to this definition"></a></dt>
+<dd><p>Defines the computation performed at every call.</p>
+<p>Should be overridden by all subclasses.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Although the recipe for forward pass needs to be defined within
+this function, one should call the <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code> instance afterwards
+instead of this since the former takes care of running the
+registered hooks while the latter silently ignores them.</p>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="neural_de.external.derain.blocks.DecoderBlock.training">
+<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><a class="headerlink" href="#neural_de.external.derain.blocks.DecoderBlock.training" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="neural_de.external.derain.blocks.DeformableConv2d">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">neural_de.external.derain.blocks.</span></span><span class="sig-name descname"><span class="pre">DeformableConv2d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stride</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padding</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bias</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/external/derain/blocks.html#DeformableConv2d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.external.derain.blocks.DeformableConv2d" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>2D deformable convolution class
+:type in_channels: 
+:param in_channels: int - number of input channels
+:type out_channels: 
+:param out_channels: int - number of output channels
+:type kernel_size: 
+:param kernel_size: int - size of kernel
+:type stride: 
+:param stride: int - stride of convolution
+:type padding: 
+:param padding: int - padding
+:param use_bias: bool - if set, then use bias</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="neural_de.external.derain.blocks.DeformableConv2d.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/external/derain/blocks.html#DeformableConv2d.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.external.derain.blocks.DeformableConv2d.forward" title="Link to this definition"></a></dt>
+<dd><p>Defines the computation performed at every call.</p>
+<p>Should be overridden by all subclasses.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Although the recipe for forward pass needs to be defined within
+this function, one should call the <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code> instance afterwards
+instead of this since the former takes care of running the
+registered hooks while the latter silently ignores them.</p>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="neural_de.external.derain.blocks.DeformableConv2d.training">
+<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><a class="headerlink" href="#neural_de.external.derain.blocks.DeformableConv2d.training" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="neural_de.external.derain.blocks.DeformableResnetBlock">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">neural_de.external.derain.blocks.</span></span><span class="sig-name descname"><span class="pre">DeformableResnetBlock</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padding_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_layer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_dropout</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_bias</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activation_func</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/external/derain/blocks.html#DeformableResnetBlock"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.external.derain.blocks.DeformableResnetBlock" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>Define a Resnet block with deformable convolutions</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="neural_de.external.derain.blocks.DeformableResnetBlock.build_conv_block">
+<span class="sig-name descname"><span class="pre">build_conv_block</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padding_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_layer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_dropout</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_bias</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activation_func</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/external/derain/blocks.html#DeformableResnetBlock.build_conv_block"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.external.derain.blocks.DeformableResnetBlock.build_conv_block" title="Link to this definition"></a></dt>
+<dd><p>Construct a convolutional block.
+:type dim: 
+:param dim:
+:type dim: int
+:type padding_type: 
+:param padding_type: reflect | replicate | zero
+:type padding_type: str
+:param norm_layer – normalization layer:
+:type use_dropout: 
+:param use_dropout:
+:type use_dropout: bool
+:type use_bias: 
+:param use_bias:
+:type use_bias: bool
+:type activation_func: 
+:param activation_func:
+:type activation_func: func</p>
+<p>Returns a conv block (with a conv layer, a normalization layer, and a non-linearity layer)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="neural_de.external.derain.blocks.DeformableResnetBlock.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/external/derain/blocks.html#DeformableResnetBlock.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.external.derain.blocks.DeformableResnetBlock.forward" title="Link to this definition"></a></dt>
+<dd><p>Forward function (with skip connections)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="neural_de.external.derain.blocks.DeformableResnetBlock.training">
+<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><a class="headerlink" href="#neural_de.external.derain.blocks.DeformableResnetBlock.training" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="neural_de.external.derain.blocks.ResNetModified">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">neural_de.external.derain.blocks.</span></span><span class="sig-name descname"><span class="pre">ResNetModified</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_nc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_nc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ngf=64</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_layer=&lt;class</span> <span class="pre">'torch.nn.modules.batchnorm.BatchNorm2d'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activation_func=LeakyReLU(negative_slope=0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inplace=True)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_dropout=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_blocks=6</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padding_type='reflect'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">upsample_mode='bilinear'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/external/derain/blocks.html#ResNetModified"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.external.derain.blocks.ResNetModified" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>Resnet-based generator that consists of deformable Resnet blocks.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="neural_de.external.derain.blocks.ResNetModified.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/external/derain/blocks.html#ResNetModified.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.external.derain.blocks.ResNetModified.forward" title="Link to this definition"></a></dt>
+<dd><p>Standard forward</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="neural_de.external.derain.blocks.ResNetModified.training">
+<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><a class="headerlink" href="#neural_de.external.derain.blocks.ResNetModified.training" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="neural_de.external.derain.blocks.UpConv2d">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">neural_de.external.derain.blocks.</span></span><span class="sig-name descname"><span class="pre">UpConv2d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">in_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">out_channels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_size=3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activation_func=LeakyReLU(negative_slope=0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inplace=True)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_layer=&lt;class</span> <span class="pre">'torch.nn.modules.batchnorm.BatchNorm2d'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_bias=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padding_type='reflect'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">interpolate_mode='bilinear'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/external/derain/blocks.html#UpConv2d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.external.derain.blocks.UpConv2d" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>Up-convolution (upsample + convolution) block class
+Args:
+in_channels : int - number of input channels
+out_channels : int - number of output channels
+kernel_size : int - size of kernel (k x k)
+activation_func : func - activation function after convolution
+norm_layer : functools.partial - normalization layer
+use_bias : bool - if set, then use bias
+padding_type : str - the name of padding layer: reflect | replicate | zero
+interpolate_mode : str - the mode for interpolation: bilinear | nearest</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="neural_de.external.derain.blocks.UpConv2d.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/external/derain/blocks.html#UpConv2d.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.external.derain.blocks.UpConv2d.forward" title="Link to this definition"></a></dt>
+<dd><p>Defines the computation performed at every call.</p>
+<p>Should be overridden by all subclasses.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Although the recipe for forward pass needs to be defined within
+this function, one should call the <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code> instance afterwards
+instead of this since the former takes care of running the
+registered hooks while the latter silently ignores them.</p>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="neural_de.external.derain.blocks.UpConv2d.training">
+<span class="sig-name descname"><span class="pre">training</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></em><a class="headerlink" href="#neural_de.external.derain.blocks.UpConv2d.training" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </section>
 <section id="module-neural_de.external.derain">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-neural_de.external.derain" title="Link to this heading"></a></h2>

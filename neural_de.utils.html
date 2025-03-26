@@ -57,7 +57,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="neural_de.html#submodules">Submodules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="neural_de.html#neural-de-main-module">neural_de.main module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="neural_de.html#module-neural_de.main">neural_de.main module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="neural_de.html#module-neural_de">Module contents</a></li>
 </ul>
 </li>
@@ -96,8 +96,67 @@
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
 </section>
-<section id="neural-de-utils-math-module">
-<h2>neural_de.utils.math module<a class="headerlink" href="#neural-de-utils-math-module" title="Link to this heading"></a></h2>
+<section id="module-neural_de.utils.math">
+<span id="neural-de-utils-math-module"></span><h2>neural_de.utils.math module<a class="headerlink" href="#module-neural_de.utils.math" title="Link to this heading"></a></h2>
+<p>Collection of utility math-based utility methods</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="neural_de.utils.math.crop_image">
+<span class="sig-prename descclassname"><span class="pre">neural_de.utils.math.</span></span><span class="sig-name descname"><span class="pre">crop_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ratio</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/utils/math.html#crop_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.utils.math.crop_image" title="Link to this definition"></a></dt>
+<dd><p>Return cropped image depends on a ratio of its size
+Ratio = .3 =&gt; crop 30% of image size</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>) – original image</p></li>
+<li><p><strong>ratio</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – Value in rage [0., 1.[</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Cropped image from its center</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neural_de.utils.math.get_pad_value">
+<span class="sig-prename descclassname"><span class="pre">neural_de.utils.math.</span></span><span class="sig-name descname"><span class="pre">get_pad_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ratio</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/utils/math.html#get_pad_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.utils.math.get_pad_value" title="Link to this definition"></a></dt>
+<dd><p>Return the number of pixel to add to <em>dim</em> so that it will be a multiple of <em>ratio</em></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dim</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Actual number of pixel in a dimension</p></li>
+<li><p><strong>ratio</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Value <em>dim</em> should be a multiple of</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Number of pixel to pad</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neural_de.utils.math.is_scaled">
+<span class="sig-prename descclassname"><span class="pre">neural_de.utils.math.</span></span><span class="sig-name descname"><span class="pre">is_scaled</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/utils/math.html#is_scaled"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.utils.math.is_scaled" title="Link to this definition"></a></dt>
+<dd><p>Checks to see whether the pixel values have already been rescaled to [0, 1].</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>image</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>) – image batch</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if image_batch is already scaled</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="module-neural_de.utils.model_manager">
 <span id="neural-de-utils-model-manager-module"></span><h2>neural_de.utils.model_manager module<a class="headerlink" href="#module-neural_de.utils.model_manager" title="Link to this heading"></a></h2>
@@ -236,8 +295,70 @@ logger.error(“This is an error message”)</p>
 </dd></dl>
 
 </section>
-<section id="neural-de-utils-validation-module">
-<h2>neural_de.utils.validation module<a class="headerlink" href="#neural-de-utils-validation-module" title="Link to this heading"></a></h2>
+<section id="module-neural_de.utils.validation">
+<span id="neural-de-utils-validation-module"></span><h2>neural_de.utils.validation module<a class="headerlink" href="#module-neural_de.utils.validation" title="Link to this heading"></a></h2>
+<p>This module contains a collection of utility functions to verify that the inputs of the
+transformation methods are valid.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="neural_de.utils.validation.is_batch_valid">
+<span class="sig-prename descclassname"><span class="pre">neural_de.utils.validation.</span></span><span class="sig-name descname"><span class="pre">is_batch_valid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image_batch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">same_dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/utils/validation.html#is_batch_valid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.utils.validation.is_batch_valid" title="Link to this definition"></a></dt>
+<dd><p>Check if <code class="docutils literal notranslate"><span class="pre">images</span></code> is a valid batch of image: either a list of array numpy of dimension
+3 (h,w, c), or a single numpy array of dimension 4 (batch_size, h, w, c).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image_batch</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>]) – Input to check.</p></li>
+<li><p><strong>same_dim</strong> – If True, will also verify that every image has the same dimension</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>The bool is True if the input is a valid batch of images, and</dt><dd><p>False otherwise. The string is empty if the bool is True, if not it contains the reason
+of the non validation.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple of (bool,string)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neural_de.utils.validation.is_device_valid">
+<span class="sig-prename descclassname"><span class="pre">neural_de.utils.validation.</span></span><span class="sig-name descname"><span class="pre">is_device_valid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/utils/validation.html#is_device_valid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.utils.validation.is_device_valid" title="Link to this definition"></a></dt>
+<dd><p>Verify if <code class="docutils literal notranslate"><span class="pre">device</span></code> is a valid torch device.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>device</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – the device we want to check the validity</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if the input string is a valid torch device, false if not.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="neural_de.utils.validation.is_power_of_two">
+<span class="sig-prename descclassname"><span class="pre">neural_de.utils.validation.</span></span><span class="sig-name descname"><span class="pre">is_power_of_two</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/neural_de/utils/validation.html#is_power_of_two"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#neural_de.utils.validation.is_power_of_two" title="Link to this definition"></a></dt>
+<dd><p>Check if the integer <code class="docutils literal notranslate"><span class="pre">value</span></code> is a power of 2.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Integer to check</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if value is a power of 2, else otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="module-neural_de.utils">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-neural_de.utils" title="Link to this heading"></a></h2>

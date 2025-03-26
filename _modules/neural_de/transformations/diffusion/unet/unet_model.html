@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>neural_de.transformations.diffusion.unet.unet_model &mdash; neuralde 1.1.0 documentation</title>
+      <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../../../../_static/documentation_options.js?v=fc837d61"></script>
+        <script src="../../../../../_static/doctools.js?v=888ff710"></script>
+        <script src="../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../../index.html" class="icon icon-home">
+            neuralde
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../guidelines.html">📖 Guidelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../tech_docs.html">📚 Technical docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../theory_overview.html">💡 Theory Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../changelog.html">🔄 Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../modules.html">🎡 Package neural_de</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../../index.html">neuralde</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">neural_de.transformations.diffusion.unet.unet_model</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for neural_de.transformations.diffusion.unet.unet_model</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">th</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nn</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">neural_de.transformations.diffusion.unet.attention_block</span><span class="w"> </span><span class="kn">import</span> <span class="n">AttentionBlock</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">neural_de.transformations.diffusion.unet.downsample</span><span class="w"> </span><span class="kn">import</span> <span class="n">Downsample</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">neural_de.transformations.diffusion.unet.nn</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">conv_nd</span><span class="p">,</span>
+    <span class="n">linear</span><span class="p">,</span>
+    <span class="n">zero_module</span><span class="p">,</span>
+    <span class="n">normalization</span><span class="p">,</span>
+    <span class="n">timestep_embedding</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">neural_de.transformations.diffusion.unet.res_block</span><span class="w"> </span><span class="kn">import</span> <span class="n">ResBlock</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">neural_de.transformations.diffusion.unet.timestep_embed_sequential</span><span class="w"> </span><span class="kn">import</span> <span class="n">TimestepEmbedSequential</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">neural_de.transformations.diffusion.unet.upsample</span><span class="w"> </span><span class="kn">import</span> <span class="n">Upsample</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">neural_de.transformations.diffusion.unet.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">convert_module_to_f16</span><span class="p">,</span> <span class="n">convert_module_to_f32</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">neural_de.transformations.diffusion.diffpure_config</span><span class="w"> </span><span class="kn">import</span> <span class="n">DiffPureConfig</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">neural_de.utils.twe_logger</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_logger</span>
+
+
+<div class="viewcode-block" id="UNetModel">
+<a class="viewcode-back" href="../../../../../neural_de.transformations.diffusion.unet.html#neural_de.transformations.diffusion.unet.unet_model.UNetModel">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">UNetModel</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The full UNet model with attention and timestep embedding.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">in_channels</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">out_channels</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">config</span><span class="p">:</span> <span class="n">DiffPureConfig</span><span class="p">,</span>
+        <span class="n">logger</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span> <span class="o">=</span> <span class="n">logger</span> <span class="k">if</span> <span class="n">logger</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">get_logger</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">num_heads_upsample</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">config</span><span class="o">.</span><span class="n">num_heads_upsample</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">num_heads</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_config</span> <span class="o">=</span> <span class="n">config</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dtype</span> <span class="o">=</span> <span class="n">th</span><span class="o">.</span><span class="n">float16</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">use_fp16</span> <span class="k">else</span> <span class="n">th</span><span class="o">.</span><span class="n">float32</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_num_heads_upsample</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">num_heads_upsample</span>
+        <span class="c1"># model_channels = num_channels</span>
+        <span class="n">time_embed_dim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">num_channels</span> <span class="o">*</span> <span class="mi">4</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">time_embed</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+            <span class="n">linear</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">num_channels</span><span class="p">,</span> <span class="n">time_embed_dim</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">SiLU</span><span class="p">(),</span>
+            <span class="n">linear</span><span class="p">(</span><span class="n">time_embed_dim</span><span class="p">,</span> <span class="n">time_embed_dim</span><span class="p">),</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">num_classes</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_label_emb</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">num_classes</span><span class="p">,</span> <span class="n">time_embed_dim</span><span class="p">)</span>
+
+        <span class="n">ch</span> <span class="o">=</span> <span class="n">input_ch</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">channel_mult</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">num_channels</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_blocks</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ModuleList</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">TimestepEmbedSequential</span><span class="p">(</span><span class="n">conv_nd</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">dims</span><span class="p">,</span> <span class="n">in_channels</span><span class="p">,</span> <span class="n">ch</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">1</span><span class="p">))]</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_feature_size</span> <span class="o">=</span> <span class="n">ch</span>
+        <span class="n">input_block_chans</span> <span class="o">=</span> <span class="p">[</span><span class="n">ch</span><span class="p">]</span>
+        <span class="n">ds</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="n">level</span><span class="p">,</span> <span class="n">mult</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">channel_mult</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">num_res_blocks</span><span class="p">):</span>
+                <span class="n">layers</span> <span class="o">=</span> <span class="p">[</span>
+                    <span class="n">ResBlock</span><span class="p">(</span>
+                        <span class="n">ch</span><span class="p">,</span>
+                        <span class="n">time_embed_dim</span><span class="p">,</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">dropout</span><span class="p">,</span>
+                        <span class="n">out_channels</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">mult</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">num_channels</span><span class="p">),</span>
+                        <span class="n">dims</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">dims</span><span class="p">,</span>
+                        <span class="n">use_checkpoint</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">use_checkpoint</span><span class="p">,</span>
+                        <span class="n">use_scale_shift_norm</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">use_scale_shift_norm</span><span class="p">,</span>
+                    <span class="p">)</span>
+                <span class="p">]</span>
+                <span class="n">ch</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">mult</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">num_channels</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">ds</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">attention_resolutions</span><span class="p">:</span>
+                    <span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="n">AttentionBlock</span><span class="p">(</span>
+                            <span class="n">ch</span><span class="p">,</span>
+                            <span class="n">use_checkpoint</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">use_checkpoint</span><span class="p">,</span>
+                            <span class="n">num_heads</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">num_heads</span><span class="p">,</span>
+                            <span class="n">num_head_channels</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">num_head_channels</span><span class="p">,</span>
+                            <span class="n">use_new_attention_order</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">use_new_attention_order</span><span class="p">,</span>
+                        <span class="p">)</span>
+                    <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">input_blocks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">TimestepEmbedSequential</span><span class="p">(</span><span class="o">*</span><span class="n">layers</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_feature_size</span> <span class="o">+=</span> <span class="n">ch</span>
+                <span class="n">input_block_chans</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ch</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">level</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">channel_mult</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">out_ch</span> <span class="o">=</span> <span class="n">ch</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">input_blocks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="n">TimestepEmbedSequential</span><span class="p">(</span>
+                        <span class="n">ResBlock</span><span class="p">(</span>
+                            <span class="n">ch</span><span class="p">,</span>
+                            <span class="n">time_embed_dim</span><span class="p">,</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">dropout</span><span class="p">,</span>
+                            <span class="n">out_channels</span><span class="o">=</span><span class="n">out_ch</span><span class="p">,</span>
+                            <span class="n">dims</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">dims</span><span class="p">,</span>
+                            <span class="n">use_checkpoint</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">use_checkpoint</span><span class="p">,</span>
+                            <span class="n">use_scale_shift_norm</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">use_scale_shift_norm</span><span class="p">,</span>
+                            <span class="n">down</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                        <span class="p">)</span>
+                        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">resblock_updown</span>
+                        <span class="k">else</span> <span class="n">Downsample</span><span class="p">(</span>
+                            <span class="n">ch</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">conv_resample</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">dims</span><span class="p">,</span>
+                            <span class="n">out_channels</span><span class="o">=</span><span class="n">out_ch</span>
+                        <span class="p">)</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+                <span class="n">ch</span> <span class="o">=</span> <span class="n">out_ch</span>
+                <span class="n">input_block_chans</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ch</span><span class="p">)</span>
+                <span class="n">ds</span> <span class="o">*=</span> <span class="mi">2</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_feature_size</span> <span class="o">+=</span> <span class="n">ch</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">middle_block</span> <span class="o">=</span> <span class="n">TimestepEmbedSequential</span><span class="p">(</span>
+            <span class="n">ResBlock</span><span class="p">(</span>
+                <span class="n">ch</span><span class="p">,</span>
+                <span class="n">time_embed_dim</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">dropout</span><span class="p">,</span>
+                <span class="n">dims</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">dims</span><span class="p">,</span>
+                <span class="n">use_checkpoint</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">use_checkpoint</span><span class="p">,</span>
+                <span class="n">use_scale_shift_norm</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">use_scale_shift_norm</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">AttentionBlock</span><span class="p">(</span>
+                <span class="n">ch</span><span class="p">,</span>
+                <span class="n">use_checkpoint</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">use_checkpoint</span><span class="p">,</span>
+                <span class="n">num_heads</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">num_heads</span><span class="p">,</span>
+                <span class="n">num_head_channels</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">num_head_channels</span><span class="p">,</span>
+                <span class="n">use_new_attention_order</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">use_new_attention_order</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">ResBlock</span><span class="p">(</span>
+                <span class="n">ch</span><span class="p">,</span>
+                <span class="n">time_embed_dim</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">dropout</span><span class="p">,</span>
+                <span class="n">dims</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">dims</span><span class="p">,</span>
+                <span class="n">use_checkpoint</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">use_checkpoint</span><span class="p">,</span>
+                <span class="n">use_scale_shift_norm</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">use_scale_shift_norm</span><span class="p">,</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_feature_size</span> <span class="o">+=</span> <span class="n">ch</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">output_blocks</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ModuleList</span><span class="p">([])</span>
+        <span class="k">for</span> <span class="n">level</span><span class="p">,</span> <span class="n">mult</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">channel_mult</span><span class="p">))[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">num_res_blocks</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="n">ich</span> <span class="o">=</span> <span class="n">input_block_chans</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+                <span class="n">layers</span> <span class="o">=</span> <span class="p">[</span>
+                    <span class="n">ResBlock</span><span class="p">(</span>
+                        <span class="n">ch</span> <span class="o">+</span> <span class="n">ich</span><span class="p">,</span>
+                        <span class="n">time_embed_dim</span><span class="p">,</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">dropout</span><span class="p">,</span>
+                        <span class="n">out_channels</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">num_channels</span> <span class="o">*</span> <span class="n">mult</span><span class="p">),</span>
+                        <span class="n">dims</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">dims</span><span class="p">,</span>
+                        <span class="n">use_checkpoint</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">use_checkpoint</span><span class="p">,</span>
+                        <span class="n">use_scale_shift_norm</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">use_scale_shift_norm</span><span class="p">,</span>
+                    <span class="p">)</span>
+                <span class="p">]</span>
+                <span class="n">ch</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">num_channels</span> <span class="o">*</span> <span class="n">mult</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">ds</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">attention_resolutions</span><span class="p">:</span>
+                    <span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="n">AttentionBlock</span><span class="p">(</span>
+                            <span class="n">ch</span><span class="p">,</span>
+                            <span class="n">use_checkpoint</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">use_checkpoint</span><span class="p">,</span>
+                            <span class="n">num_heads</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">num_heads_upsample</span><span class="p">,</span>
+                            <span class="n">num_head_channels</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">num_head_channels</span><span class="p">,</span>
+                            <span class="n">use_new_attention_order</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">use_new_attention_order</span><span class="p">,</span>
+                        <span class="p">)</span>
+                    <span class="p">)</span>
+                <span class="k">if</span> <span class="n">level</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">num_res_blocks</span><span class="p">:</span>
+                    <span class="n">out_ch</span> <span class="o">=</span> <span class="n">ch</span>
+                    <span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                        <span class="n">ResBlock</span><span class="p">(</span>
+                            <span class="n">ch</span><span class="p">,</span>
+                            <span class="n">time_embed_dim</span><span class="p">,</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">dropout</span><span class="p">,</span>
+                            <span class="n">out_channels</span><span class="o">=</span><span class="n">out_ch</span><span class="p">,</span>
+                            <span class="n">dims</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">dims</span><span class="p">,</span>
+                            <span class="n">use_checkpoint</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">use_checkpoint</span><span class="p">,</span>
+                            <span class="n">use_scale_shift_norm</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">use_scale_shift_norm</span><span class="p">,</span>
+                            <span class="n">up</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                        <span class="p">)</span>
+                        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">resblock_updown</span>
+                        <span class="k">else</span> <span class="n">Upsample</span><span class="p">(</span><span class="n">ch</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">conv_resample</span><span class="p">,</span> <span class="n">dims</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">dims</span><span class="p">,</span>
+                                      <span class="n">out_channels</span><span class="o">=</span><span class="n">out_ch</span><span class="p">)</span>
+                    <span class="p">)</span>
+                    <span class="n">ds</span> <span class="o">//=</span> <span class="mi">2</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">output_blocks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">TimestepEmbedSequential</span><span class="p">(</span><span class="o">*</span><span class="n">layers</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_feature_size</span> <span class="o">+=</span> <span class="n">ch</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">out</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+            <span class="n">normalization</span><span class="p">(</span><span class="n">ch</span><span class="p">),</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">SiLU</span><span class="p">(),</span>
+            <span class="n">zero_module</span><span class="p">(</span><span class="n">conv_nd</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">dims</span><span class="p">,</span> <span class="n">input_ch</span><span class="p">,</span> <span class="n">out_channels</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">1</span><span class="p">)),</span>
+        <span class="p">)</span>
+
+<div class="viewcode-block" id="UNetModel.convert_to_fp16">
+<a class="viewcode-back" href="../../../../../neural_de.transformations.diffusion.unet.html#neural_de.transformations.diffusion.unet.unet_model.UNetModel.convert_to_fp16">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">convert_to_fp16</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convert the torso of the model to float16.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_blocks</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">convert_module_to_f16</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">middle_block</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">convert_module_to_f16</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output_blocks</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">convert_module_to_f16</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="UNetModel.convert_to_fp32">
+<a class="viewcode-back" href="../../../../../neural_de.transformations.diffusion.unet.html#neural_de.transformations.diffusion.unet.unet_model.UNetModel.convert_to_fp32">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">convert_to_fp32</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convert the torso of the model to float32.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_blocks</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">convert_module_to_f32</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">middle_block</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">convert_module_to_f32</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output_blocks</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">convert_module_to_f32</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="UNetModel.forward">
+<a class="viewcode-back" href="../../../../../neural_de.transformations.diffusion.unet.html#neural_de.transformations.diffusion.unet.unet_model.UNetModel.forward">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">timesteps</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Apply the model to an input batch.</span>
+
+<span class="sd">        :param x: an [N x C x ...] Tensor of inputs.</span>
+<span class="sd">        :param timesteps: a 1-D batch of timesteps.</span>
+<span class="sd">        :param y: an [N] Tensor of labels, if class-conditional.</span>
+<span class="sd">        :return: an [N x C x ...] Tensor of outputs.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">hs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">emb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_embed</span><span class="p">(</span><span class="n">timestep_embedding</span><span class="p">(</span><span class="n">timesteps</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">num_channels</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">num_classes</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">emb</span> <span class="o">=</span> <span class="n">emb</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_label_emb</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+
+        <span class="n">h</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dtype</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">module</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_blocks</span><span class="p">:</span>
+            <span class="n">h</span> <span class="o">=</span> <span class="n">module</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">emb</span><span class="p">)</span>
+            <span class="n">hs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">middle_block</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">emb</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">module</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_blocks</span><span class="p">:</span>
+            <span class="n">h</span> <span class="o">=</span> <span class="n">th</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">h</span><span class="p">,</span> <span class="n">hs</span><span class="o">.</span><span class="n">pop</span><span class="p">()],</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">h</span> <span class="o">=</span> <span class="n">module</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">emb</span><span class="p">)</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">type</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">out</span><span class="p">(</span><span class="n">h</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, IRT-SystemX.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
