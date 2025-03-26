@@ -37,9 +37,10 @@ jobs:
 
     - name: Build the documentation
       run: |
+        cp -R _static docs/source/
+        cp -R examples docs/source/
         cd docs
         make html
-        ls -l lint_results/pylint.svg
 
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@v4

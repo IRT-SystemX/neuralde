@@ -12,8 +12,26 @@
     </a>
     <a href="#">
         <img src="https://img.shields.io/badge/License-MPL-2">
-    </a>
+
+[//]: # (    </a>)
+
+[//]: # (    <a href="docs/lint_results/pylint.txt">)
+
+[//]: # (        <img src="_static/lint_results/pylint.svg" alt="Pylint Score">)
+
+[//]: # (    </a>)
+
+[//]: # (    <a href="docs/flake8/index.html">)
+
+[//]: # (        <img src="_static/flake8/flake8.svg" alt="Flake8 Report">)
+
+[//]: # (    </a>)
+
+[![Code style: Pylint](https://img.shields.io/badge/linting-pylint-yellowgreen)](https://github.com/pylint-dev)
+[![Code style: flake8](https://img.shields.io/badge/code%20style-flake8-1c4a6c.svg)](https://flake8.pycqa.org/en/latest/)
+
 </div>
+
 <br>
 
 # Presentation

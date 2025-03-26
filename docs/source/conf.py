@@ -14,7 +14,7 @@ release = "1.1.0"
 import os
 import sys
 sys.path.insert(0, os.path.abspath(f"{__file__}/../.."))
-
+sys.path.insert(0,"..")
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
