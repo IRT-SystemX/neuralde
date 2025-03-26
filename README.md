@@ -22,7 +22,7 @@
 -----------------
 
 -  Version: 1.1.0
--  Python Version: python 3.9, 3.10
+-  Python Version: python 3.9, 3.10, [3.12]
 -  Strong Dependencies: Tensorflow, pytorch
 -  Trustworthy attributes : Robustness
 -  Hardware : CPU / GPU
