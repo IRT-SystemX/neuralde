@@ -38,7 +38,7 @@ jobs:
 
       - name: Check Pylint score
         run: |
-          SCORE=$(pylint src/ --output-format=json | jq '.[].score')
+          SCORE=$(pylint neural_de/ --output-format=json | jq '.[].score')
           if (( $(echo "$SCORE < 8" | bc -l) )); then exit 1; fi
     
   # python-tests: # Install dependencies and run tests with pytest
