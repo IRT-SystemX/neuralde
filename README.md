@@ -3,47 +3,6 @@
     <h1 style="font-size: large; font-weight: bold;">neural_de</h1>
 </div>
 
-[//]: # (<div align="center">)
-
-[//]: # (    <a href="#">)
-
-[//]: # (        <img src="https://img.shields.io/badge/Python-3.10-efefef">)
-
-[//]: # (    </a>)
-
-[//]: # (    <a href="#">)
-
-[//]: # (        <img src="https://img.shields.io/badge/License-MIT-efefef">)
-
-[//]: # (    </a>)
-
-[//]: # (    <!-- Pylint Score Badge -->)
-
-[//]: # (    <a href="http://confianceai.pages.irt-systemx.fr/ec_4/neuralde/pylint/index.html">)
-
-[//]: # (        <img src="http://confianceai.pages.irt-systemx.fr/ec_4/neuralde/pylint/pylint.svg" alt="Pylint Score">)
-
-[//]: # (    </a>)
-
-[//]: # (    <!-- Flake8 Report Badge -->)
-
-[//]: # (    <a href="http://confianceai.pages.irt-systemx.fr/ec_4/neuralde/flake8/index.html">)
-
-[//]: # (        <img src="http://confianceai.pages.irt-systemx.fr/ec_4/neuralde/flake8/flake8.svg" alt="Flake8 Report">)
-
-[//]: # (    </a>)
-
-[//]: # (    <!-- Coverage Badge -->)
-
-[//]: # (    <a href="http://confianceai.pages.irt-systemx.fr/ec_4/neuralde/coverage/index.html">)
-
-[//]: # (        <img src="http://confianceai.pages.irt-systemx.fr/ec_4/neuralde/coverage/coverage.svg" alt="Code Coverage">)
-
-[//]: # (    </a>)
-
-[//]: # (</div>)
-
-
 <div align="center">
     <a href="#">
         <img src="https://img.shields.io/badge/Python-3.9-efefef">
@@ -56,37 +15,6 @@
     </a>
 </div>
 <br>
-
-[//]: # (<div align="center">)
-[//]: # ()
-[//]: # (  <a href="">Quickstart</a>)
-
-[//]: # ()
-[//]: # (  <span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>)
-
-[//]: # ()
-[//]: # (  <a href="">Docs</a>)
-
-[//]: # ()
-[//]: # (  <span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>)
-
-[//]: # ()
-[//]: # (  <a href="">Examples</a>)
-
-[//]: # ()
-[//]: # (  <span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>)
-
-[//]: # ()
-[//]: # (  <a href="https://www.confiance.ai/">Confiance.ai</a>)
-
-[//]: # ()
-[//]: # (&nbsp;)
-
-[//]: # ()
-[//]: # (  <hr />)
-
-[//]: # ()
-[//]: # (</div>)
 
 # Presentation
 
