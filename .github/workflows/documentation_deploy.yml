@@ -3,11 +3,11 @@ name: Deploy Sphinx Docs to GitHub Pages
 on:
   push:
     branches:
-      - main
+      - develop
 
   pull_request:
     branches:
-      - main
+      - develop
 
 jobs:
   build_and_deploy:
@@ -29,7 +29,10 @@ jobs:
 
     - name: Install dependencies
       run: |
+        apt-get update && apt-get install -y pandoc
         python -m pip install --upgrade pip
+        pip install -r requirements_python39.txt
+        pip install .
         pip install sphinx sphinx-rtd-theme sphinx-autodoc-typehints myst_parser nbsphinx
 
     - name: Build the documentation
