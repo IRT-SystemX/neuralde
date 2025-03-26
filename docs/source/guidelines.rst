@@ -1,6 +1,6 @@
 .. _guidelines:
 
-📖 Guidelines:
+📖 Guidelines
 =================================
 
 .. include:: ../../README.md
