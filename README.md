@@ -112,7 +112,7 @@ pip install git+https://github.com/IRT-SystemX/NeuralDE
 ````
 If you got the source code as a zip file, you can install the library from the root directory of the archive by typing : 
 ```
-pip installl .
+pip install .
 ```
 
 
