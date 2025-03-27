@@ -3,9 +3,23 @@ name = "neural_de"
 description='Image enhancement library: corruption (noise, meteorological...), removal"'
 readme = "README.md"
 dynamic = ["dependencies"]
+authors = [
+  {name = "IRT SystemX"},
+  {name = "Air Liquide"},
+]
+
+maintainers = [
+  {name = "Josquin Foulliaron", email = "josquin.foulliaron@irt-suystemx.fr"}
+]
 version= "1.1.0"
 license ="MPL-2.0"
 requires-python = ">=3.9,<3.11"
+
+[project.urls]
+Homepage = "https://irt-systemx.github.io/NeuralDE/"
+Documentation = "https://irt-systemx.github.io/NeuralDE/"
+Repository = "https://github.com/IRT-SystemX/NeuralDE"
+
 
 [tool.setuptools.dynamic]
 dependencies = {file = ["requirements_python39.txt"]}

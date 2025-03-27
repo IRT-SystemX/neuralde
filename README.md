@@ -74,7 +74,7 @@ This can be summed-up by the schema below
 
 ![Drag Racing](_static/schema.png)
 
-The executable version can be run directly by installing the python library or by running the dockerized verison.
+The executable version can be run directly by installing the python library or by running the dockerized version.
 We describe in the following the process in two cases.
 
 # Getting started 
@@ -110,6 +110,11 @@ You can installing it from it github sources by launching the following command
 ````
 pip install git+https://github.com/IRT-SystemX/NeuralDE
 ````
+If you got the source code as a zip file, you can install the library from the root directory of the archive by typing : 
+```
+pip installl .
+```
+
 
 ## Use the executable
 
