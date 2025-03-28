@@ -80,7 +80,7 @@ We describe in the following the process in two cases.
 # Getting started 
 
 ## Set up a clean virtual environnement
-Validated python version : 3.9.18
+Tested python versions : [3.9.18, 3.10.16]
 
 Linux setting:
 
@@ -106,7 +106,7 @@ You can install it by a direct downloading from PyPi using the command
 pip install neural_de
 ````
 
-You can installing it from it github sources by launching the following command
+You can install it from it github sources by launching the following command
 ````
 pip install git+https://github.com/IRT-SystemX/NeuralDE
 ````
@@ -190,7 +190,7 @@ docker run -e INPUT_SOURCE_PATH="test_images/test_snow.webp" -e OUTPUT_TARGET_PA
 # Define your configuration pipeline
 
 A pipeline configuraiton file is a yaml file containing the list of transformation method to call
-and for each of them eventually the name of user paremeters to overload:
+and for each of them eventually the name of user parameters to overload:
 
 Here is below an example of such yaml file:
 ```

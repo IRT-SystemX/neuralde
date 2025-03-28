@@ -4,10 +4,9 @@ description='Image enhancement library: corruption (noise, meteorological...), r
 readme = "README.md"
 dynamic = ["dependencies"]
 authors = [
-  {name = "IRT SystemX"},
-  {name = "Air Liquide"},
+  {name = "IRT SystemX, Air Liquide"},
+  {email="contact@confiance.ai"}
 ]
-
 maintainers = [
   {name = "Josquin Foulliaron", email = "josquin.foulliaron@irt-suystemx.fr"}
 ]
@@ -27,4 +26,7 @@ dependencies = {file = ["requirements_python39.txt"]}
 [build-system]
 requires = ["setuptools>=42"]
 build-backend = "setuptools.build_meta"
+
+[project.scripts]
+neural_de  = "neural_de.main:main"
  
