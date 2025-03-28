@@ -1,0 +1,5 @@
+{
+  "prenet_latest.pth" :"7030d5a32ed0158e69cb2f1083067e92",
+  "derain_checkpoint.pth": "5bbf11539d86efd5264c0c21c23b1e7d",
+  "256x256_diffusion_uncond.pt": "fd9dd2335b8736d521de0aed54bd90ca"
+}

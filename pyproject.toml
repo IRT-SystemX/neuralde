@@ -1,0 +1,29 @@
+[project]
+name = "neuralde"
+description='Image enhancement library: corruption (noise, meteorological...), removal"'
+readme = "README.md"
+dynamic = ["dependencies"]
+authors = [
+  {name = "IRT SystemX, Air Liquide"},
+  {email="contact@confiance.ai"}
+]
+version= "1.1.0"
+license ="MPL-2.0"
+requires-python = ">=3.9,<3.11"
+
+[project.urls]
+Homepage = "https://irt-systemx.github.io/neuralde/"
+Documentation = "https://irt-systemx.github.io/neuralde/"
+Repository = "https://github.com/IRT-SystemX/neuralde"
+
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements_python39.txt"]}
+
+[build-system]
+requires = ["setuptools>=42"]
+build-backend = "setuptools.build_meta"
+
+[project.scripts]
+neural_de  = "neural_de.main:main"
+ 

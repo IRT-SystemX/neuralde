@@ -1,0 +1,4 @@
+derain: http://minio-storage.apps.confianceai-public.irtsysx.fr/ml-models/derain_checkpoint.pth
+desnow: http://minio-storage.apps.confianceai-public.irtsysx.fr/ml-models/prenet_latest.pth
+diffpure: http://minio-storage.apps.confianceai-public.irtsysx.fr/ml-models/256x256_diffusion_uncond.pt
+night : https://tfhub.dev/sayakpaul/maxim_s-2_enhancement_fivek/1

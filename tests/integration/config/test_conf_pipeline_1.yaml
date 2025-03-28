@@ -1,0 +1,4 @@
+- name: DeSnowEnhancer
+- name: KernelDeblurringEnhancer
+  init_param:
+    kernel: "medium"

@@ -1,0 +1,6 @@
+- name: ResolutionEnhancer
+  init_param:
+    device: 'cpu'
+  transform:
+    target_shape: [5, 5]
+    crop_ratio: 0.
