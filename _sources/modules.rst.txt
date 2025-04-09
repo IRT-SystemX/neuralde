@@ -1,4 +1,4 @@
-🎡 Package neural_de
+🎡 Package neuralde
 =========
 
 .. toctree::
