@@ -223,7 +223,7 @@ and for each of them eventually the name of user parameters to overload:</p>
 <p>The defined pipeline apply sequentially on input images the four tranformations
 CenteredZoom, DeSnowEnhancer, KernelDeblurringEnhancer and ResolutionEnhancer.
 Each transformation has its own parameters.
-To see in details the parameters of available transformation see the seciton technical docs</p>
+To see in details the parameters of available transformations see the section <strong>Technical docs</strong>.</p>
 <section id="available-methods-in-release-1-1-0">
 <h3>Available methods in release 1.1.0<a class="headerlink" href="#available-methods-in-release-1-1-0" title="Link to this heading"></a></h3>
 <ul class="simple">
@@ -244,7 +244,7 @@ To see in details the parameters of available transformation see the seciton tec
 </section>
 <section id="usage-of-the-lib-inside-your-python-code">
 <h2>Usage of the lib inside your python code<a class="headerlink" href="#usage-of-the-lib-inside-your-python-code" title="Link to this heading"></a></h2>
-<p>All methods in neurelDE follow the same syntax.</p>
+<p>All methods in neuralde follow the same syntax.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">neural_de.transformations</span><span class="w"> </span><span class="kn">import</span> <span class="o">&lt;</span><span class="n">Method</span><span class="o">&gt;</span>
 <span class="n">method</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">Method</span><span class="p">()</span><span class="o">&gt;</span>
 <span class="n">transformed_image_batch</span> <span class="o">=</span> <span class="n">method</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">image_batch</span><span class="p">)</span>
