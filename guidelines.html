@@ -131,11 +131,11 @@ We describe in the following the process in two cases.</p>
 <section id="install-the-library-restricted-access">
 <h3>Install the library (restricted access)<a class="headerlink" href="#install-the-library-restricted-access" title="Link to this heading"></a></h3>
 <p>You can install it by a direct downloading from PyPi using the command</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">neural_de</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">neuralde</span>
 </pre></div>
 </div>
 <p>You can install it from it github sources by launching the following command</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">git</span><span class="o">+</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">IRT</span><span class="o">-</span><span class="n">SystemX</span><span class="o">/</span><span class="n">NeuralDE</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">git</span><span class="o">+</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">IRT</span><span class="o">-</span><span class="n">SystemX</span><span class="o">/</span><span class="n">neuralde</span>
 </pre></div>
 </div>
 <p>If you got the source code as a zip file, you can install the library from the root directory of the archive by typing :</p>
@@ -170,16 +170,16 @@ with their name preced of prefix “transformed_”</p>
 </section>
 <section id="use-the-docker-version">
 <h3>Use the docker version<a class="headerlink" href="#use-the-docker-version" title="Link to this heading"></a></h3>
-<p>You can build manually the image from the source, by cloning the source repository from this url https://github.com/IRT-SystemX/NeuralDE
+<p>You can build manually the image from the source, by cloning the source repository from this url https://github.com/IRT-SystemX/neuralde
 And from cloned repository source directory type</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">build</span> <span class="o">.</span> <span class="o">-</span><span class="n">f</span> <span class="n">DOCKERFILE</span> <span class="o">-</span><span class="n">t</span> <span class="n">neural_de</span>
 </pre></div>
 </div>
-<p>Ot you can direct download the docker image neural_de from dockerhub by typing :</p>
+<p>Or you can direct download the docker image neural_de from dockerhub by typing : (<strong>not available yet</strong>)</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">pull</span> <span class="n">neural_de</span>
 </pre></div>
 </div>
-<p>The docker pass the input args of neural de executable through environnement variables.
+<p>The docker pass the input args of neural_de executable through environnement variables.
 The only difference is that corresponding source and target dir shall be mounted in the container sotrage to be acessible
 forlder <code class="docutils literal notranslate"><span class="pre">tmp/in</span></code> and <code class="docutils literal notranslate"><span class="pre">tmp/out</span></code> and <code class="docutils literal notranslate"><span class="pre">/tmp</span></code> folder are used to store source_dir and target_dir and pipeline_config_file in container.</p>
 <p>Thus, to process a directory as source input use the following command</p>
@@ -252,7 +252,7 @@ To see in details the parameters of available transformation see the seciton tec
 </div>
 <section id="detailed-examples-with-notebooks">
 <h3>Detailed examples with notebooks<a class="headerlink" href="#detailed-examples-with-notebooks" title="Link to this heading"></a></h3>
-<p>The neuralDE library provides several methods to preprocess images.
+<p>The neuralde library provides several methods to preprocess images.
 To understand how to use these methods, click on the link to see the following notebooks.</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="examples/Brightness_Enhancered_examples.html"><span class="std std-doc">Brightness_Enhancer</span></a>
@@ -276,7 +276,7 @@ To understand how to use these methods, click on the link to see the following n
 </section>
 <section id="additional-informations">
 <h2>Additional informations<a class="headerlink" href="#additional-informations" title="Link to this heading"></a></h2>
-<p>NeuralDE is an <strong>Image2Image library</strong>, thus it is made to process <strong>images batches</strong>.
+<p>Neuralde is an <strong>Image2Image library</strong>, thus it is made to process <strong>images batches</strong>.
 It is composed of a list of classes called “enhancers”. Each enhancer will have specific options that
 will be defined by the user at object initialisation.</p>
 <p>The process is simple: import the required classes from the library in your code and pass them their specific
