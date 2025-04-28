@@ -12,24 +12,22 @@ jobs:
   push_to_registry:
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
-    environment:
-      name: dockerhub
     steps:
-      - name: Login to Docker Hub
+      - name: Log in to DockerHub
         uses: docker/login-action@v3
         with:
           username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
+        uses: docker/setup-buildx-action@v3
 
       - name: Build and push Docker image
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v5
         with:
           context: .
           push: true
-          tags: neural_de:latest, neural_de:1.1.0
+          tags: irtsystemx/neural_de:latest, irtsystemx/neural_de:1.1.0
