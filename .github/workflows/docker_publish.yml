@@ -30,4 +30,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: irtsystemx/neural_de:latest, irtsystemx/neural_de:1.1.0
+          tags: irtsystemx/neuralde:latest, irtsystemx/neuralde:1.1.0
