@@ -155,13 +155,13 @@ You can build manually the image from the source, by cloning the source reposito
 And from cloned repository source directory type
 
 ```
-docker build . -f dockerfile -t neural_de
+docker build . -f dockerfile -t neuralde
 ```
 
 Or you can direct download the docker image neuralde from dockerhub by typing : 
 
 ```
-docker pull irtsystemx/neural_de:1.1.0
+docker pull irtsystemx/neuralde:1.1.0
 ``` 
 
 The docker pass the input args of neural_de executable through environnement variables.
