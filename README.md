@@ -146,16 +146,16 @@ With this command
 neural_de --input_source_path test_images/snow_test  --output_target_path pipeline_res/snow/snow_pipeline_res --output_prefix "transformed_"    --pipeline_file_path=conf_test_1.yaml 
 ``` 
 
-All images present in subfolder ``` test_images/snow_test```  are is processed through the transformation pipeline defined in ``` user_conf_1.yaml ``` and all results images are stored in directory  ``` pipeline_res/snow/snow_pipeline_res``` 
-with their name preced of prefix "transformed_"
+All images present in subfolder ``` test_images/snow_test```  are processed through the transformation pipeline defined in ``` user_conf_1.yaml ``` and all results images are stored in directory  ``` pipeline_res/snow/snow_pipeline_res``` 
+with their name preceded of prefix "transformed_"
 
 ## Use the docker version
 
-You can build manually the image from the source, by cloning the source repository from this url https://github.com/IRT-SystemX/neuralde
-And from cloned repository source directory type
+You can build manually the image from the source, by cloning the source repository from this url https://github.com/IRT-SystemX/neuralde.
+Then,  from cloned repository source directory type in a terminal :
 
 ```
-docker build . -f dockerfile -t neuralde
+docker build . -f dockerfile -t irtsystemx/neuralde:1.1.0
 ```
 
 Or you can direct download the docker image neuralde from dockerhub by typing : 
@@ -171,20 +171,20 @@ forlder ```tmp/in``` and ```tmp/out``` and ```/tmp``` folder are used to store s
 Thus, to process a directory as source input use the following command
 
 ```
-docker run -e INPUT_SOURCE_PATH=your_dir -e OUTPUT_TARGET_PATH=your_target_dir -e PIPELINE_PATH=path_to_your_config_  -v your_=target_dir:/tmp/in/your_target_dir -v your_config_file:/tmp/your_config_file neural_de
+docker run -e INPUT_SOURCE_PATH=your_dir -e OUTPUT_TARGET_PATH=your_target_dir -e PIPELINE_PATH=path_to_your_config_  -v your_=target_dir:/tmp/in/your_target_dir -v your_config_file:/tmp/your_config_file irtsystemx/neuralde:1.1.0
 ```
 
 For example, if your images to process are in a subfolder named ```test_images/snow_test``` your config file is at path ```conf_test_1.yaml``` and you want that processed images
 to be in output folder ```docker_res2/snow_test```, you will launch the following command :
 
 ```
-docker run -e INPUT_SOURCE_PATH="test_images/snow_test" -e OUTPUT_TARGET_PATH="docker_res" -e PIPELINE_FILE_PATH="conf_test_1.yaml" -v  ${PWD}/conf_test_1.yaml:/tmp/conf_test_1.yaml -v ${PWD}/test_images/snow_test:/tmp/in/test_images/snow_test -v ${PWD}/docker_res_2/snow_test:/tmp/out/docker_res/ neural_de
+docker run -e INPUT_SOURCE_PATH="test_images/snow_test" -e OUTPUT_TARGET_PATH="docker_res" -e PIPELINE_FILE_PATH="conf_test_1.yaml" -v  ${PWD}/conf_test_1.yaml:/tmp/conf_test_1.yaml -v ${PWD}/test_images/snow_test:/tmp/in/test_images/snow_test -v ${PWD}/docker_res_2/snow_test:/tmp/out/docker_res/ irtsystemx/neuralde:1.1.0
 ```
 For example, if your images to process are in a subfolder named ```test_images/snow_test``` and your config file is at path ```conf_test_1.yaml``` and you want that processed images
 to be in output folder ```docker_res2/snow_test```, you will launch the following command :
 
 ```
-docker run -e INPUT_SOURCE_PATH="test_images/test_snow.webp" -e OUTPUT_TARGET_PATH="docker_res/res.png" -e PIPELINE_FILE_PATH="conf_test_1.yaml" -v  ${PWD}/conf_test_1.yaml:/tmp/conf_test_1.yaml -v ${PWD}/test_images/test_snow.webp:/tmp/in/test_images/test_snow.webp -v ${PWD}/docker_res_2/:/tmp/out/docker_res/ neural_de
+docker run -e INPUT_SOURCE_PATH="test_images/test_snow.webp" -e OUTPUT_TARGET_PATH="docker_res/res.png" -e PIPELINE_FILE_PATH="conf_test_1.yaml" -v  ${PWD}/conf_test_1.yaml:/tmp/conf_test_1.yaml -v ${PWD}/test_images/test_snow.webp:/tmp/in/test_images/test_snow.webp -v ${PWD}/docker_res_2/:/tmp/out/docker_res/ irtsystemx/neuralde:1.1.0
 ```
 
 # Define your configuration pipeline
