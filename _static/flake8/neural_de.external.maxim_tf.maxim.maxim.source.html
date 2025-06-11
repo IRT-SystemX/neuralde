@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>neural_de\external\maxim_tf\maxim\maxim.py - flake8 annotated source</title>
+      <meta http-equiv="Content-Type" value="text/html; charset=UTF-8">
+      <link rel="stylesheet" href="styles.css">
+   </head>
+   <body>
+      <div id="masthead" class="sev-1"></div>
+      <div id="page">
+         <h1>
+            <a href="neural_de.external.maxim_tf.maxim.maxim.report.html">
+               <img src="back.svg" alt="&#x2B05;">
+               neural_de\external\maxim_tf\maxim\maxim.py source
+            </a>
+         </h1>
+
+         <div id="doc">
+            <div id="l1"
+               class="code sev- "><tt><i>1</i> <span class="sd">&quot;&quot;&quot;</span></tt>
+            </div>
+            <div id="l2"
+               class="code sev- "><tt><i>2</i> <span class="sd">MAXIM based on https://github.com/google-research/maxim/blob/main/maxim/models/maxim.py</span></tt>
+            </div>
+            <div id="l3"
+               class="code sev- "><tt><i>3</i> <span class="sd">&quot;&quot;&quot;</span></tt>
+            </div>
+            <div id="l4"
+               class="code sev- "><tt><i>4</i> &nbsp;</tt>
+            </div>
+            <div id="l5"
+               class="code sev- "><tt><i>5</i> <span class="kn">import</span><span class="w"> </span><span class="nn">functools</span></tt>
+            </div>
+            <div id="l6"
+               class="code sev- "><tt><i>6</i> &nbsp;</tt>
+            </div>
+            <div id="l7"
+               class="code sev- "><tt><i>7</i> <span class="kn">import</span><span class="w"> </span><span class="nn">tensorflow</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">tf</span></tt>
+            </div>
+            <div id="l8"
+               class="code sev- "><tt><i>8</i> <span class="kn">from</span><span class="w"> </span><span class="nn">tensorflow.keras</span><span class="w"> </span><span class="kn">import</span> <span class="n">backend</span> <span class="k">as</span> <span class="n">K</span></tt>
+            </div>
+            <div id="l9"
+               class="code sev- "><tt><i>9</i> <span class="kn">from</span><span class="w"> </span><span class="nn">tensorflow.keras</span><span class="w"> </span><span class="kn">import</span> <span class="n">layers</span></tt>
+            </div>
+            <div id="l10"
+               class="code sev- "><tt><i>10</i> &nbsp;</tt>
+            </div>
+            <div id="l11"
+               class="code sev- "><tt><i>11</i> <span class="kn">from</span><span class="w"> </span><span class="nn">.blocks.attentions</span><span class="w"> </span><span class="kn">import</span> <span class="n">SAM</span></tt>
+            </div>
+            <div id="l12"
+               class="code sev- "><tt><i>12</i> <span class="kn">from</span><span class="w"> </span><span class="nn">.blocks.bottleneck</span><span class="w"> </span><span class="kn">import</span> <span class="n">BottleneckBlock</span></tt>
+            </div>
+            <div id="l13"
+               class="code sev- "><tt><i>13</i> <span class="kn">from</span><span class="w"> </span><span class="nn">.blocks.misc_gating</span><span class="w"> </span><span class="kn">import</span> <span class="n">CrossGatingBlock</span></tt>
+            </div>
+            <div id="l14"
+               class="code sev- "><tt><i>14</i> <span class="kn">from</span><span class="w"> </span><span class="nn">.blocks.others</span><span class="w"> </span><span class="kn">import</span> <span class="n">UpSampleRatio</span></tt>
+            </div>
+            <div id="l15"
+               class="code sev- "><tt><i>15</i> <span class="kn">from</span><span class="w"> </span><span class="nn">.blocks.unet</span><span class="w"> </span><span class="kn">import</span> <span class="n">UNetDecoderBlock</span><span class="p">,</span> <span class="n">UNetEncoderBlock</span></tt>
+            </div>
+            <div id="l16"
+               class="code sev- "><tt><i>16</i> <span class="kn">from</span><span class="w"> </span><span class="nn">.layers</span><span class="w"> </span><span class="kn">import</span> <span class="n">Resizing</span></tt>
+            </div>
+            <div id="l17"
+               class="code sev- "><tt><i>17</i> &nbsp;</tt>
+            </div>
+            <div id="l18"
+               class="code sev- "><tt><i>18</i> <span class="n">Conv1x1</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;same&quot;</span><span class="p">)</span></tt>
+            </div>
+            <div id="l19"
+               class="code sev- "><tt><i>19</i> <span class="n">Conv3x3</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;same&quot;</span><span class="p">)</span></tt>
+            </div>
+            <div id="l20"
+               class="code sev- "><tt><i>20</i> <span class="n">ConvT_up</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span></tt>
+            </div>
+            <div id="l21"
+               class="code sev- "><tt><i>21</i>     <span class="n">layers</span><span class="o">.</span><span class="n">Conv2DTranspose</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">strides</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;same&quot;</span></tt>
+            </div>
+            <div id="l22"
+               class="code sev- "><tt><i>22</i> <span class="p">)</span></tt>
+            </div>
+            <div id="l23"
+               class="code sev- "><tt><i>23</i> <span class="n">Conv_down</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span></tt>
+            </div>
+            <div id="l24"
+               class="code sev- "><tt><i>24</i>     <span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">strides</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;same&quot;</span></tt>
+            </div>
+            <div id="l25"
+               class="code sev- "><tt><i>25</i> <span class="p">)</span></tt>
+            </div>
+            <div id="l26"
+               class="code sev- "><tt><i>26</i> &nbsp;</tt>
+            </div>
+            <div id="l27"
+               class="code sev- "><tt><i>27</i> &nbsp;</tt>
+            </div>
+            <div id="l28"
+               class="code sev- "><tt><i>28</i> <span class="k">def</span><span class="w"> </span><span class="nf">MAXIM</span><span class="p">(</span></tt>
+            </div>
+            <div id="l29"
+               class="code sev- "><tt><i>29</i>         <span class="n">features</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">64</span><span class="p">,</span></tt>
+            </div>
+            <div id="l30"
+               class="code sev- "><tt><i>30</i>         <span class="n">depth</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span></tt>
+            </div>
+            <div id="l31"
+               class="code sev- "><tt><i>31</i>         <span class="n">num_stages</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span></tt>
+            </div>
+            <div id="l32"
+               class="code sev- "><tt><i>32</i>         <span class="n">num_groups</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span></tt>
+            </div>
+            <div id="l33"
+               class="code sev- "><tt><i>33</i>         <span class="n">use_bias</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span></tt>
+            </div>
+            <div id="l34"
+               class="code sev- "><tt><i>34</i>         <span class="n">num_supervision_scales</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span></tt>
+            </div>
+            <div id="l35"
+               class="code sev- "><tt><i>35</i>         <span class="n">lrelu_slope</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span></tt>
+            </div>
+            <div id="l36"
+               class="code sev- "><tt><i>36</i>         <span class="n">use_global_mlp</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span></tt>
+            </div>
+            <div id="l37"
+               class="code sev- "><tt><i>37</i>         <span class="n">use_cross_gating</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span></tt>
+            </div>
+            <div id="l38"
+               class="code sev- "><tt><i>38</i>         <span class="n">high_res_stages</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span></tt>
+            </div>
+            <div id="l39"
+               class="code sev- "><tt><i>39</i>         <span class="n">block_size_hr</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span></tt>
+            </div>
+            <div id="l40"
+               class="code sev- "><tt><i>40</i>         <span class="n">block_size_lr</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span></tt>
+            </div>
+            <div id="l41"
+               class="code sev- "><tt><i>41</i>         <span class="n">grid_size_hr</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span></tt>
+            </div>
+            <div id="l42"
+               class="code sev- "><tt><i>42</i>         <span class="n">grid_size_lr</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span></tt>
+            </div>
+            <div id="l43"
+               class="code sev- "><tt><i>43</i>         <span class="n">num_bottleneck_blocks</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span></tt>
+            </div>
+            <div id="l44"
+               class="code sev- "><tt><i>44</i>         <span class="n">block_gmlp_factor</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span></tt>
+            </div>
+            <div id="l45"
+               class="code sev- "><tt><i>45</i>         <span class="n">grid_gmlp_factor</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span></tt>
+            </div>
+            <div id="l46"
+               class="code sev- "><tt><i>46</i>         <span class="n">input_proj_factor</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span></tt>
+            </div>
+            <div id="l47"
+               class="code sev- "><tt><i>47</i>         <span class="n">channels_reduction</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span></tt>
+            </div>
+            <div id="l48"
+               class="code sev- "><tt><i>48</i>         <span class="n">num_outputs</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span></tt>
+            </div>
+            <div id="l49"
+               class="code sev- "><tt><i>49</i>         <span class="n">dropout_rate</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span></tt>
+            </div>
+            <div id="l50"
+               class="code sev- "><tt><i>50</i> <span class="p">):</span></tt>
+            </div>
+            <div id="l51"
+               class="code sev- "><tt><i>51</i> <span class="w">    </span><span class="sd">&quot;&quot;&quot;The MAXIM model function with multi-stage and multi-scale supervision.</span></tt>
+            </div>
+            <div id="l52"
+               class="code sev- "><tt><i>52</i> &nbsp;</tt>
+            </div>
+            <div id="l53"
+               class="code sev- "><tt><i>53</i> <span class="sd">    For more model details, please check the CVPR paper:</span></tt>
+            </div>
+            <div id="l54"
+               class="code sev- "><tt><i>54</i> <span class="sd">    MAXIM: MUlti-Axis MLP for Image Processing (https://arxiv.org/abs/2201.02973)</span></tt>
+            </div>
+            <div id="l55"
+               class="code sev- "><tt><i>55</i> &nbsp;</tt>
+            </div>
+            <div id="l56"
+               class="code sev- "><tt><i>56</i> <span class="sd">    Attributes:</span></tt>
+            </div>
+            <div id="l57"
+               class="code sev- "><tt><i>57</i> <span class="sd">      features: initial hidden dimension for the input resolution.</span></tt>
+            </div>
+            <div id="l58"
+               class="code sev- "><tt><i>58</i> <span class="sd">      depth: the number of downsampling depth for the model.</span></tt>
+            </div>
+            <div id="l59"
+               class="code sev- "><tt><i>59</i> <span class="sd">      num_stages: how many stages to use. It will also affects the output list.</span></tt>
+            </div>
+            <div id="l60"
+               class="code sev- "><tt><i>60</i> <span class="sd">      num_groups: how many blocks each stage contains.</span></tt>
+            </div>
+            <div id="l61"
+               class="code sev- "><tt><i>61</i> <span class="sd">      use_bias: whether to use bias in all the conv/mlp layers.</span></tt>
+            </div>
+            <div id="l62"
+               class="code sev- "><tt><i>62</i> <span class="sd">      num_supervision_scales: the number of desired supervision scales.</span></tt>
+            </div>
+            <div id="l63"
+               class="code sev- "><tt><i>63</i> <span class="sd">      lrelu_slope: the negative slope parameter in leaky_relu layers.</span></tt>
+            </div>
+            <div id="l64"
+               class="code sev- "><tt><i>64</i> <span class="sd">      use_global_mlp: whether to use the multi-axis gated MLP block (MAB) in each</span></tt>
+            </div>
+            <div id="l65"
+               class="code sev- "><tt><i>65</i> <span class="sd">        layer.</span></tt>
+            </div>
+            <div id="l66"
+               class="code sev- "><tt><i>66</i> <span class="sd">      use_cross_gating: whether to use the cross-gating MLP block (CGB) in the</span></tt>
+            </div>
+            <div id="l67"
+               class="code sev- "><tt><i>67</i> <span class="sd">        skip connections and multi-stage feature fusion layers.</span></tt>
+            </div>
+            <div id="l68"
+               class="code sev- "><tt><i>68</i> <span class="sd">      high_res_stages: how many stages are specificied as high-res stages. The</span></tt>
+            </div>
+            <div id="l69"
+               class="code sev- "><tt><i>69</i> <span class="sd">        rest (depth - high_res_stages) are called low_res_stages.</span></tt>
+            </div>
+            <div id="l70"
+               class="code sev- "><tt><i>70</i> <span class="sd">      block_size_hr: the block_size parameter for high-res stages.</span></tt>
+            </div>
+            <div id="l71"
+               class="code sev- "><tt><i>71</i> <span class="sd">      block_size_lr: the block_size parameter for low-res stages.</span></tt>
+            </div>
+            <div id="l72"
+               class="code sev- "><tt><i>72</i> <span class="sd">      grid_size_hr: the grid_size parameter for high-res stages.</span></tt>
+            </div>
+            <div id="l73"
+               class="code sev- "><tt><i>73</i> <span class="sd">      grid_size_lr: the grid_size parameter for low-res stages.</span></tt>
+            </div>
+            <div id="l74"
+               class="code sev- "><tt><i>74</i> <span class="sd">      num_bottleneck_blocks: how many bottleneck blocks.</span></tt>
+            </div>
+            <div id="l75"
+               class="code sev- "><tt><i>75</i> <span class="sd">      block_gmlp_factor: the input projection factor for block_gMLP layers.</span></tt>
+            </div>
+            <div id="l76"
+               class="code sev- "><tt><i>76</i> <span class="sd">      grid_gmlp_factor: the input projection factor for grid_gMLP layers.</span></tt>
+            </div>
+            <div id="l77"
+               class="code sev- "><tt><i>77</i> <span class="sd">      input_proj_factor: the input projection factor for the MAB block.</span></tt>
+            </div>
+            <div id="l78"
+               class="code sev- "><tt><i>78</i> <span class="sd">      channels_reduction: the channel reduction factor for SE layer.</span></tt>
+            </div>
+            <div id="l79"
+               class="code sev- "><tt><i>79</i> <span class="sd">      num_outputs: the output channels.</span></tt>
+            </div>
+            <div id="l80"
+               class="code sev- "><tt><i>80</i> <span class="sd">      dropout_rate: Dropout rate.</span></tt>
+            </div>
+            <div id="l81"
+               class="code sev- "><tt><i>81</i> &nbsp;</tt>
+            </div>
+            <div id="l82"
+               class="code sev- "><tt><i>82</i> <span class="sd">    Returns:</span></tt>
+            </div>
+            <div id="l83"
+               class="code sev- "><tt><i>83</i> <span class="sd">      The output contains a list of arrays consisting of multi-stage multi-scale</span></tt>
+            </div>
+            <div id="l84"
+               class="code sev- "><tt><i>84</i> <span class="sd">      outputs. For example, if num_stages = num_supervision_scales = 3 (the</span></tt>
+            </div>
+            <div id="l85"
+               class="code sev- "><tt><i>85</i> <span class="sd">      model used in the paper), the output specs are: outputs =</span></tt>
+            </div>
+            <div id="l86"
+               class="code sev- "><tt><i>86</i> <span class="sd">      [[output_stage1_scale1, output_stage1_scale2, output_stage1_scale3],</span></tt>
+            </div>
+            <div id="l87"
+               class="code sev- "><tt><i>87</i> <span class="sd">       [output_stage2_scale1, output_stage2_scale2, output_stage2_scale3],</span></tt>
+            </div>
+            <div id="l88"
+               class="code sev- "><tt><i>88</i> <span class="sd">       [output_stage3_scale1, output_stage3_scale2, output_stage3_scale3],]</span></tt>
+            </div>
+            <div id="l89"
+               class="code sev- "><tt><i>89</i> <span class="sd">      The final output can be retrieved by outputs[-1][-1].</span></tt>
+            </div>
+            <div id="l90"
+               class="code sev- "><tt><i>90</i> <span class="sd">    &quot;&quot;&quot;</span></tt>
+            </div>
+            <div id="l91"
+               class="code sev- "><tt><i>91</i> &nbsp;</tt>
+            </div>
+            <div id="l92"
+               class="code sev- "><tt><i>92</i>     <span class="k">def</span><span class="w"> </span><span class="nf">apply</span><span class="p">(</span><span class="n">x</span><span class="p">):</span></tt>
+            </div>
+            <div id="l93"
+               class="code sev-1  le">
+               <ul class="violations">
+               
+                  <li>
+                     <span class="count sev-1">
+                        F841
+                     </span>
+                     Local variable 'n' is assigned to but never used</li>
+               
+                  <li>
+                     <span class="count sev-1">
+                        F841
+                     </span>
+                     Local variable 'c' is assigned to but never used</li>
+               
+               </ul><tt><i>93</i>         <span class="n">n</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="p">(</span></tt>
+            </div>
+            <div id="l94"
+               class="code sev- "><tt><i>94</i>             <span class="n">K</span><span class="o">.</span><span class="n">int_shape</span><span class="p">(</span><span class="n">x</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span></tt>
+            </div>
+            <div id="l95"
+               class="code sev- "><tt><i>95</i>             <span class="n">K</span><span class="o">.</span><span class="n">int_shape</span><span class="p">(</span><span class="n">x</span><span class="p">)[</span><span class="mi">1</span><span class="p">],</span></tt>
+            </div>
+            <div id="l96"
+               class="code sev- "><tt><i>96</i>             <span class="n">K</span><span class="o">.</span><span class="n">int_shape</span><span class="p">(</span><span class="n">x</span><span class="p">)[</span><span class="mi">2</span><span class="p">],</span></tt>
+            </div>
+            <div id="l97"
+               class="code sev- "><tt><i>97</i>             <span class="n">K</span><span class="o">.</span><span class="n">int_shape</span><span class="p">(</span><span class="n">x</span><span class="p">)[</span><span class="mi">3</span><span class="p">],</span></tt>
+            </div>
+            <div id="l98"
+               class="code sev- "><tt><i>98</i>         <span class="p">)</span>  <span class="c1"># input image target_shape</span></tt>
+            </div>
+            <div id="l99"
+               class="code sev- "><tt><i>99</i> &nbsp;</tt>
+            </div>
+            <div id="l100"
+               class="code sev- "><tt><i>100</i>         <span class="n">shortcuts</span> <span class="o">=</span> <span class="p">[]</span></tt>
+            </div>
+            <div id="l101"
+               class="code sev- "><tt><i>101</i>         <span class="n">shortcuts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span></tt>
+            </div>
+            <div id="l102"
+               class="code sev- "><tt><i>102</i> &nbsp;</tt>
+            </div>
+            <div id="l103"
+               class="code sev- "><tt><i>103</i>         <span class="c1"># Get multi-scale input images</span></tt>
+            </div>
+            <div id="l104"
+               class="code sev- "><tt><i>104</i>         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_supervision_scales</span><span class="p">):</span></tt>
+            </div>
+            <div id="l105"
+               class="code sev- "><tt><i>105</i>             <span class="n">resizing_layer</span> <span class="o">=</span> <span class="n">Resizing</span><span class="p">(</span></tt>
+            </div>
+            <div id="l106"
+               class="code sev- "><tt><i>106</i>                 <span class="n">height</span><span class="o">=</span><span class="n">h</span> <span class="o">//</span> <span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="n">i</span><span class="p">),</span></tt>
+            </div>
+            <div id="l107"
+               class="code sev- "><tt><i>107</i>                 <span class="n">width</span><span class="o">=</span><span class="n">w</span> <span class="o">//</span> <span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="n">i</span><span class="p">),</span></tt>
+            </div>
+            <div id="l108"
+               class="code sev- "><tt><i>108</i>                 <span class="n">method</span><span class="o">=</span><span class="s2">&quot;nearest&quot;</span><span class="p">,</span></tt>
+            </div>
+            <div id="l109"
+               class="code sev- "><tt><i>109</i>                 <span class="n">antialias</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># Following `jax.image.resize()`.</span></tt>
+            </div>
+            <div id="l110"
+               class="code sev- "><tt><i>110</i>                 <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;initial_resizing_</span><span class="si">{</span><span class="n">K</span><span class="o">.</span><span class="n">get_uid</span><span class="p">(</span><span class="s1">&#39;Resizing&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span></tt>
+            </div>
+            <div id="l111"
+               class="code sev- "><tt><i>111</i>             <span class="p">)</span></tt>
+            </div>
+            <div id="l112"
+               class="code sev- "><tt><i>112</i>             <span class="n">shortcuts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">resizing_layer</span><span class="p">(</span><span class="n">x</span><span class="p">))</span></tt>
+            </div>
+            <div id="l113"
+               class="code sev- "><tt><i>113</i> &nbsp;</tt>
+            </div>
+            <div id="l114"
+               class="code sev- "><tt><i>114</i>         <span class="c1"># store outputs from all stages and all scales</span></tt>
+            </div>
+            <div id="l115"
+               class="code sev- "><tt><i>115</i>         <span class="c1"># Eg, [[(64, 64, 3), (128, 128, 3), (256, 256, 3)],   # Stage-1 outputs</span></tt>
+            </div>
+            <div id="l116"
+               class="code sev- "><tt><i>116</i>         <span class="c1">#      [(64, 64, 3), (128, 128, 3), (256, 256, 3)],]  # Stage-2 outputs</span></tt>
+            </div>
+            <div id="l117"
+               class="code sev- "><tt><i>117</i>         <span class="n">outputs_all</span> <span class="o">=</span> <span class="p">[]</span></tt>
+            </div>
+            <div id="l118"
+               class="code sev- "><tt><i>118</i>         <span class="n">sam_features</span><span class="p">,</span> <span class="n">encs_prev</span><span class="p">,</span> <span class="n">decs_prev</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span></tt>
+            </div>
+            <div id="l119"
+               class="code sev- "><tt><i>119</i> &nbsp;</tt>
+            </div>
+            <div id="l120"
+               class="code sev- "><tt><i>120</i>         <span class="k">for</span> <span class="n">idx_stage</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_stages</span><span class="p">):</span></tt>
+            </div>
+            <div id="l121"
+               class="code sev- "><tt><i>121</i>             <span class="c1"># Input convolution, get multi-scale input features</span></tt>
+            </div>
+            <div id="l122"
+               class="code sev- "><tt><i>122</i>             <span class="n">x_scales</span> <span class="o">=</span> <span class="p">[]</span></tt>
+            </div>
+            <div id="l123"
+               class="code sev- "><tt><i>123</i>             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_supervision_scales</span><span class="p">):</span></tt>
+            </div>
+            <div id="l124"
+               class="code sev- "><tt><i>124</i>                 <span class="n">x_scale</span> <span class="o">=</span> <span class="n">Conv3x3</span><span class="p">(</span></tt>
+            </div>
+            <div id="l125"
+               class="code sev- "><tt><i>125</i>                     <span class="n">filters</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="n">i</span><span class="p">)</span> <span class="o">*</span> <span class="n">features</span><span class="p">,</span></tt>
+            </div>
+            <div id="l126"
+               class="code sev- "><tt><i>126</i>                     <span class="n">use_bias</span><span class="o">=</span><span class="n">use_bias</span><span class="p">,</span></tt>
+            </div>
+            <div id="l127"
+               class="code sev- "><tt><i>127</i>                     <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;stage_</span><span class="si">{</span><span class="n">idx_stage</span><span class="si">}</span><span class="s2">_input_conv_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span></tt>
+            </div>
+            <div id="l128"
+               class="code sev- "><tt><i>128</i>                 <span class="p">)(</span><span class="n">shortcuts</span><span class="p">[</span><span class="n">i</span><span class="p">])</span></tt>
+            </div>
+            <div id="l129"
+               class="code sev- "><tt><i>129</i> &nbsp;</tt>
+            </div>
+            <div id="l130"
+               class="code sev- "><tt><i>130</i>                 <span class="c1"># If later stages, fuse input features with SAM features from prev stage</span></tt>
+            </div>
+            <div id="l131"
+               class="code sev- "><tt><i>131</i>                 <span class="k">if</span> <span class="n">idx_stage</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span></tt>
+            </div>
+            <div id="l132"
+               class="code sev- "><tt><i>132</i>                     <span class="c1"># use larger blocksize at high-res stages</span></tt>
+            </div>
+            <div id="l133"
+               class="code sev- "><tt><i>133</i>                     <span class="k">if</span> <span class="n">use_cross_gating</span><span class="p">:</span></tt>
+            </div>
+            <div id="l134"
+               class="code sev- "><tt><i>134</i>                         <span class="n">block_size</span> <span class="o">=</span> <span class="p">(</span></tt>
+            </div>
+            <div id="l135"
+               class="code sev- "><tt><i>135</i>                             <span class="n">block_size_hr</span> <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">high_res_stages</span> <span class="k">else</span> <span class="n">block_size_lr</span></tt>
+            </div>
+            <div id="l136"
+               class="code sev- "><tt><i>136</i>                         <span class="p">)</span></tt>
+            </div>
+            <div id="l137"
+               class="code sev- "><tt><i>137</i>                         <span class="n">grid_size</span> <span class="o">=</span> <span class="n">grid_size_hr</span> <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">high_res_stages</span> <span class="k">else</span> <span class="n">block_size_lr</span></tt>
+            </div>
+            <div id="l138"
+               class="code sev- "><tt><i>138</i>                         <span class="n">x_scale</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">CrossGatingBlock</span><span class="p">(</span></tt>
+            </div>
+            <div id="l139"
+               class="code sev- "><tt><i>139</i>                             <span class="n">features</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="n">i</span><span class="p">)</span> <span class="o">*</span> <span class="n">features</span><span class="p">,</span></tt>
+            </div>
+            <div id="l140"
+               class="code sev- "><tt><i>140</i>                             <span class="n">block_size</span><span class="o">=</span><span class="n">block_size</span><span class="p">,</span></tt>
+            </div>
+            <div id="l141"
+               class="code sev- "><tt><i>141</i>                             <span class="n">grid_size</span><span class="o">=</span><span class="n">grid_size</span><span class="p">,</span></tt>
+            </div>
+            <div id="l142"
+               class="code sev- "><tt><i>142</i>                             <span class="n">dropout_rate</span><span class="o">=</span><span class="n">dropout_rate</span><span class="p">,</span></tt>
+            </div>
+            <div id="l143"
+               class="code sev- "><tt><i>143</i>                             <span class="n">input_proj_factor</span><span class="o">=</span><span class="n">input_proj_factor</span><span class="p">,</span></tt>
+            </div>
+            <div id="l144"
+               class="code sev- "><tt><i>144</i>                             <span class="n">upsample_y</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span></tt>
+            </div>
+            <div id="l145"
+               class="code sev- "><tt><i>145</i>                             <span class="n">use_bias</span><span class="o">=</span><span class="n">use_bias</span><span class="p">,</span></tt>
+            </div>
+            <div id="l146"
+               class="code sev- "><tt><i>146</i>                             <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;stage_</span><span class="si">{</span><span class="n">idx_stage</span><span class="si">}</span><span class="s2">_input_fuse_sam_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span></tt>
+            </div>
+            <div id="l147"
+               class="code sev- "><tt><i>147</i>                         <span class="p">)(</span><span class="n">x_scale</span><span class="p">,</span> <span class="n">sam_features</span><span class="o">.</span><span class="n">pop</span><span class="p">())</span></tt>
+            </div>
+            <div id="l148"
+               class="code sev- "><tt><i>148</i>                     <span class="k">else</span><span class="p">:</span></tt>
+            </div>
+            <div id="l149"
+               class="code sev- "><tt><i>149</i>                         <span class="n">x_scale</span> <span class="o">=</span> <span class="n">Conv1x1</span><span class="p">(</span></tt>
+            </div>
+            <div id="l150"
+               class="code sev- "><tt><i>150</i>                             <span class="n">filters</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="n">i</span><span class="p">)</span> <span class="o">*</span> <span class="n">features</span><span class="p">,</span></tt>
+            </div>
+            <div id="l151"
+               class="code sev- "><tt><i>151</i>                             <span class="n">use_bias</span><span class="o">=</span><span class="n">use_bias</span><span class="p">,</span></tt>
+            </div>
+            <div id="l152"
+               class="code sev- "><tt><i>152</i>                             <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;stage_</span><span class="si">{</span><span class="n">idx_stage</span><span class="si">}</span><span class="s2">_input_catconv_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span></tt>
+            </div>
+            <div id="l153"
+               class="code sev- "><tt><i>153</i>                         <span class="p">)(</span><span class="n">tf</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">x_scale</span><span class="p">,</span> <span class="n">sam_features</span><span class="o">.</span><span class="n">pop</span><span class="p">()],</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">))</span></tt>
+            </div>
+            <div id="l154"
+               class="code sev- "><tt><i>154</i> &nbsp;</tt>
+            </div>
+            <div id="l155"
+               class="code sev- "><tt><i>155</i>                 <span class="n">x_scales</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x_scale</span><span class="p">)</span></tt>
+            </div>
+            <div id="l156"
+               class="code sev- "><tt><i>156</i> &nbsp;</tt>
+            </div>
+            <div id="l157"
+               class="code sev- "><tt><i>157</i>             <span class="c1"># start encoder blocks</span></tt>
+            </div>
+            <div id="l158"
+               class="code sev- "><tt><i>158</i>             <span class="n">encs</span> <span class="o">=</span> <span class="p">[]</span></tt>
+            </div>
+            <div id="l159"
+               class="code sev- "><tt><i>159</i>             <span class="n">x</span> <span class="o">=</span> <span class="n">x_scales</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># First full-scale input feature</span></tt>
+            </div>
+            <div id="l160"
+               class="code sev- "><tt><i>160</i> &nbsp;</tt>
+            </div>
+            <div id="l161"
+               class="code sev- "><tt><i>161</i>             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">depth</span><span class="p">):</span>  <span class="c1"># 0, 1, 2</span></tt>
+            </div>
+            <div id="l162"
+               class="code sev- "><tt><i>162</i>                 <span class="c1"># use larger blocksize at high-res stages, vice versa.</span></tt>
+            </div>
+            <div id="l163"
+               class="code sev- "><tt><i>163</i>                 <span class="n">block_size</span> <span class="o">=</span> <span class="n">block_size_hr</span> <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">high_res_stages</span> <span class="k">else</span> <span class="n">block_size_lr</span></tt>
+            </div>
+            <div id="l164"
+               class="code sev- "><tt><i>164</i>                 <span class="n">grid_size</span> <span class="o">=</span> <span class="n">grid_size_hr</span> <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">high_res_stages</span> <span class="k">else</span> <span class="n">block_size_lr</span></tt>
+            </div>
+            <div id="l165"
+               class="code sev- "><tt><i>165</i>                 <span class="n">use_cross_gating_layer</span> <span class="o">=</span> <span class="kc">True</span> <span class="k">if</span> <span class="n">idx_stage</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="kc">False</span></tt>
+            </div>
+            <div id="l166"
+               class="code sev- "><tt><i>166</i> &nbsp;</tt>
+            </div>
+            <div id="l167"
+               class="code sev- "><tt><i>167</i>                 <span class="c1"># Multi-scale input if multi-scale supervision</span></tt>
+            </div>
+            <div id="l168"
+               class="code sev- "><tt><i>168</i>                 <span class="n">x_scale</span> <span class="o">=</span> <span class="n">x_scales</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">num_supervision_scales</span> <span class="k">else</span> <span class="kc">None</span></tt>
+            </div>
+            <div id="l169"
+               class="code sev- "><tt><i>169</i> &nbsp;</tt>
+            </div>
+            <div id="l170"
+               class="code sev- "><tt><i>170</i>                 <span class="c1"># UNet Encoder block</span></tt>
+            </div>
+            <div id="l171"
+               class="code sev- "><tt><i>171</i>                 <span class="n">enc_prev</span> <span class="o">=</span> <span class="n">encs_prev</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span> <span class="k">if</span> <span class="n">idx_stage</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="kc">None</span></tt>
+            </div>
+            <div id="l172"
+               class="code sev- "><tt><i>172</i>                 <span class="n">dec_prev</span> <span class="o">=</span> <span class="n">decs_prev</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span> <span class="k">if</span> <span class="n">idx_stage</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="kc">None</span></tt>
+            </div>
+            <div id="l173"
+               class="code sev- "><tt><i>173</i> &nbsp;</tt>
+            </div>
+            <div id="l174"
+               class="code sev- "><tt><i>174</i>                 <span class="n">x</span><span class="p">,</span> <span class="n">bridge</span> <span class="o">=</span> <span class="n">UNetEncoderBlock</span><span class="p">(</span></tt>
+            </div>
+            <div id="l175"
+               class="code sev- "><tt><i>175</i>                     <span class="n">num_channels</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="n">i</span><span class="p">)</span> <span class="o">*</span> <span class="n">features</span><span class="p">,</span></tt>
+            </div>
+            <div id="l176"
+               class="code sev- "><tt><i>176</i>                     <span class="n">num_groups</span><span class="o">=</span><span class="n">num_groups</span><span class="p">,</span></tt>
+            </div>
+            <div id="l177"
+               class="code sev- "><tt><i>177</i>                     <span class="n">downsample</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span></tt>
+            </div>
+            <div id="l178"
+               class="code sev- "><tt><i>178</i>                     <span class="n">lrelu_slope</span><span class="o">=</span><span class="n">lrelu_slope</span><span class="p">,</span></tt>
+            </div>
+            <div id="l179"
+               class="code sev- "><tt><i>179</i>                     <span class="n">block_size</span><span class="o">=</span><span class="n">block_size</span><span class="p">,</span></tt>
+            </div>
+            <div id="l180"
+               class="code sev- "><tt><i>180</i>                     <span class="n">grid_size</span><span class="o">=</span><span class="n">grid_size</span><span class="p">,</span></tt>
+            </div>
+            <div id="l181"
+               class="code sev- "><tt><i>181</i>                     <span class="n">block_gmlp_factor</span><span class="o">=</span><span class="n">block_gmlp_factor</span><span class="p">,</span></tt>
+            </div>
+            <div id="l182"
+               class="code sev- "><tt><i>182</i>                     <span class="n">grid_gmlp_factor</span><span class="o">=</span><span class="n">grid_gmlp_factor</span><span class="p">,</span></tt>
+            </div>
+            <div id="l183"
+               class="code sev- "><tt><i>183</i>                     <span class="n">input_proj_factor</span><span class="o">=</span><span class="n">input_proj_factor</span><span class="p">,</span></tt>
+            </div>
+            <div id="l184"
+               class="code sev- "><tt><i>184</i>                     <span class="n">channels_reduction</span><span class="o">=</span><span class="n">channels_reduction</span><span class="p">,</span></tt>
+            </div>
+            <div id="l185"
+               class="code sev- "><tt><i>185</i>                     <span class="n">use_global_mlp</span><span class="o">=</span><span class="n">use_global_mlp</span><span class="p">,</span></tt>
+            </div>
+            <div id="l186"
+               class="code sev- "><tt><i>186</i>                     <span class="n">dropout_rate</span><span class="o">=</span><span class="n">dropout_rate</span><span class="p">,</span></tt>
+            </div>
+            <div id="l187"
+               class="code sev- "><tt><i>187</i>                     <span class="n">use_bias</span><span class="o">=</span><span class="n">use_bias</span><span class="p">,</span></tt>
+            </div>
+            <div id="l188"
+               class="code sev- "><tt><i>188</i>                     <span class="n">use_cross_gating</span><span class="o">=</span><span class="n">use_cross_gating_layer</span><span class="p">,</span></tt>
+            </div>
+            <div id="l189"
+               class="code sev- "><tt><i>189</i>                     <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;stage_</span><span class="si">{</span><span class="n">idx_stage</span><span class="si">}</span><span class="s2">_encoder_block_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span></tt>
+            </div>
+            <div id="l190"
+               class="code sev- "><tt><i>190</i>                 <span class="p">)(</span><span class="n">x</span><span class="p">,</span> <span class="n">skip</span><span class="o">=</span><span class="n">x_scale</span><span class="p">,</span> <span class="n">enc</span><span class="o">=</span><span class="n">enc_prev</span><span class="p">,</span> <span class="n">dec</span><span class="o">=</span><span class="n">dec_prev</span><span class="p">)</span></tt>
+            </div>
+            <div id="l191"
+               class="code sev- "><tt><i>191</i> &nbsp;</tt>
+            </div>
+            <div id="l192"
+               class="code sev- "><tt><i>192</i>                 <span class="c1"># Cache skip signals</span></tt>
+            </div>
+            <div id="l193"
+               class="code sev- "><tt><i>193</i>                 <span class="n">encs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bridge</span><span class="p">)</span></tt>
+            </div>
+            <div id="l194"
+               class="code sev- "><tt><i>194</i> &nbsp;</tt>
+            </div>
+            <div id="l195"
+               class="code sev- "><tt><i>195</i>             <span class="c1"># Global MLP bottleneck blocks</span></tt>
+            </div>
+            <div id="l196"
+               class="code sev- "><tt><i>196</i>             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_bottleneck_blocks</span><span class="p">):</span></tt>
+            </div>
+            <div id="l197"
+               class="code sev- "><tt><i>197</i>                 <span class="n">x</span> <span class="o">=</span> <span class="n">BottleneckBlock</span><span class="p">(</span></tt>
+            </div>
+            <div id="l198"
+               class="code sev- "><tt><i>198</i>                     <span class="n">block_size</span><span class="o">=</span><span class="n">block_size_lr</span><span class="p">,</span></tt>
+            </div>
+            <div id="l199"
+               class="code sev- "><tt><i>199</i>                     <span class="n">grid_size</span><span class="o">=</span><span class="n">block_size_lr</span><span class="p">,</span></tt>
+            </div>
+            <div id="l200"
+               class="code sev- "><tt><i>200</i>                     <span class="n">features</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="p">(</span><span class="n">depth</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">*</span> <span class="n">features</span><span class="p">,</span></tt>
+            </div>
+            <div id="l201"
+               class="code sev- "><tt><i>201</i>                     <span class="n">num_groups</span><span class="o">=</span><span class="n">num_groups</span><span class="p">,</span></tt>
+            </div>
+            <div id="l202"
+               class="code sev- "><tt><i>202</i>                     <span class="n">block_gmlp_factor</span><span class="o">=</span><span class="n">block_gmlp_factor</span><span class="p">,</span></tt>
+            </div>
+            <div id="l203"
+               class="code sev- "><tt><i>203</i>                     <span class="n">grid_gmlp_factor</span><span class="o">=</span><span class="n">grid_gmlp_factor</span><span class="p">,</span></tt>
+            </div>
+            <div id="l204"
+               class="code sev- "><tt><i>204</i>                     <span class="n">input_proj_factor</span><span class="o">=</span><span class="n">input_proj_factor</span><span class="p">,</span></tt>
+            </div>
+            <div id="l205"
+               class="code sev- "><tt><i>205</i>                     <span class="n">dropout_rate</span><span class="o">=</span><span class="n">dropout_rate</span><span class="p">,</span></tt>
+            </div>
+            <div id="l206"
+               class="code sev- "><tt><i>206</i>                     <span class="n">use_bias</span><span class="o">=</span><span class="n">use_bias</span><span class="p">,</span></tt>
+            </div>
+            <div id="l207"
+               class="code sev- "><tt><i>207</i>                     <span class="n">channels_reduction</span><span class="o">=</span><span class="n">channels_reduction</span><span class="p">,</span></tt>
+            </div>
+            <div id="l208"
+               class="code sev- "><tt><i>208</i>                     <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;stage_</span><span class="si">{</span><span class="n">idx_stage</span><span class="si">}</span><span class="s2">_global_block_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span></tt>
+            </div>
+            <div id="l209"
+               class="code sev- "><tt><i>209</i>                 <span class="p">)(</span><span class="n">x</span><span class="p">)</span></tt>
+            </div>
+            <div id="l210"
+               class="code sev- "><tt><i>210</i>             <span class="c1"># cache global feature for cross-gating</span></tt>
+            </div>
+            <div id="l211"
+               class="code sev- "><tt><i>211</i>             <span class="n">global_feature</span> <span class="o">=</span> <span class="n">x</span></tt>
+            </div>
+            <div id="l212"
+               class="code sev- "><tt><i>212</i> &nbsp;</tt>
+            </div>
+            <div id="l213"
+               class="code sev- "><tt><i>213</i>             <span class="c1"># start cross gating. Use multi-scale feature fusion</span></tt>
+            </div>
+            <div id="l214"
+               class="code sev- "><tt><i>214</i>             <span class="n">skip_features</span> <span class="o">=</span> <span class="p">[]</span></tt>
+            </div>
+            <div id="l215"
+               class="code sev- "><tt><i>215</i>             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">depth</span><span class="p">)):</span>  <span class="c1"># 2, 1, 0</span></tt>
+            </div>
+            <div id="l216"
+               class="code sev- "><tt><i>216</i>                 <span class="c1"># use larger blocksize at high-res stages</span></tt>
+            </div>
+            <div id="l217"
+               class="code sev- "><tt><i>217</i>                 <span class="n">block_size</span> <span class="o">=</span> <span class="n">block_size_hr</span> <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">high_res_stages</span> <span class="k">else</span> <span class="n">block_size_lr</span></tt>
+            </div>
+            <div id="l218"
+               class="code sev- "><tt><i>218</i>                 <span class="n">grid_size</span> <span class="o">=</span> <span class="n">grid_size_hr</span> <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">high_res_stages</span> <span class="k">else</span> <span class="n">block_size_lr</span></tt>
+            </div>
+            <div id="l219"
+               class="code sev- "><tt><i>219</i> &nbsp;</tt>
+            </div>
+            <div id="l220"
+               class="code sev- "><tt><i>220</i>                 <span class="c1"># get additional multi-scale signals</span></tt>
+            </div>
+            <div id="l221"
+               class="code sev- "><tt><i>221</i>                 <span class="n">signal</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span></tt>
+            </div>
+            <div id="l222"
+               class="code sev- "><tt><i>222</i>                     <span class="p">[</span></tt>
+            </div>
+            <div id="l223"
+               class="code sev- "><tt><i>223</i>                         <span class="n">UpSampleRatio</span><span class="p">(</span></tt>
+            </div>
+            <div id="l224"
+               class="code sev- "><tt><i>224</i>                             <span class="n">num_channels</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="n">i</span><span class="p">)</span> <span class="o">*</span> <span class="n">features</span><span class="p">,</span></tt>
+            </div>
+            <div id="l225"
+               class="code sev- "><tt><i>225</i>                             <span class="n">ratio</span><span class="o">=</span><span class="mi">2</span> <span class="o">**</span> <span class="p">(</span><span class="n">j</span> <span class="o">-</span> <span class="n">i</span><span class="p">),</span></tt>
+            </div>
+            <div id="l226"
+               class="code sev- "><tt><i>226</i>                             <span class="n">use_bias</span><span class="o">=</span><span class="n">use_bias</span><span class="p">,</span></tt>
+            </div>
+            <div id="l227"
+               class="code sev- "><tt><i>227</i>                             <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;UpSampleRatio_</span><span class="si">{</span><span class="n">K</span><span class="o">.</span><span class="n">get_uid</span><span class="p">(</span><span class="s1">&#39;UpSampleRatio&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span></tt>
+            </div>
+            <div id="l228"
+               class="code sev- "><tt><i>228</i>                         <span class="p">)(</span><span class="n">enc</span><span class="p">)</span></tt>
+            </div>
+            <div id="l229"
+               class="code sev- "><tt><i>229</i>                         <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">enc</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">encs</span><span class="p">)</span></tt>
+            </div>
+            <div id="l230"
+               class="code sev- "><tt><i>230</i>                     <span class="p">],</span></tt>
+            </div>
+            <div id="l231"
+               class="code sev- "><tt><i>231</i>                     <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span></tt>
+            </div>
+            <div id="l232"
+               class="code sev- "><tt><i>232</i>                 <span class="p">)</span></tt>
+            </div>
+            <div id="l233"
+               class="code sev- "><tt><i>233</i> &nbsp;</tt>
+            </div>
+            <div id="l234"
+               class="code sev- "><tt><i>234</i>                 <span class="c1"># Use cross-gating to cross modulate features</span></tt>
+            </div>
+            <div id="l235"
+               class="code sev- "><tt><i>235</i>                 <span class="k">if</span> <span class="n">use_cross_gating</span><span class="p">:</span></tt>
+            </div>
+            <div id="l236"
+               class="code sev- "><tt><i>236</i>                     <span class="n">skips</span><span class="p">,</span> <span class="n">global_feature</span> <span class="o">=</span> <span class="n">CrossGatingBlock</span><span class="p">(</span></tt>
+            </div>
+            <div id="l237"
+               class="code sev- "><tt><i>237</i>                         <span class="n">features</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="n">i</span><span class="p">)</span> <span class="o">*</span> <span class="n">features</span><span class="p">,</span></tt>
+            </div>
+            <div id="l238"
+               class="code sev- "><tt><i>238</i>                         <span class="n">block_size</span><span class="o">=</span><span class="n">block_size</span><span class="p">,</span></tt>
+            </div>
+            <div id="l239"
+               class="code sev- "><tt><i>239</i>                         <span class="n">grid_size</span><span class="o">=</span><span class="n">grid_size</span><span class="p">,</span></tt>
+            </div>
+            <div id="l240"
+               class="code sev- "><tt><i>240</i>                         <span class="n">input_proj_factor</span><span class="o">=</span><span class="n">input_proj_factor</span><span class="p">,</span></tt>
+            </div>
+            <div id="l241"
+               class="code sev- "><tt><i>241</i>                         <span class="n">dropout_rate</span><span class="o">=</span><span class="n">dropout_rate</span><span class="p">,</span></tt>
+            </div>
+            <div id="l242"
+               class="code sev- "><tt><i>242</i>                         <span class="n">upsample_y</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span></tt>
+            </div>
+            <div id="l243"
+               class="code sev- "><tt><i>243</i>                         <span class="n">use_bias</span><span class="o">=</span><span class="n">use_bias</span><span class="p">,</span></tt>
+            </div>
+            <div id="l244"
+               class="code sev- "><tt><i>244</i>                         <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;stage_</span><span class="si">{</span><span class="n">idx_stage</span><span class="si">}</span><span class="s2">_cross_gating_block_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span></tt>
+            </div>
+            <div id="l245"
+               class="code sev- "><tt><i>245</i>                     <span class="p">)(</span><span class="n">signal</span><span class="p">,</span> <span class="n">global_feature</span><span class="p">)</span></tt>
+            </div>
+            <div id="l246"
+               class="code sev- "><tt><i>246</i>                 <span class="k">else</span><span class="p">:</span></tt>
+            </div>
+            <div id="l247"
+               class="code sev- "><tt><i>247</i>                     <span class="n">skips</span> <span class="o">=</span> <span class="n">Conv1x1</span><span class="p">(</span></tt>
+            </div>
+            <div id="l248"
+               class="code sev- "><tt><i>248</i>                         <span class="n">filters</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="n">i</span><span class="p">)</span> <span class="o">*</span> <span class="n">features</span><span class="p">,</span> <span class="n">use_bias</span><span class="o">=</span><span class="n">use_bias</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Conv_0&quot;</span></tt>
+            </div>
+            <div id="l249"
+               class="code sev- "><tt><i>249</i>                     <span class="p">)(</span><span class="n">signal</span><span class="p">)</span></tt>
+            </div>
+            <div id="l250"
+               class="code sev- "><tt><i>250</i>                     <span class="n">skips</span> <span class="o">=</span> <span class="n">Conv3x3</span><span class="p">(</span></tt>
+            </div>
+            <div id="l251"
+               class="code sev- "><tt><i>251</i>                         <span class="n">filters</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="n">i</span><span class="p">)</span> <span class="o">*</span> <span class="n">features</span><span class="p">,</span> <span class="n">use_bias</span><span class="o">=</span><span class="n">use_bias</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Conv_1&quot;</span></tt>
+            </div>
+            <div id="l252"
+               class="code sev- "><tt><i>252</i>                     <span class="p">)(</span><span class="n">skips</span><span class="p">)</span></tt>
+            </div>
+            <div id="l253"
+               class="code sev- "><tt><i>253</i> &nbsp;</tt>
+            </div>
+            <div id="l254"
+               class="code sev- "><tt><i>254</i>                 <span class="n">skip_features</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">skips</span><span class="p">)</span></tt>
+            </div>
+            <div id="l255"
+               class="code sev- "><tt><i>255</i> &nbsp;</tt>
+            </div>
+            <div id="l256"
+               class="code sev- "><tt><i>256</i>             <span class="c1"># start decoder. Multi-scale feature fusion of cross-gated features</span></tt>
+            </div>
+            <div id="l257"
+               class="code sev- "><tt><i>257</i>             <span class="n">outputs</span><span class="p">,</span> <span class="n">decs</span><span class="p">,</span> <span class="n">sam_features</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span></tt>
+            </div>
+            <div id="l258"
+               class="code sev- "><tt><i>258</i>             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">depth</span><span class="p">)):</span></tt>
+            </div>
+            <div id="l259"
+               class="code sev- "><tt><i>259</i>                 <span class="c1"># use larger blocksize at high-res stages</span></tt>
+            </div>
+            <div id="l260"
+               class="code sev- "><tt><i>260</i>                 <span class="n">block_size</span> <span class="o">=</span> <span class="n">block_size_hr</span> <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">high_res_stages</span> <span class="k">else</span> <span class="n">block_size_lr</span></tt>
+            </div>
+            <div id="l261"
+               class="code sev- "><tt><i>261</i>                 <span class="n">grid_size</span> <span class="o">=</span> <span class="n">grid_size_hr</span> <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">high_res_stages</span> <span class="k">else</span> <span class="n">block_size_lr</span></tt>
+            </div>
+            <div id="l262"
+               class="code sev- "><tt><i>262</i> &nbsp;</tt>
+            </div>
+            <div id="l263"
+               class="code sev- "><tt><i>263</i>                 <span class="c1"># get multi-scale skip signals from cross-gating block</span></tt>
+            </div>
+            <div id="l264"
+               class="code sev- "><tt><i>264</i>                 <span class="n">signal</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span></tt>
+            </div>
+            <div id="l265"
+               class="code sev- "><tt><i>265</i>                     <span class="p">[</span></tt>
+            </div>
+            <div id="l266"
+               class="code sev- "><tt><i>266</i>                         <span class="n">UpSampleRatio</span><span class="p">(</span></tt>
+            </div>
+            <div id="l267"
+               class="code sev- "><tt><i>267</i>                             <span class="n">num_channels</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="n">i</span><span class="p">)</span> <span class="o">*</span> <span class="n">features</span><span class="p">,</span></tt>
+            </div>
+            <div id="l268"
+               class="code sev- "><tt><i>268</i>                             <span class="n">ratio</span><span class="o">=</span><span class="mi">2</span> <span class="o">**</span> <span class="p">(</span><span class="n">depth</span> <span class="o">-</span> <span class="n">j</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">i</span><span class="p">),</span></tt>
+            </div>
+            <div id="l269"
+               class="code sev- "><tt><i>269</i>                             <span class="n">use_bias</span><span class="o">=</span><span class="n">use_bias</span><span class="p">,</span></tt>
+            </div>
+            <div id="l270"
+               class="code sev- "><tt><i>270</i>                             <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;UpSampleRatio_</span><span class="si">{</span><span class="n">K</span><span class="o">.</span><span class="n">get_uid</span><span class="p">(</span><span class="s1">&#39;UpSampleRatio&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span></tt>
+            </div>
+            <div id="l271"
+               class="code sev- "><tt><i>271</i>                         <span class="p">)(</span><span class="n">skip</span><span class="p">)</span></tt>
+            </div>
+            <div id="l272"
+               class="code sev- "><tt><i>272</i>                         <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">skip</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">skip_features</span><span class="p">)</span></tt>
+            </div>
+            <div id="l273"
+               class="code sev- "><tt><i>273</i>                     <span class="p">],</span></tt>
+            </div>
+            <div id="l274"
+               class="code sev- "><tt><i>274</i>                     <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span></tt>
+            </div>
+            <div id="l275"
+               class="code sev- "><tt><i>275</i>                 <span class="p">)</span></tt>
+            </div>
+            <div id="l276"
+               class="code sev- "><tt><i>276</i> &nbsp;</tt>
+            </div>
+            <div id="l277"
+               class="code sev- "><tt><i>277</i>                 <span class="c1"># Decoder block</span></tt>
+            </div>
+            <div id="l278"
+               class="code sev- "><tt><i>278</i>                 <span class="n">x</span> <span class="o">=</span> <span class="n">UNetDecoderBlock</span><span class="p">(</span></tt>
+            </div>
+            <div id="l279"
+               class="code sev- "><tt><i>279</i>                     <span class="n">num_channels</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="n">i</span><span class="p">)</span> <span class="o">*</span> <span class="n">features</span><span class="p">,</span></tt>
+            </div>
+            <div id="l280"
+               class="code sev- "><tt><i>280</i>                     <span class="n">num_groups</span><span class="o">=</span><span class="n">num_groups</span><span class="p">,</span></tt>
+            </div>
+            <div id="l281"
+               class="code sev- "><tt><i>281</i>                     <span class="n">lrelu_slope</span><span class="o">=</span><span class="n">lrelu_slope</span><span class="p">,</span></tt>
+            </div>
+            <div id="l282"
+               class="code sev- "><tt><i>282</i>                     <span class="n">block_size</span><span class="o">=</span><span class="n">block_size</span><span class="p">,</span></tt>
+            </div>
+            <div id="l283"
+               class="code sev- "><tt><i>283</i>                     <span class="n">grid_size</span><span class="o">=</span><span class="n">grid_size</span><span class="p">,</span></tt>
+            </div>
+            <div id="l284"
+               class="code sev- "><tt><i>284</i>                     <span class="n">block_gmlp_factor</span><span class="o">=</span><span class="n">block_gmlp_factor</span><span class="p">,</span></tt>
+            </div>
+            <div id="l285"
+               class="code sev- "><tt><i>285</i>                     <span class="n">grid_gmlp_factor</span><span class="o">=</span><span class="n">grid_gmlp_factor</span><span class="p">,</span></tt>
+            </div>
+            <div id="l286"
+               class="code sev- "><tt><i>286</i>                     <span class="n">input_proj_factor</span><span class="o">=</span><span class="n">input_proj_factor</span><span class="p">,</span></tt>
+            </div>
+            <div id="l287"
+               class="code sev- "><tt><i>287</i>                     <span class="n">channels_reduction</span><span class="o">=</span><span class="n">channels_reduction</span><span class="p">,</span></tt>
+            </div>
+            <div id="l288"
+               class="code sev- "><tt><i>288</i>                     <span class="n">use_global_mlp</span><span class="o">=</span><span class="n">use_global_mlp</span><span class="p">,</span></tt>
+            </div>
+            <div id="l289"
+               class="code sev- "><tt><i>289</i>                     <span class="n">dropout_rate</span><span class="o">=</span><span class="n">dropout_rate</span><span class="p">,</span></tt>
+            </div>
+            <div id="l290"
+               class="code sev- "><tt><i>290</i>                     <span class="n">use_bias</span><span class="o">=</span><span class="n">use_bias</span><span class="p">,</span></tt>
+            </div>
+            <div id="l291"
+               class="code sev- "><tt><i>291</i>                     <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;stage_</span><span class="si">{</span><span class="n">idx_stage</span><span class="si">}</span><span class="s2">_decoder_block_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span></tt>
+            </div>
+            <div id="l292"
+               class="code sev- "><tt><i>292</i>                 <span class="p">)(</span><span class="n">x</span><span class="p">,</span> <span class="n">bridge</span><span class="o">=</span><span class="n">signal</span><span class="p">)</span></tt>
+            </div>
+            <div id="l293"
+               class="code sev- "><tt><i>293</i> &nbsp;</tt>
+            </div>
+            <div id="l294"
+               class="code sev- "><tt><i>294</i>                 <span class="c1"># Cache decoder features for later-stage&#39;s usage</span></tt>
+            </div>
+            <div id="l295"
+               class="code sev- "><tt><i>295</i>                 <span class="n">decs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span></tt>
+            </div>
+            <div id="l296"
+               class="code sev- "><tt><i>296</i> &nbsp;</tt>
+            </div>
+            <div id="l297"
+               class="code sev- "><tt><i>297</i>                 <span class="c1"># output conv, if not final stage, use supervised-attention-block.</span></tt>
+            </div>
+            <div id="l298"
+               class="code sev- "><tt><i>298</i>                 <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">num_supervision_scales</span><span class="p">:</span></tt>
+            </div>
+            <div id="l299"
+               class="code sev- "><tt><i>299</i>                     <span class="k">if</span> <span class="n">idx_stage</span> <span class="o">&lt;</span> <span class="n">num_stages</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>  <span class="c1"># not last stage, apply SAM</span></tt>
+            </div>
+            <div id="l300"
+               class="code sev- "><tt><i>300</i>                         <span class="n">sam</span><span class="p">,</span> <span class="n">output</span> <span class="o">=</span> <span class="n">SAM</span><span class="p">(</span></tt>
+            </div>
+            <div id="l301"
+               class="code sev- "><tt><i>301</i>                             <span class="n">num_channels</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="n">i</span><span class="p">)</span> <span class="o">*</span> <span class="n">features</span><span class="p">,</span></tt>
+            </div>
+            <div id="l302"
+               class="code sev- "><tt><i>302</i>                             <span class="n">output_channels</span><span class="o">=</span><span class="n">num_outputs</span><span class="p">,</span></tt>
+            </div>
+            <div id="l303"
+               class="code sev- "><tt><i>303</i>                             <span class="n">use_bias</span><span class="o">=</span><span class="n">use_bias</span><span class="p">,</span></tt>
+            </div>
+            <div id="l304"
+               class="code sev- "><tt><i>304</i>                             <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;stage_</span><span class="si">{</span><span class="n">idx_stage</span><span class="si">}</span><span class="s2">_supervised_attention_module_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span></tt>
+            </div>
+            <div id="l305"
+               class="code sev- "><tt><i>305</i>                         <span class="p">)(</span><span class="n">x</span><span class="p">,</span> <span class="n">shortcuts</span><span class="p">[</span><span class="n">i</span><span class="p">])</span></tt>
+            </div>
+            <div id="l306"
+               class="code sev- "><tt><i>306</i>                         <span class="n">outputs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">output</span><span class="p">)</span></tt>
+            </div>
+            <div id="l307"
+               class="code sev- "><tt><i>307</i>                         <span class="n">sam_features</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sam</span><span class="p">)</span></tt>
+            </div>
+            <div id="l308"
+               class="code sev- "><tt><i>308</i>                     <span class="k">else</span><span class="p">:</span>  <span class="c1"># Last stage, apply output convolutions</span></tt>
+            </div>
+            <div id="l309"
+               class="code sev- "><tt><i>309</i>                         <span class="n">output</span> <span class="o">=</span> <span class="n">Conv3x3</span><span class="p">(</span></tt>
+            </div>
+            <div id="l310"
+               class="code sev- "><tt><i>310</i>                             <span class="n">num_outputs</span><span class="p">,</span></tt>
+            </div>
+            <div id="l311"
+               class="code sev- "><tt><i>311</i>                             <span class="n">use_bias</span><span class="o">=</span><span class="n">use_bias</span><span class="p">,</span></tt>
+            </div>
+            <div id="l312"
+               class="code sev- "><tt><i>312</i>                             <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;stage_</span><span class="si">{</span><span class="n">idx_stage</span><span class="si">}</span><span class="s2">_output_conv_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span></tt>
+            </div>
+            <div id="l313"
+               class="code sev- "><tt><i>313</i>                         <span class="p">)(</span><span class="n">x</span><span class="p">)</span></tt>
+            </div>
+            <div id="l314"
+               class="code sev- "><tt><i>314</i>                         <span class="n">output</span> <span class="o">=</span> <span class="n">output</span> <span class="o">+</span> <span class="n">shortcuts</span><span class="p">[</span><span class="n">i</span><span class="p">]</span></tt>
+            </div>
+            <div id="l315"
+               class="code sev- "><tt><i>315</i>                         <span class="n">outputs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">output</span><span class="p">)</span></tt>
+            </div>
+            <div id="l316"
+               class="code sev- "><tt><i>316</i>             <span class="c1"># Cache encoder and decoder features for later-stage&#39;s usage</span></tt>
+            </div>
+            <div id="l317"
+               class="code sev- "><tt><i>317</i>             <span class="n">encs_prev</span> <span class="o">=</span> <span class="n">encs</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></tt>
+            </div>
+            <div id="l318"
+               class="code sev- "><tt><i>318</i>             <span class="n">decs_prev</span> <span class="o">=</span> <span class="n">decs</span></tt>
+            </div>
+            <div id="l319"
+               class="code sev- "><tt><i>319</i> &nbsp;</tt>
+            </div>
+            <div id="l320"
+               class="code sev- "><tt><i>320</i>             <span class="c1"># Store outputs</span></tt>
+            </div>
+            <div id="l321"
+               class="code sev- "><tt><i>321</i>             <span class="n">outputs_all</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">outputs</span><span class="p">)</span></tt>
+            </div>
+            <div id="l322"
+               class="code sev- "><tt><i>322</i>         <span class="k">return</span> <span class="n">outputs_all</span></tt>
+            </div>
+            <div id="l323"
+               class="code sev- "><tt><i>323</i> &nbsp;</tt>
+            </div>
+            <div id="l324"
+               class="code sev- "><tt><i>324</i>     <span class="k">return</span> <span class="n">apply</span></tt>
+            </div>
+            
+         </div>
+      </div>
+   </body>
+</html>

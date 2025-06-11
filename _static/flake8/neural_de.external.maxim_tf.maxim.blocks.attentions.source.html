@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>neural_de\external\maxim_tf\maxim\blocks\attentions.py - flake8 annotated source</title>
+      <meta http-equiv="Content-Type" value="text/html; charset=UTF-8">
+      <link rel="stylesheet" href="styles.css">
+   </head>
+   <body>
+      <div id="masthead" class="sev-2"></div>
+      <div id="page">
+         <h1>
+            <a href="neural_de.external.maxim_tf.maxim.blocks.attentions.report.html">
+               <img src="back.svg" alt="&#x2B05;">
+               neural_de\external\maxim_tf\maxim\blocks\attentions.py source
+            </a>
+         </h1>
+
+         <div id="doc">
+            <div id="l1"
+               class="code sev- "><tt><i>1</i> <span class="sd">&quot;&quot;&quot;</span></tt>
+            </div>
+            <div id="l2"
+               class="code sev- "><tt><i>2</i> <span class="sd">Blocks based on https://github.com/google-research/maxim/blob/main/maxim/models/maxim.py</span></tt>
+            </div>
+            <div id="l3"
+               class="code sev- "><tt><i>3</i> <span class="sd">&quot;&quot;&quot;</span></tt>
+            </div>
+            <div id="l4"
+               class="code sev- "><tt><i>4</i> &nbsp;</tt>
+            </div>
+            <div id="l5"
+               class="code sev- "><tt><i>5</i> <span class="kn">import</span><span class="w"> </span><span class="nn">functools</span></tt>
+            </div>
+            <div id="l6"
+               class="code sev- "><tt><i>6</i> &nbsp;</tt>
+            </div>
+            <div id="l7"
+               class="code sev- "><tt><i>7</i> <span class="kn">import</span><span class="w"> </span><span class="nn">tensorflow</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">tf</span></tt>
+            </div>
+            <div id="l8"
+               class="code sev- "><tt><i>8</i> <span class="kn">from</span><span class="w"> </span><span class="nn">tensorflow.keras</span><span class="w"> </span><span class="kn">import</span> <span class="n">layers</span></tt>
+            </div>
+            <div id="l9"
+               class="code sev- "><tt><i>9</i> &nbsp;</tt>
+            </div>
+            <div id="l10"
+               class="code sev- "><tt><i>10</i> <span class="kn">from</span><span class="w"> </span><span class="nn">.others</span><span class="w"> </span><span class="kn">import</span> <span class="n">MlpBlock</span></tt>
+            </div>
+            <div id="l11"
+               class="code sev- "><tt><i>11</i> &nbsp;</tt>
+            </div>
+            <div id="l12"
+               class="code sev- "><tt><i>12</i> <span class="n">Conv3x3</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;same&quot;</span><span class="p">)</span></tt>
+            </div>
+            <div id="l13"
+               class="code sev- "><tt><i>13</i> <span class="n">Conv1x1</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;same&quot;</span><span class="p">)</span></tt>
+            </div>
+            <div id="l14"
+               class="code sev- "><tt><i>14</i> &nbsp;</tt>
+            </div>
+            <div id="l15"
+               class="code sev- "><tt><i>15</i> &nbsp;</tt>
+            </div>
+            <div id="l16"
+               class="code sev- "><tt><i>16</i> <span class="k">def</span><span class="w"> </span><span class="nf">CALayer</span><span class="p">(</span></tt>
+            </div>
+            <div id="l17"
+               class="code sev- "><tt><i>17</i>         <span class="n">num_channels</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span></tt>
+            </div>
+            <div id="l18"
+               class="code sev- "><tt><i>18</i>         <span class="n">reduction</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span></tt>
+            </div>
+            <div id="l19"
+               class="code sev- "><tt><i>19</i>         <span class="n">use_bias</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span></tt>
+            </div>
+            <div id="l20"
+               class="code sev- "><tt><i>20</i>         <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;channel_attention&quot;</span><span class="p">,</span></tt>
+            </div>
+            <div id="l21"
+               class="code sev- "><tt><i>21</i> <span class="p">):</span></tt>
+            </div>
+            <div id="l22"
+               class="code sev- "><tt><i>22</i> <span class="w">    </span><span class="sd">&quot;&quot;&quot;Squeeze-and-excitation block for channel attention.</span></tt>
+            </div>
+            <div id="l23"
+               class="code sev- "><tt><i>23</i> &nbsp;</tt>
+            </div>
+            <div id="l24"
+               class="code sev- "><tt><i>24</i> <span class="sd">    ref: https://arxiv.org/abs/1709.01507</span></tt>
+            </div>
+            <div id="l25"
+               class="code sev- "><tt><i>25</i> <span class="sd">    &quot;&quot;&quot;</span></tt>
+            </div>
+            <div id="l26"
+               class="code sev- "><tt><i>26</i> &nbsp;</tt>
+            </div>
+            <div id="l27"
+               class="code sev- "><tt><i>27</i>     <span class="k">def</span><span class="w"> </span><span class="nf">apply</span><span class="p">(</span><span class="n">x</span><span class="p">):</span></tt>
+            </div>
+            <div id="l28"
+               class="code sev- "><tt><i>28</i>         <span class="c1"># 2D global average pooling</span></tt>
+            </div>
+            <div id="l29"
+               class="code sev- "><tt><i>29</i>         <span class="n">y</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">GlobalAvgPool2D</span><span class="p">(</span><span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span></tt>
+            </div>
+            <div id="l30"
+               class="code sev- "><tt><i>30</i>         <span class="c1"># Squeeze (in Squeeze-Excitation)</span></tt>
+            </div>
+            <div id="l31"
+               class="code sev- "><tt><i>31</i>         <span class="n">y</span> <span class="o">=</span> <span class="n">Conv1x1</span><span class="p">(</span></tt>
+            </div>
+            <div id="l32"
+               class="code sev- "><tt><i>32</i>             <span class="n">filters</span><span class="o">=</span><span class="n">num_channels</span> <span class="o">//</span> <span class="n">reduction</span><span class="p">,</span> <span class="n">use_bias</span><span class="o">=</span><span class="n">use_bias</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">_Conv_0&quot;</span></tt>
+            </div>
+            <div id="l33"
+               class="code sev- "><tt><i>33</i>         <span class="p">)(</span><span class="n">y</span><span class="p">)</span></tt>
+            </div>
+            <div id="l34"
+               class="code sev- "><tt><i>34</i>         <span class="n">y</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">y</span><span class="p">)</span></tt>
+            </div>
+            <div id="l35"
+               class="code sev- "><tt><i>35</i>         <span class="c1"># Excitation (in Squeeze-Excitation)</span></tt>
+            </div>
+            <div id="l36"
+               class="code sev- "><tt><i>36</i>         <span class="n">y</span> <span class="o">=</span> <span class="n">Conv1x1</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="n">num_channels</span><span class="p">,</span> <span class="n">use_bias</span><span class="o">=</span><span class="n">use_bias</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">_Conv_1&quot;</span><span class="p">)(</span><span class="n">y</span><span class="p">)</span></tt>
+            </div>
+            <div id="l37"
+               class="code sev- "><tt><i>37</i>         <span class="n">y</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">y</span><span class="p">)</span></tt>
+            </div>
+            <div id="l38"
+               class="code sev- "><tt><i>38</i>         <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="n">y</span></tt>
+            </div>
+            <div id="l39"
+               class="code sev- "><tt><i>39</i> &nbsp;</tt>
+            </div>
+            <div id="l40"
+               class="code sev- "><tt><i>40</i>     <span class="k">return</span> <span class="n">apply</span></tt>
+            </div>
+            <div id="l41"
+               class="code sev- "><tt><i>41</i> &nbsp;</tt>
+            </div>
+            <div id="l42"
+               class="code sev- "><tt><i>42</i> &nbsp;</tt>
+            </div>
+            <div id="l43"
+               class="code sev- "><tt><i>43</i> <span class="k">def</span><span class="w"> </span><span class="nf">RCAB</span><span class="p">(</span></tt>
+            </div>
+            <div id="l44"
+               class="code sev- "><tt><i>44</i>         <span class="n">num_channels</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span></tt>
+            </div>
+            <div id="l45"
+               class="code sev- "><tt><i>45</i>         <span class="n">reduction</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span></tt>
+            </div>
+            <div id="l46"
+               class="code sev- "><tt><i>46</i>         <span class="n">lrelu_slope</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.2</span><span class="p">,</span></tt>
+            </div>
+            <div id="l47"
+               class="code sev- "><tt><i>47</i>         <span class="n">use_bias</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span></tt>
+            </div>
+            <div id="l48"
+               class="code sev- "><tt><i>48</i>         <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;residual_ca&quot;</span><span class="p">,</span></tt>
+            </div>
+            <div id="l49"
+               class="code sev- "><tt><i>49</i> <span class="p">):</span></tt>
+            </div>
+            <div id="l50"
+               class="code sev- "><tt><i>50</i> <span class="w">    </span><span class="sd">&quot;&quot;&quot;Residual channel attention block. Contains LN,Conv,lRelu,Conv,SELayer.&quot;&quot;&quot;</span></tt>
+            </div>
+            <div id="l51"
+               class="code sev- "><tt><i>51</i> &nbsp;</tt>
+            </div>
+            <div id="l52"
+               class="code sev- "><tt><i>52</i>     <span class="k">def</span><span class="w"> </span><span class="nf">apply</span><span class="p">(</span><span class="n">x</span><span class="p">):</span></tt>
+            </div>
+            <div id="l53"
+               class="code sev- "><tt><i>53</i>         <span class="n">shortcut</span> <span class="o">=</span> <span class="n">x</span></tt>
+            </div>
+            <div id="l54"
+               class="code sev- "><tt><i>54</i>         <span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">LayerNormalization</span><span class="p">(</span><span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-06</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">_LayerNorm&quot;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span></tt>
+            </div>
+            <div id="l55"
+               class="code sev- "><tt><i>55</i>         <span class="n">x</span> <span class="o">=</span> <span class="n">Conv3x3</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="n">num_channels</span><span class="p">,</span> <span class="n">use_bias</span><span class="o">=</span><span class="n">use_bias</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">_conv1&quot;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span></tt>
+            </div>
+            <div id="l56"
+               class="code sev- "><tt><i>56</i>         <span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">leaky_relu</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">lrelu_slope</span><span class="p">)</span></tt>
+            </div>
+            <div id="l57"
+               class="code sev- "><tt><i>57</i>         <span class="n">x</span> <span class="o">=</span> <span class="n">Conv3x3</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="n">num_channels</span><span class="p">,</span> <span class="n">use_bias</span><span class="o">=</span><span class="n">use_bias</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">_conv2&quot;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span></tt>
+            </div>
+            <div id="l58"
+               class="code sev- "><tt><i>58</i>         <span class="n">x</span> <span class="o">=</span> <span class="n">CALayer</span><span class="p">(</span></tt>
+            </div>
+            <div id="l59"
+               class="code sev- "><tt><i>59</i>             <span class="n">num_channels</span><span class="o">=</span><span class="n">num_channels</span><span class="p">,</span></tt>
+            </div>
+            <div id="l60"
+               class="code sev- "><tt><i>60</i>             <span class="n">reduction</span><span class="o">=</span><span class="n">reduction</span><span class="p">,</span></tt>
+            </div>
+            <div id="l61"
+               class="code sev- "><tt><i>61</i>             <span class="n">use_bias</span><span class="o">=</span><span class="n">use_bias</span><span class="p">,</span></tt>
+            </div>
+            <div id="l62"
+               class="code sev- "><tt><i>62</i>             <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">_channel_attention&quot;</span><span class="p">,</span></tt>
+            </div>
+            <div id="l63"
+               class="code sev- "><tt><i>63</i>         <span class="p">)(</span><span class="n">x</span><span class="p">)</span></tt>
+            </div>
+            <div id="l64"
+               class="code sev- "><tt><i>64</i>         <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">shortcut</span></tt>
+            </div>
+            <div id="l65"
+               class="code sev- "><tt><i>65</i> &nbsp;</tt>
+            </div>
+            <div id="l66"
+               class="code sev- "><tt><i>66</i>     <span class="k">return</span> <span class="n">apply</span></tt>
+            </div>
+            <div id="l67"
+               class="code sev- "><tt><i>67</i> &nbsp;</tt>
+            </div>
+            <div id="l68"
+               class="code sev- "><tt><i>68</i> &nbsp;</tt>
+            </div>
+            <div id="l69"
+               class="code sev- "><tt><i>69</i> <span class="k">def</span><span class="w"> </span><span class="nf">RDCAB</span><span class="p">(</span></tt>
+            </div>
+            <div id="l70"
+               class="code sev- "><tt><i>70</i>         <span class="n">num_channels</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span></tt>
+            </div>
+            <div id="l71"
+               class="code sev- "><tt><i>71</i>         <span class="n">reduction</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">16</span><span class="p">,</span></tt>
+            </div>
+            <div id="l72"
+               class="code sev- "><tt><i>72</i>         <span class="n">use_bias</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span></tt>
+            </div>
+            <div id="l73"
+               class="code sev- "><tt><i>73</i>         <span class="n">dropout_rate</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span></tt>
+            </div>
+            <div id="l74"
+               class="code sev- "><tt><i>74</i>         <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;rdcab&quot;</span><span class="p">,</span></tt>
+            </div>
+            <div id="l75"
+               class="code sev- "><tt><i>75</i> <span class="p">):</span></tt>
+            </div>
+            <div id="l76"
+               class="code sev- "><tt><i>76</i> <span class="w">    </span><span class="sd">&quot;&quot;&quot;Residual dense channel attention block. Used in Bottlenecks.&quot;&quot;&quot;</span></tt>
+            </div>
+            <div id="l77"
+               class="code sev- "><tt><i>77</i> &nbsp;</tt>
+            </div>
+            <div id="l78"
+               class="code sev- "><tt><i>78</i>     <span class="k">def</span><span class="w"> </span><span class="nf">apply</span><span class="p">(</span><span class="n">x</span><span class="p">):</span></tt>
+            </div>
+            <div id="l79"
+               class="code sev- "><tt><i>79</i>         <span class="n">y</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">LayerNormalization</span><span class="p">(</span><span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-06</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">_LayerNorm&quot;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span></tt>
+            </div>
+            <div id="l80"
+               class="code sev- "><tt><i>80</i>         <span class="n">y</span> <span class="o">=</span> <span class="n">MlpBlock</span><span class="p">(</span></tt>
+            </div>
+            <div id="l81"
+               class="code sev- "><tt><i>81</i>             <span class="n">mlp_dim</span><span class="o">=</span><span class="n">num_channels</span><span class="p">,</span></tt>
+            </div>
+            <div id="l82"
+               class="code sev- "><tt><i>82</i>             <span class="n">dropout_rate</span><span class="o">=</span><span class="n">dropout_rate</span><span class="p">,</span></tt>
+            </div>
+            <div id="l83"
+               class="code sev- "><tt><i>83</i>             <span class="n">use_bias</span><span class="o">=</span><span class="n">use_bias</span><span class="p">,</span></tt>
+            </div>
+            <div id="l84"
+               class="code sev- "><tt><i>84</i>             <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">_channel_mixing&quot;</span><span class="p">,</span></tt>
+            </div>
+            <div id="l85"
+               class="code sev- "><tt><i>85</i>         <span class="p">)(</span><span class="n">y</span><span class="p">)</span></tt>
+            </div>
+            <div id="l86"
+               class="code sev- "><tt><i>86</i>         <span class="n">y</span> <span class="o">=</span> <span class="n">CALayer</span><span class="p">(</span></tt>
+            </div>
+            <div id="l87"
+               class="code sev- "><tt><i>87</i>             <span class="n">num_channels</span><span class="o">=</span><span class="n">num_channels</span><span class="p">,</span></tt>
+            </div>
+            <div id="l88"
+               class="code sev- "><tt><i>88</i>             <span class="n">reduction</span><span class="o">=</span><span class="n">reduction</span><span class="p">,</span></tt>
+            </div>
+            <div id="l89"
+               class="code sev- "><tt><i>89</i>             <span class="n">use_bias</span><span class="o">=</span><span class="n">use_bias</span><span class="p">,</span></tt>
+            </div>
+            <div id="l90"
+               class="code sev- "><tt><i>90</i>             <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">_channel_attention&quot;</span><span class="p">,</span></tt>
+            </div>
+            <div id="l91"
+               class="code sev- "><tt><i>91</i>         <span class="p">)(</span><span class="n">y</span><span class="p">)</span></tt>
+            </div>
+            <div id="l92"
+               class="code sev- "><tt><i>92</i>         <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span></tt>
+            </div>
+            <div id="l93"
+               class="code sev- "><tt><i>93</i>         <span class="k">return</span> <span class="n">x</span></tt>
+            </div>
+            <div id="l94"
+               class="code sev- "><tt><i>94</i> &nbsp;</tt>
+            </div>
+            <div id="l95"
+               class="code sev- "><tt><i>95</i>     <span class="k">return</span> <span class="n">apply</span></tt>
+            </div>
+            <div id="l96"
+               class="code sev- "><tt><i>96</i> &nbsp;</tt>
+            </div>
+            <div id="l97"
+               class="code sev- "><tt><i>97</i> &nbsp;</tt>
+            </div>
+            <div id="l98"
+               class="code sev- "><tt><i>98</i> <span class="k">def</span><span class="w"> </span><span class="nf">SAM</span><span class="p">(</span></tt>
+            </div>
+            <div id="l99"
+               class="code sev- "><tt><i>99</i>         <span class="n">num_channels</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span></tt>
+            </div>
+            <div id="l100"
+               class="code sev- "><tt><i>100</i>         <span class="n">output_channels</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span></tt>
+            </div>
+            <div id="l101"
+               class="code sev- "><tt><i>101</i>         <span class="n">use_bias</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span></tt>
+            </div>
+            <div id="l102"
+               class="code sev- "><tt><i>102</i>         <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;sam&quot;</span><span class="p">,</span></tt>
+            </div>
+            <div id="l103"
+               class="code sev- "><tt><i>103</i> <span class="p">):</span></tt>
+            </div>
+            <div id="l104"
+               class="code sev- "><tt><i>104</i> <span class="w">    </span><span class="sd">&quot;&quot;&quot;Supervised attention module for multi-stage training.</span></tt>
+            </div>
+            <div id="l105"
+               class="code sev- "><tt><i>105</i> &nbsp;</tt>
+            </div>
+            <div id="l106"
+               class="code sev- "><tt><i>106</i> <span class="sd">    Introduced by MPRNet [CVPR2021]: https://github.com/swz30/MPRNet</span></tt>
+            </div>
+            <div id="l107"
+               class="code sev- "><tt><i>107</i> <span class="sd">    &quot;&quot;&quot;</span></tt>
+            </div>
+            <div id="l108"
+               class="code sev- "><tt><i>108</i> &nbsp;</tt>
+            </div>
+            <div id="l109"
+               class="code sev- "><tt><i>109</i>     <span class="k">def</span><span class="w"> </span><span class="nf">apply</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x_image</span><span class="p">):</span></tt>
+            </div>
+            <div id="l110"
+               class="code sev- "><tt><i>110</i> <span class="w">        </span><span class="sd">&quot;&quot;&quot;Apply the SAM module to the input and num_channels.</span></tt>
+            </div>
+            <div id="l111"
+               class="code sev- "><tt><i>111</i> <span class="sd">        Args:</span></tt>
+            </div>
+            <div id="l112"
+               class="code sev- "><tt><i>112</i> <span class="sd">          x: the output num_channels from UNet decoder with target_shape (h, w, c)</span></tt>
+            </div>
+            <div id="l113"
+               class="code sev- "><tt><i>113</i> <span class="sd">          x_image: the input image with target_shape (h, w, 3)</span></tt>
+            </div>
+            <div id="l114"
+               class="code sev- "><tt><i>114</i> <span class="sd">        Returns:</span></tt>
+            </div>
+            <div id="l115"
+               class="code sev- "><tt><i>115</i> <span class="sd">          A tuple of tensors (x1, image) where (x1) is the sam num_channels used for the</span></tt>
+            </div>
+            <div id="l116"
+               class="code sev- "><tt><i>116</i> <span class="sd">            next stage, and (image) is the output restored image at current stage.</span></tt>
+            </div>
+            <div id="l117"
+               class="code sev- "><tt><i>117</i> <span class="sd">        &quot;&quot;&quot;</span></tt>
+            </div>
+            <div id="l118"
+               class="code sev- "><tt><i>118</i>         <span class="c1"># Get num_channels</span></tt>
+            </div>
+            <div id="l119"
+               class="code sev- "><tt><i>119</i>         <span class="n">x1</span> <span class="o">=</span> <span class="n">Conv3x3</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="n">num_channels</span><span class="p">,</span> <span class="n">use_bias</span><span class="o">=</span><span class="n">use_bias</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">_Conv_0&quot;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span></tt>
+            </div>
+            <div id="l120"
+               class="code sev- "><tt><i>120</i> &nbsp;</tt>
+            </div>
+            <div id="l121"
+               class="code sev- "><tt><i>121</i>         <span class="c1"># Output restored image X_s</span></tt>
+            </div>
+            <div id="l122"
+               class="code sev- "><tt><i>122</i>         <span class="k">if</span> <span class="n">output_channels</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span></tt>
+            </div>
+            <div id="l123"
+               class="code sev- "><tt><i>123</i>             <span class="n">image</span> <span class="o">=</span> <span class="p">(</span></tt>
+            </div>
+            <div id="l124"
+               class="code sev-2  le">
+               <ul class="violations">
+               
+                  <li>
+                     <span class="count sev-2">
+                        E126
+                     </span>
+                     Continuation line over-indented for hanging indent</li>
+               
+               </ul><tt><i>124</i>                     <span class="n">Conv3x3</span><span class="p">(</span></tt>
+            </div>
+            <div id="l125"
+               class="code sev- "><tt><i>125</i>                         <span class="n">filters</span><span class="o">=</span><span class="n">output_channels</span><span class="p">,</span> <span class="n">use_bias</span><span class="o">=</span><span class="n">use_bias</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">_Conv_1&quot;</span></tt>
+            </div>
+            <div id="l126"
+               class="code sev- "><tt><i>126</i>                     <span class="p">)(</span><span class="n">x</span><span class="p">)</span></tt>
+            </div>
+            <div id="l127"
+               class="code sev- "><tt><i>127</i>                     <span class="o">+</span> <span class="n">x_image</span></tt>
+            </div>
+            <div id="l128"
+               class="code sev- "><tt><i>128</i>             <span class="p">)</span></tt>
+            </div>
+            <div id="l129"
+               class="code sev- "><tt><i>129</i>         <span class="k">else</span><span class="p">:</span></tt>
+            </div>
+            <div id="l130"
+               class="code sev- "><tt><i>130</i>             <span class="n">image</span> <span class="o">=</span> <span class="n">Conv3x3</span><span class="p">(</span></tt>
+            </div>
+            <div id="l131"
+               class="code sev- "><tt><i>131</i>                 <span class="n">filters</span><span class="o">=</span><span class="n">output_channels</span><span class="p">,</span> <span class="n">use_bias</span><span class="o">=</span><span class="n">use_bias</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">_Conv_1&quot;</span></tt>
+            </div>
+            <div id="l132"
+               class="code sev- "><tt><i>132</i>             <span class="p">)(</span><span class="n">x</span><span class="p">)</span></tt>
+            </div>
+            <div id="l133"
+               class="code sev- "><tt><i>133</i> &nbsp;</tt>
+            </div>
+            <div id="l134"
+               class="code sev- "><tt><i>134</i>         <span class="c1"># Get attention maps for num_channels</span></tt>
+            </div>
+            <div id="l135"
+               class="code sev- "><tt><i>135</i>         <span class="n">x2</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span></tt>
+            </div>
+            <div id="l136"
+               class="code sev- "><tt><i>136</i>             <span class="n">Conv3x3</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="n">num_channels</span><span class="p">,</span> <span class="n">use_bias</span><span class="o">=</span><span class="n">use_bias</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">_Conv_2&quot;</span><span class="p">)(</span><span class="n">image</span><span class="p">)</span></tt>
+            </div>
+            <div id="l137"
+               class="code sev- "><tt><i>137</i>         <span class="p">)</span></tt>
+            </div>
+            <div id="l138"
+               class="code sev- "><tt><i>138</i> &nbsp;</tt>
+            </div>
+            <div id="l139"
+               class="code sev- "><tt><i>139</i>         <span class="c1"># Get attended feature maps</span></tt>
+            </div>
+            <div id="l140"
+               class="code sev- "><tt><i>140</i>         <span class="n">x1</span> <span class="o">=</span> <span class="n">x1</span> <span class="o">*</span> <span class="n">x2</span></tt>
+            </div>
+            <div id="l141"
+               class="code sev- "><tt><i>141</i> &nbsp;</tt>
+            </div>
+            <div id="l142"
+               class="code sev- "><tt><i>142</i>         <span class="c1"># Residual connection</span></tt>
+            </div>
+            <div id="l143"
+               class="code sev- "><tt><i>143</i>         <span class="n">x1</span> <span class="o">=</span> <span class="n">x1</span> <span class="o">+</span> <span class="n">x</span></tt>
+            </div>
+            <div id="l144"
+               class="code sev- "><tt><i>144</i>         <span class="k">return</span> <span class="n">x1</span><span class="p">,</span> <span class="n">image</span></tt>
+            </div>
+            <div id="l145"
+               class="code sev- "><tt><i>145</i> &nbsp;</tt>
+            </div>
+            <div id="l146"
+               class="code sev- "><tt><i>146</i>     <span class="k">return</span> <span class="n">apply</span></tt>
+            </div>
+            
+         </div>
+      </div>
+   </body>
+</html>

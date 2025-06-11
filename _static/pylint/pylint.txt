@@ -1,0 +1,413 @@
+************* Module neural_de.external.derain.blocks
+neural_de\external\derain\blocks.py:25:4: R0917: Too many positional arguments (9/5) (too-many-positional-arguments)
+neural_de\external\derain\blocks.py:36:8: R1725: Consider using Python 3 style super() without arguments (super-with-arguments)
+neural_de\external\derain\blocks.py:48:38: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+neural_de\external\derain\blocks.py:64:4: C0116: Missing function or method docstring (missing-function-docstring)
+neural_de\external\derain\blocks.py:67:8: R1705: Unnecessary "else" after "return", remove the "else" and de-indent the code inside it (no-else-return)
+neural_de\external\derain\blocks.py:85:4: R0917: Too many positional arguments (7/5) (too-many-positional-arguments)
+neural_de\external\derain\blocks.py:88:8: R1725: Consider using Python 3 style super() without arguments (super-with-arguments)
+neural_de\external\derain\blocks.py:90:32: C0123: Use isinstance() rather than type() for a typecheck. (unidiomatic-typecheck)
+neural_de\external\derain\blocks.py:126:4: C0116: Missing function or method docstring (missing-function-docstring)
+neural_de\external\derain\blocks.py:156:4: R0917: Too many positional arguments (9/5) (too-many-positional-arguments)
+neural_de\external\derain\blocks.py:167:8: R1725: Consider using Python 3 style super() without arguments (super-with-arguments)
+neural_de\external\derain\blocks.py:181:4: C0116: Missing function or method docstring (missing-function-docstring)
+neural_de\external\derain\blocks.py:194:4: R0917: Too many positional arguments (7/5) (too-many-positional-arguments)
+neural_de\external\derain\blocks.py:201:8: R1725: Consider using Python 3 style super() without arguments (super-with-arguments)
+neural_de\external\derain\blocks.py:206:4: R0917: Too many positional arguments (7/5) (too-many-positional-arguments)
+neural_de\external\derain\blocks.py:230:38: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+neural_de\external\derain\blocks.py:248:38: C0209: Formatting a regular string which could be an f-string (consider-using-f-string)
+neural_de\external\derain\blocks.py:276:4: R0917: Too many positional arguments (9/5) (too-many-positional-arguments)
+neural_de\external\derain\blocks.py:287:8: R1725: Consider using Python 3 style super() without arguments (super-with-arguments)
+neural_de\external\derain\blocks.py:331:4: C0116: Missing function or method docstring (missing-function-docstring)
+neural_de\external\derain\blocks.py:347:4: R0917: Too many positional arguments (10/5) (too-many-positional-arguments)
+neural_de\external\derain\blocks.py:372:8: R1725: Consider using Python 3 style super() without arguments (super-with-arguments)
+neural_de\external\derain\blocks.py:373:11: C0123: Use isinstance() rather than type() for a typecheck. (unidiomatic-typecheck)
+neural_de\external\derain\blocks.py:429:12: W0612: Unused variable 'i' (unused-variable)
+neural_de\external\derain\blocks.py:475:22: W0622: Redefining built-in 'input' (redefined-builtin)
+************* Module neural_de.external.maxim_tf.maxim.layers
+neural_de\external\maxim_tf\maxim\layers.py:13:0: C0115: Missing class docstring (missing-class-docstring)
+neural_de\external\maxim_tf\maxim\layers.py:14:4: W0246: Useless parent or super() delegation in method '__init__' (useless-parent-delegation)
+neural_de\external\maxim_tf\maxim\layers.py:17:4: C0116: Missing function or method docstring (missing-function-docstring)
+neural_de\external\maxim_tf\maxim\layers.py:18:8: W0612: Unused variable 'bs' (unused-variable)
+neural_de\external\maxim_tf\maxim\layers.py:18:18: W0612: Unused variable 'num_channels' (unused-variable)
+neural_de\external\maxim_tf\maxim\layers.py:38:4: C0116: Missing function or method docstring (missing-function-docstring)
+neural_de\external\maxim_tf\maxim\layers.py:44:0: C0115: Missing class docstring (missing-class-docstring)
+neural_de\external\maxim_tf\maxim\layers.py:45:4: W0246: Useless parent or super() delegation in method '__init__' (useless-parent-delegation)
+neural_de\external\maxim_tf\maxim\layers.py:48:4: C0116: Missing function or method docstring (missing-function-docstring)
+neural_de\external\maxim_tf\maxim\layers.py:60:4: C0116: Missing function or method docstring (missing-function-docstring)
+neural_de\external\maxim_tf\maxim\layers.py:66:0: C0115: Missing class docstring (missing-class-docstring)
+neural_de\external\maxim_tf\maxim\layers.py:67:4: W0246: Useless parent or super() delegation in method '__init__' (useless-parent-delegation)
+neural_de\external\maxim_tf\maxim\layers.py:70:4: C0116: Missing function or method docstring (missing-function-docstring)
+neural_de\external\maxim_tf\maxim\layers.py:73:4: C0116: Missing function or method docstring (missing-function-docstring)
+neural_de\external\maxim_tf\maxim\layers.py:79:0: C0115: Missing class docstring (missing-class-docstring)
+neural_de\external\maxim_tf\maxim\layers.py:87:4: C0116: Missing function or method docstring (missing-function-docstring)
+neural_de\external\maxim_tf\maxim\layers.py:95:4: C0116: Missing function or method docstring (missing-function-docstring)
+************* Module neural_de.external.maxim_tf.maxim.maxim
+neural_de\external\maxim_tf\maxim\maxim.py:28:0: R0917: Too many positional arguments (21/5) (too-many-positional-arguments)
+neural_de\external\maxim_tf\maxim\maxim.py:165:41: R1719: The if expression can be replaced with 'test' (simplifiable-if-expression)
+neural_de\external\maxim_tf\maxim\maxim.py:92:4: R0912: Too many branches (15/12) (too-many-branches)
+neural_de\external\maxim_tf\maxim\maxim.py:92:4: R0915: Too many statements (58/50) (too-many-statements)
+neural_de\external\maxim_tf\maxim\maxim.py:93:8: W0612: Unused variable 'n' (unused-variable)
+neural_de\external\maxim_tf\maxim\maxim.py:93:17: W0612: Unused variable 'c' (unused-variable)
+neural_de\external\maxim_tf\maxim\maxim.py:28:0: R0915: Too many statements (58/50) (too-many-statements)
+neural_de\external\maxim_tf\maxim\maxim.py:42:8: W0613: Unused argument 'grid_size_lr' (unused-argument)
+************* Module neural_de.external.maxim_tf.maxim.blocks.block_gating
+neural_de\external\maxim_tf\maxim\blocks\block_gating.py:43:8: W0612: Unused variable 'n' (unused-variable)
+************* Module neural_de.external.maxim_tf.maxim.blocks.bottleneck
+neural_de\external\maxim_tf\maxim\blocks\bottleneck.py:15:0: R0917: Too many positional arguments (11/5) (too-many-positional-arguments)
+************* Module neural_de.external.maxim_tf.maxim.blocks.grid_gating
+neural_de\external\maxim_tf\maxim\blocks\grid_gating.py:43:8: W0612: Unused variable 'n' (unused-variable)
+************* Module neural_de.external.maxim_tf.maxim.blocks.misc_gating
+neural_de\external\maxim_tf\maxim\blocks\misc_gating.py:25:0: R0917: Too many positional arguments (8/5) (too-many-positional-arguments)
+neural_de\external\maxim_tf\maxim\blocks\misc_gating.py:39:8: W0612: Unused variable 'n' (unused-variable)
+neural_de\external\maxim_tf\maxim\blocks\misc_gating.py:39:11: W0612: Unused variable 'h' (unused-variable)
+neural_de\external\maxim_tf\maxim\blocks\misc_gating.py:39:14: W0612: Unused variable 'w' (unused-variable)
+neural_de\external\maxim_tf\maxim\blocks\misc_gating.py:88:0: R0917: Too many positional arguments (7/5) (too-many-positional-arguments)
+neural_de\external\maxim_tf\maxim\blocks\misc_gating.py:100:8: W0612: Unused variable 'n' (unused-variable)
+neural_de\external\maxim_tf\maxim\blocks\misc_gating.py:89:8: W0613: Unused argument 'features' (unused-argument)
+neural_de\external\maxim_tf\maxim\blocks\misc_gating.py:145:0: R0917: Too many positional arguments (8/5) (too-many-positional-arguments)
+neural_de\external\maxim_tf\maxim\blocks\misc_gating.py:165:8: W0612: Unused variable 'n' (unused-variable)
+neural_de\external\maxim_tf\maxim\blocks\misc_gating.py:165:11: W0612: Unused variable 'h' (unused-variable)
+neural_de\external\maxim_tf\maxim\blocks\misc_gating.py:165:14: W0612: Unused variable 'w' (unused-variable)
+neural_de\external\maxim_tf\maxim\blocks\misc_gating.py:150:8: W0613: Unused argument 'input_proj_factor' (unused-argument)
+************* Module neural_de.external.maxim_tf.maxim.blocks.others
+neural_de\external\maxim_tf\maxim\blocks\others.py:41:8: W0612: Unused variable 'n' (unused-variable)
+neural_de\external\maxim_tf\maxim\blocks\others.py:41:17: W0612: Unused variable 'c' (unused-variable)
+************* Module neural_de.external.maxim_tf.maxim.blocks.unet
+neural_de\external\maxim_tf\maxim\blocks\unet.py:23:0: R0917: Too many positional arguments (15/5) (too-many-positional-arguments)
+neural_de\external\maxim_tf\maxim\blocks\unet.py:85:8: R1705: Unnecessary "else" after "return", remove the "else" and de-indent the code inside it (no-else-return)
+neural_de\external\maxim_tf\maxim\blocks\unet.py:96:0: R0917: Too many positional arguments (14/5) (too-many-positional-arguments)
+neural_de\external\maxim_tf\maxim\blocks\unet.py:104:8: W0613: Unused argument 'input_proj_factor' (unused-argument)
+neural_de\external\maxim_tf\maxim\blocks\unet.py:107:8: W0613: Unused argument 'downsample' (unused-argument)
+************* Module neural_de.external.nplie.nplie
+neural_de\external\nplie\nplie.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+neural_de\external\nplie\nplie.py:5:0: C0116: Missing function or method docstring (missing-function-docstring)
+neural_de\external\nplie\nplie.py:35:0: C0116: Missing function or method docstring (missing-function-docstring)
+neural_de\external\nplie\nplie.py:42:0: C0116: Missing function or method docstring (missing-function-docstring)
+neural_de\external\nplie\nplie.py:59:4: C0200: Consider using enumerate instead of iterating with range and len (consider-using-enumerate)
+neural_de\external\nplie\nplie.py:64:4: C0200: Consider using enumerate instead of iterating with range and len (consider-using-enumerate)
+neural_de\external\nplie\nplie.py:73:0: C0116: Missing function or method docstring (missing-function-docstring)
+neural_de\external\nplie\nplie.py:80:0: C0116: Missing function or method docstring (missing-function-docstring)
+neural_de\external\nplie\nplie.py:87:0: C0116: Missing function or method docstring (missing-function-docstring)
+neural_de\external\nplie\nplie.py:87:0: R0917: Too many positional arguments (6/5) (too-many-positional-arguments)
+neural_de\external\nplie\nplie.py:98:0: C0116: Missing function or method docstring (missing-function-docstring)
+neural_de\external\nplie\nplie.py:103:0: C0116: Missing function or method docstring (missing-function-docstring)
+neural_de\external\nplie\nplie.py:103:0: R0917: Too many positional arguments (7/5) (too-many-positional-arguments)
+neural_de\external\nplie\nplie.py:110:0: C0116: Missing function or method docstring (missing-function-docstring)
+neural_de\external\nplie\nplie.py:117:0: C0116: Missing function or method docstring (missing-function-docstring)
+neural_de\external\nplie\nplie.py:124:0: C0116: Missing function or method docstring (missing-function-docstring)
+neural_de\external\nplie\nplie.py:139:8: W0612: Unused variable 'i' (unused-variable)
+neural_de\external\nplie\nplie.py:146:0: C0116: Missing function or method docstring (missing-function-docstring)
+neural_de\external\nplie\nplie.py:149:10: W0612: Unused variable 'C' (unused-variable)
+neural_de\external\nplie\nplie.py:167:0: C0116: Missing function or method docstring (missing-function-docstring)
+************* Module neural_de.external.prenet.networks
+neural_de\external\prenet\networks.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+neural_de\external\prenet\networks.py:2:0: R0402: Use 'from torch import nn' instead (consider-using-from-import)
+neural_de\external\prenet\networks.py:7:0: C0115: Missing class docstring (missing-class-docstring)
+neural_de\external\prenet\networks.py:9:8: R1725: Consider using Python 3 style super() without arguments (super-with-arguments)
+neural_de\external\prenet\networks.py:67:4: C0116: Missing function or method docstring (missing-function-docstring)
+neural_de\external\prenet\networks.py:67:22: W0622: Redefining built-in 'input' (redefined-builtin)
+neural_de\external\prenet\networks.py:117:0: C0115: Missing class docstring (missing-class-docstring)
+neural_de\external\prenet\networks.py:119:8: R1725: Consider using Python 3 style super() without arguments (super-with-arguments)
+neural_de\external\prenet\networks.py:177:4: C0116: Missing function or method docstring (missing-function-docstring)
+neural_de\external\prenet\networks.py:177:22: W0622: Redefining built-in 'input' (redefined-builtin)
+neural_de\external\prenet\networks.py:220:0: C0115: Missing class docstring (missing-class-docstring)
+neural_de\external\prenet\networks.py:222:8: R1725: Consider using Python 3 style super() without arguments (super-with-arguments)
+neural_de\external\prenet\networks.py:280:4: C0116: Missing function or method docstring (missing-function-docstring)
+neural_de\external\prenet\networks.py:280:22: W0622: Redefining built-in 'input' (redefined-builtin)
+neural_de\external\prenet\networks.py:290:12: W0612: Unused variable 'i' (unused-variable)
+neural_de\external\prenet\networks.py:320:0: C0115: Missing class docstring (missing-class-docstring)
+neural_de\external\prenet\networks.py:322:8: R1725: Consider using Python 3 style super() without arguments (super-with-arguments)
+neural_de\external\prenet\networks.py:380:4: C0116: Missing function or method docstring (missing-function-docstring)
+neural_de\external\prenet\networks.py:380:22: W0622: Redefining built-in 'input' (redefined-builtin)
+neural_de\external\prenet\networks.py:422:0: C0115: Missing class docstring (missing-class-docstring)
+neural_de\external\prenet\networks.py:424:8: R1725: Consider using Python 3 style super() without arguments (super-with-arguments)
+neural_de\external\prenet\networks.py:458:4: C0116: Missing function or method docstring (missing-function-docstring)
+neural_de\external\prenet\networks.py:458:22: W0622: Redefining built-in 'input' (redefined-builtin)
+neural_de\external\prenet\networks.py:483:16: W0612: Unused variable 'j' (unused-variable)
+neural_de\external\prenet\networks.py:495:0: C0115: Missing class docstring (missing-class-docstring)
+neural_de\external\prenet\networks.py:497:8: R1725: Consider using Python 3 style super() without arguments (super-with-arguments)
+neural_de\external\prenet\networks.py:539:4: C0116: Missing function or method docstring (missing-function-docstring)
+neural_de\external\prenet\networks.py:539:22: W0622: Redefining built-in 'input' (redefined-builtin)
+neural_de\external\prenet\networks.py:543:12: W0612: Unused variable 'i' (unused-variable)
+neural_de\external\prenet\networks.py:564:0: C0115: Missing class docstring (missing-class-docstring)
+neural_de\external\prenet\networks.py:566:8: R1725: Consider using Python 3 style super() without arguments (super-with-arguments)
+neural_de\external\prenet\networks.py:585:4: C0116: Missing function or method docstring (missing-function-docstring)
+neural_de\external\prenet\networks.py:585:22: W0622: Redefining built-in 'input' (redefined-builtin)
+neural_de\external\prenet\networks.py:590:12: W0612: Unused variable 'i' (unused-variable)
+neural_de\external\prenet\networks.py:594:16: W0612: Unused variable 'j' (unused-variable)
+************* Module neural_de.transformations.de_rain_enhancer
+neural_de\transformations\de_rain_enhancer.py:102:22: E1102: torch.nn.functional.pad is not callable (not-callable)
+************* Module neural_de.transformations.de_snow_enhancer
+neural_de\transformations\de_snow_enhancer.py:95:15: E1121: Too many positional arguments for method call (too-many-function-args)
+************* Module neural_de.transformations.transformation_pipeline
+neural_de\transformations\transformation_pipeline.py:124:12: W0707: Consider explicitly re-raising using 'raise log_and_raise(self._logger, TypeError, f"Invalid call during function transform of '{transformation}': {e}") from e' (raise-missing-from)
+neural_de\transformations\transformation_pipeline.py:124:12: E0702: Raising NoneType while only classes or instances are allowed (raising-bad-type)
+************* Module neural_de.transformations.diffusion.diffpure_config
+neural_de\transformations\diffusion\diffpure_config.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+neural_de\transformations\diffusion\diffpure_config.py:19:0: R0902: Too many instance attributes (25/15) (too-many-instance-attributes)
+************* Module neural_de.transformations.diffusion.diffusion_enhancer
+neural_de\transformations\diffusion\diffusion_enhancer.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+************* Module neural_de.transformations.diffusion.rev_guided_diffusion
+neural_de\transformations\diffusion\rev_guided_diffusion.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+neural_de\transformations\diffusion\rev_guided_diffusion.py:13:0: W0223: Method 'forward' is abstract in class 'torch.nn.modules.module' but is not overridden in child class 'RevGuidedDiffusion' (abstract-method)
+neural_de\transformations\diffusion\rev_guided_diffusion.py:32:8: W1203: Use lazy % formatting in logging functions (logging-fstring-interpolation)
+neural_de\transformations\diffusion\rev_guided_diffusion.py:42:16: W0707: Consider explicitly re-raising using 'except KeyError as exc' and 'raise NotImplementedError(f'unsupported image size: {config.image_size}') from exc' (raise-missing-from)
+neural_de\transformations\diffusion\rev_guided_diffusion.py:49:8: W1203: Use lazy % formatting in logging functions (logging-fstring-interpolation)
+neural_de\transformations\diffusion\rev_guided_diffusion.py:76:12: W0612: Unused variable 'it' (unused-variable)
+************* Module neural_de.transformations.diffusion.rev_vpsde
+neural_de\transformations\diffusion\rev_vpsde.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+neural_de\transformations\diffusion\rev_vpsde.py:8:0: W0223: Method 'forward' is abstract in class 'torch.nn.modules.module' but is not overridden in child class 'RevVPSDE' (abstract-method)
+neural_de\transformations\diffusion\rev_vpsde.py:20:4: R0917: Too many positional arguments (7/5) (too-many-positional-arguments)
+************* Module neural_de.transformations.diffusion.unet.attention_block
+neural_de\transformations\diffusion\unet\attention_block.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+neural_de\transformations\diffusion\unet\attention_block.py:21:4: R0917: Too many positional arguments (6/5) (too-many-positional-arguments)
+neural_de\transformations\diffusion\unet\attention_block.py:50:4: C0116: Missing function or method docstring (missing-function-docstring)
+************* Module neural_de.transformations.diffusion.unet.downsample
+neural_de\transformations\diffusion\unet\downsample.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+neural_de\transformations\diffusion\unet\downsample.py:30:4: C0116: Missing function or method docstring (missing-function-docstring)
+************* Module neural_de.transformations.diffusion.unet.nn
+neural_de\transformations\diffusion\unet\nn.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+neural_de\transformations\diffusion\unet\nn.py:17:4: R1705: Unnecessary "elif" after "return", remove the leading "el" from "elif" (no-else-return)
+neural_de\transformations\diffusion\unet\nn.py:30:4: R1705: Unnecessary "elif" after "return", remove the leading "el" from "elif" (no-else-return)
+neural_de\transformations\diffusion\unet\nn.py:39:0: C0115: Missing class docstring (missing-class-docstring)
+neural_de\transformations\diffusion\unet\nn.py:40:4: W0237: Parameter 'input' has been renamed to 'x' in overriding 'GroupNorm32.forward' method (arguments-renamed)
+neural_de\transformations\diffusion\unet\nn.py:86:4: R1705: Unnecessary "else" after "return", remove the "else" and de-indent the code inside it (no-else-return)
+neural_de\transformations\diffusion\unet\nn.py:93:0: C0115: Missing class docstring (missing-class-docstring)
+neural_de\transformations\diffusion\unet\nn.py:93:0: W0223: Method 'jvp' is abstract in class '_SingleLevelFunction' but is not overridden in child class 'CheckpointFunction' (abstract-method)
+neural_de\transformations\diffusion\unet\nn.py:93:0: W0223: Method 'setup_context' is abstract in class '_SingleLevelFunction' but is not overridden in child class 'CheckpointFunction' (abstract-method)
+neural_de\transformations\diffusion\unet\nn.py:93:0: W0223: Method 'vjp' is abstract in class '_SingleLevelFunction' but is not overridden in child class 'CheckpointFunction' (abstract-method)
+neural_de\transformations\diffusion\unet\nn.py:93:0: W0223: Method 'vmap' is abstract in class 'Function' but is not overridden in child class 'CheckpointFunction' (abstract-method)
+neural_de\transformations\diffusion\unet\nn.py:95:4: W0221: Number of parameters was 3 in '_SingleLevelFunction.forward' and is now 4 in overriding 'CheckpointFunction.forward' method (arguments-differ)
+neural_de\transformations\diffusion\unet\nn.py:95:4: W0221: Variadics removed in overriding 'CheckpointFunction.forward' method (arguments-differ)
+************* Module neural_de.transformations.diffusion.unet.qkv_attention
+neural_de\transformations\diffusion\unet\qkv_attention.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+************* Module neural_de.transformations.diffusion.unet.qkv_attention_legacy
+neural_de\transformations\diffusion\unet\qkv_attention_legacy.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+************* Module neural_de.transformations.diffusion.unet.res_block
+neural_de\transformations\diffusion\unet\res_block.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+neural_de\transformations\diffusion\unet\res_block.py:33:4: R0917: Too many positional arguments (11/5) (too-many-positional-arguments)
+************* Module neural_de.transformations.diffusion.unet.timestep_block
+neural_de\transformations\diffusion\unet\timestep_block.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+************* Module neural_de.transformations.diffusion.unet.timestep_embed_sequential
+neural_de\transformations\diffusion\unet\timestep_embed_sequential.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+neural_de\transformations\diffusion\unet\timestep_embed_sequential.py:11:4: W0221: Number of parameters was 2 in 'Sequential.forward' and is now 3 in overriding 'TimestepEmbedSequential.forward' method (arguments-differ)
+************* Module neural_de.transformations.diffusion.unet.unet_model
+neural_de\transformations\diffusion\unet\unet_model.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+neural_de\transformations\diffusion\unet\unet_model.py:4:0: R0402: Use 'from torch import nn' instead (consider-using-from-import)
+************* Module neural_de.transformations.diffusion.unet.upsample
+neural_de\transformations\diffusion\unet\upsample.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+neural_de\transformations\diffusion\unet\upsample.py:25:4: C0116: Missing function or method docstring (missing-function-docstring)
+neural_de\transformations\diffusion\unet\upsample.py:3:0: C0412: Imports from package torch are not grouped (ungrouped-imports)
+************* Module neural_de.transformations.diffusion.unet.utils
+neural_de\transformations\diffusion\unet\utils.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+neural_de\transformations\diffusion\unet\utils.py:1:0: R0402: Use 'from torch import nn' instead (consider-using-from-import)
+************* Module neural_de.utils.validation
+neural_de\utils\validation.py:29:0: R0911: Too many return statements (7/6) (too-many-return-statements)
+************* Module neural_de.utils.__init__
+neural_de\utils\__init__.py:1:0: R0801: Similar lines in 2 files
+==neural_de.external.maxim_tf.maxim.blocks.bottleneck:[35:46]
+==neural_de.external.maxim_tf.maxim.blocks.unet:[51:61]
+            x = ResidualSplitHeadMultiAxisGmlpLayer(
+                grid_size=grid_size,
+                block_size=block_size,
+                grid_gmlp_factor=grid_gmlp_factor,
+                block_gmlp_factor=block_gmlp_factor,
+                input_proj_factor=input_proj_factor,
+                use_bias=use_bias,
+                dropout_rate=dropout_rate,
+                name=f"{name}_SplitHeadMultiAxisGmlpLayer_{i}",
+            )(x)
+            # Channel-mixing part, which provides within-patch communication. (duplicate-code)
+neural_de\utils\__init__.py:1:0: R0801: Similar lines in 2 files
+==neural_de.external.maxim_tf.maxim.blocks.block_gating:[60:71]
+==neural_de.external.maxim_tf.maxim.blocks.grid_gating:[61:72]
+        y = layers.Dense(
+            num_channels,
+            use_bias=use_bias,
+            name=f"{name}_out_project",
+        )(y)
+        y = layers.Dropout(dropout_rate)(y)
+        x = x + y
+        x = UnblockImages()(x, grid_size=(gh, gw), patch_size=(fh, fw))
+        return x
+
+    return apply (duplicate-code)
+neural_de\utils\__init__.py:1:0: R0801: Similar lines in 2 files
+==neural_de.external.maxim_tf.maxim.blocks.block_gating:[50:59]
+==neural_de.external.maxim_tf.maxim.blocks.grid_gating:[51:60]
+        x = BlockImages()(x, patch_size=(fh, fw))
+        # MLP2: Local (block) mixing part, provides within-block communication.
+        y = layers.LayerNormalization(epsilon=1e-06, name=f"{name}_LayerNorm")(x)
+        y = layers.Dense(
+            num_channels * factor,
+            use_bias=use_bias,
+            name=f"{name}_in_project",
+        )(y)
+        y = tf.nn.gelu(y, approximate=True) (duplicate-code)
+neural_de\utils\__init__.py:1:0: R0801: Similar lines in 2 files
+==neural_de.external.maxim_tf.maxim.blocks.block_gating:[27:48]
+==neural_de.external.maxim_tf.maxim.blocks.grid_gating:[27:48]
+        return u * (v + 1.0)
+
+    return apply
+
+
+def GridGmlpLayer(
+        grid_size,
+        use_bias: bool = True,
+        factor: int = 2,
+        dropout_rate: float = 0.0,
+        name: str = "grid_gmlp",
+):
+    """Grid gMLP layer that performs global mixing of tokens."""
+
+    def apply(x):
+        n, h, w, num_channels = (
+            K.int_shape(x)[0],
+            K.int_shape(x)[1],
+            K.int_shape(x)[2],
+            K.int_shape(x)[3],
+        ) (duplicate-code)
+neural_de\utils\__init__.py:1:0: R0801: Similar lines in 2 files
+==neural_de.external.maxim_tf.maxim.blocks.misc_gating:[14:37]
+==neural_de.external.maxim_tf.maxim.maxim:[17:92]
+Conv1x1 = functools.partial(layers.Conv2D, kernel_size=(1, 1), padding="same")
+Conv3x3 = functools.partial(layers.Conv2D, kernel_size=(3, 3), padding="same")
+ConvT_up = functools.partial(
+    layers.Conv2DTranspose, kernel_size=(2, 2), strides=(2, 2), padding="same"
+)
+Conv_down = functools.partial(
+    layers.Conv2D, kernel_size=(4, 4), strides=(2, 2), padding="same"
+)
+
+
+def ResidualSplitHeadMultiAxisGmlpLayer(
+        block_size,
+        grid_size,
+        block_gmlp_factor: int = 2,
+        grid_gmlp_factor: int = 2,
+        input_proj_factor: int = 2,
+        use_bias: bool = True,
+        dropout_rate: float = 0.0,
+        name: str = "residual_split_head_maxim",
+):
+    """The multi-axis gated MLP block."""
+
+    def apply(x): (duplicate-code)
+neural_de\utils\__init__.py:1:0: R0801: Similar lines in 2 files
+==neural_de.external.maxim_tf.maxim.blocks.block_gating:[29:48]
+==neural_de.external.maxim_tf.maxim.blocks.misc_gating:[84:107]
+    return apply
+
+
+def BlockGmlpLayer(
+        block_size,
+        use_bias: bool = True,
+        factor: int = 2,
+        dropout_rate: float = 0.0,
+        name: str = "block_gmlp",
+):
+    """Block gMLP layer that performs local mixing of tokens."""
+
+    def apply(x):
+        n, h, w, num_channels = (
+            K.int_shape(x)[0],
+            K.int_shape(x)[1],
+            K.int_shape(x)[2],
+            K.int_shape(x)[3],
+        ) (duplicate-code)
+neural_de\utils\__init__.py:1:0: R0801: Similar lines in 2 files
+==neural_de.external.maxim_tf.maxim.blocks.grid_gating:[42:48]
+==neural_de.external.maxim_tf.maxim.blocks.misc_gating:[164:171]
+        n, h, w, num_channels = (
+            K.int_shape(x)[0],
+            K.int_shape(x)[1],
+            K.int_shape(x)[2],
+            K.int_shape(x)[3],
+        )
+ (duplicate-code)
+neural_de\utils\__init__.py:1:0: R0801: Similar lines in 2 files
+==neural_de.external.maxim_tf.maxim.blocks.block_gating:[42:48]
+==neural_de.external.maxim_tf.maxim.blocks.misc_gating:[38:44]
+        n, h, w, num_channels = (
+            K.int_shape(x)[0],
+            K.int_shape(x)[1],
+            K.int_shape(x)[2],
+            K.int_shape(x)[3],
+        ) (duplicate-code)
+neural_de\utils\__init__.py:1:0: R0801: Similar lines in 2 files
+==neural_de.external.maxim_tf.maxim.blocks.unet:[119:125]
+==neural_de.external.maxim_tf.maxim.maxim:[279:285]
+            num_groups=num_groups,
+            lrelu_slope=lrelu_slope,
+            block_size=block_size,
+            grid_size=grid_size,
+            block_gmlp_factor=block_gmlp_factor,
+            grid_gmlp_factor=grid_gmlp_factor, (duplicate-code)
+neural_de\utils\__init__.py:1:0: R0801: Similar lines in 2 files
+==neural_de.external.maxim_tf.maxim.blocks.unet:[75:81]
+==neural_de.external.maxim_tf.maxim.maxim:[139:145]
+                            block_size=block_size,
+                            grid_size=grid_size,
+                            dropout_rate=dropout_rate,
+                            input_proj_factor=input_proj_factor,
+                            upsample_y=False,
+                            use_bias=use_bias, (duplicate-code)
+neural_de\utils\__init__.py:1:0: R0801: Similar lines in 2 files
+==neural_de.external.maxim_tf.maxim.blocks.others:[40:48]
+==neural_de.external.maxim_tf.maxim.maxim:[92:99]
+        n, h, w, c = (
+            K.int_shape(x)[0],
+            K.int_shape(x)[1],
+            K.int_shape(x)[2],
+            K.int_shape(x)[3],
+        )
+
+        # Following `jax.image.resize()` (duplicate-code)
+neural_de\utils\__init__.py:1:0: R0801: Similar lines in 2 files
+==neural_de.transformations.diffusion.unet.qkv_attention:[11:24]
+==neural_de.transformations.diffusion.unet.qkv_attention_legacy:[11:24]
+        super().__init__()
+        self.n_heads = n_heads
+
+    def forward(self, qkv):
+        """
+        Apply QKV attention.
+
+        :param qkv: an [N x (H * 3 * C) x T] tensor of Qs, Ks, and Vs.
+        :return: an [N x (H * C) x T] tensor after attention.
+        """
+        bs, width, length = qkv.shape
+        assert width % (3 * self.n_heads) == 0
+        ch = width // (3 * self.n_heads) (duplicate-code)
+neural_de\utils\__init__.py:1:0: R0801: Similar lines in 2 files
+==neural_de.transformations.diffusion.unet.downsample:[15:20]
+==neural_de.transformations.diffusion.unet.upsample:[16:21]
+        super().__init__()
+        self.channels = channels
+        self.out_channels = out_channels or channels
+        self.use_conv = use_conv
+        self.dims = dims (duplicate-code)
+neural_de\utils\__init__.py:1:0: R0801: Similar lines in 2 files
+==neural_de.transformations.de_rain_enhancer:[54:61]
+==neural_de.transformations.de_snow_enhancer:[41:48]
+        self._logger.info("Checking model availability...")
+        self._model_manager = ModelManager(enhancer=_ENHANCER,
+                                           required_model=_MODEL_FILENAME,
+                                           logger=self._logger)
+        self._model_manager.download_model()
+
+        # Load model from (duplicate-code)
+neural_de\utils\__init__.py:1:0: R0801: Similar lines in 2 files
+==neural_de.external.maxim_tf.maxim.blocks.unet:[120:125]
+==neural_de.external.maxim_tf.maxim.maxim:[177:182]
+            lrelu_slope=lrelu_slope,
+            block_size=block_size,
+            grid_size=grid_size,
+            block_gmlp_factor=block_gmlp_factor,
+            grid_gmlp_factor=grid_gmlp_factor, (duplicate-code)
+
+------------------------------------------------------------------
+Your code has been rated at 8.98/10 (previous run: 8.98/10, +0.00)
+

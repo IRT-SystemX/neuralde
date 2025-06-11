@@ -1,4 +1,4 @@
-neuralde package
+neural\_de package
 ==================
 
 Subpackages
