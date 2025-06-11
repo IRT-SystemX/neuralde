@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>neural_de\external\maxim_tf\maxim\blocks\block_gating.py - flake8 annotated source</title>
+      <meta http-equiv="Content-Type" value="text/html; charset=UTF-8">
+      <link rel="stylesheet" href="styles.css">
+   </head>
+   <body>
+      <div id="masthead" class="sev-1"></div>
+      <div id="page">
+         <h1>
+            <a href="neural_de.external.maxim_tf.maxim.blocks.block_gating.report.html">
+               <img src="back.svg" alt="&#x2B05;">
+               neural_de\external\maxim_tf\maxim\blocks\block_gating.py source
+            </a>
+         </h1>
+
+         <div id="doc">
+            <div id="l1"
+               class="code sev- "><tt><i>1</i> <span class="sd">&quot;&quot;&quot;</span></tt>
+            </div>
+            <div id="l2"
+               class="code sev- "><tt><i>2</i> <span class="sd">Blocks based on https://github.com/google-research/maxim/blob/main/maxim/models/maxim.py</span></tt>
+            </div>
+            <div id="l3"
+               class="code sev- "><tt><i>3</i> <span class="sd">&quot;&quot;&quot;</span></tt>
+            </div>
+            <div id="l4"
+               class="code sev- "><tt><i>4</i> &nbsp;</tt>
+            </div>
+            <div id="l5"
+               class="code sev- "><tt><i>5</i> <span class="kn">import</span><span class="w"> </span><span class="nn">tensorflow</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">tf</span></tt>
+            </div>
+            <div id="l6"
+               class="code sev- "><tt><i>6</i> <span class="kn">from</span><span class="w"> </span><span class="nn">tensorflow.keras</span><span class="w"> </span><span class="kn">import</span> <span class="n">backend</span> <span class="k">as</span> <span class="n">K</span></tt>
+            </div>
+            <div id="l7"
+               class="code sev- "><tt><i>7</i> <span class="kn">from</span><span class="w"> </span><span class="nn">tensorflow.keras</span><span class="w"> </span><span class="kn">import</span> <span class="n">layers</span></tt>
+            </div>
+            <div id="l8"
+               class="code sev- "><tt><i>8</i> &nbsp;</tt>
+            </div>
+            <div id="l9"
+               class="code sev- "><tt><i>9</i> <span class="kn">from</span><span class="w"> </span><span class="nn">..layers</span><span class="w"> </span><span class="kn">import</span> <span class="n">BlockImages</span><span class="p">,</span> <span class="n">SwapAxes</span><span class="p">,</span> <span class="n">UnblockImages</span></tt>
+            </div>
+            <div id="l10"
+               class="code sev- "><tt><i>10</i> &nbsp;</tt>
+            </div>
+            <div id="l11"
+               class="code sev- "><tt><i>11</i> &nbsp;</tt>
+            </div>
+            <div id="l12"
+               class="code sev- "><tt><i>12</i> <span class="k">def</span><span class="w"> </span><span class="nf">BlockGatingUnit</span><span class="p">(</span><span class="n">use_bias</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;block_gating_unit&quot;</span><span class="p">):</span></tt>
+            </div>
+            <div id="l13"
+               class="code sev- "><tt><i>13</i> <span class="w">    </span><span class="sd">&quot;&quot;&quot;A SpatialGatingUnit as defined in the gMLP paper.</span></tt>
+            </div>
+            <div id="l14"
+               class="code sev- "><tt><i>14</i> &nbsp;</tt>
+            </div>
+            <div id="l15"
+               class="code sev- "><tt><i>15</i> <span class="sd">    The &#39;spatial&#39; dim is defined as the **second last**.</span></tt>
+            </div>
+            <div id="l16"
+               class="code sev- "><tt><i>16</i> <span class="sd">    If applied on other dims, you should swapaxes first.</span></tt>
+            </div>
+            <div id="l17"
+               class="code sev- "><tt><i>17</i> <span class="sd">    &quot;&quot;&quot;</span></tt>
+            </div>
+            <div id="l18"
+               class="code sev- "><tt><i>18</i> &nbsp;</tt>
+            </div>
+            <div id="l19"
+               class="code sev- "><tt><i>19</i>     <span class="k">def</span><span class="w"> </span><span class="nf">apply</span><span class="p">(</span><span class="n">x</span><span class="p">):</span></tt>
+            </div>
+            <div id="l20"
+               class="code sev- "><tt><i>20</i>         <span class="n">u</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span></tt>
+            </div>
+            <div id="l21"
+               class="code sev- "><tt><i>21</i>         <span class="n">v</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">LayerNormalization</span><span class="p">(</span></tt>
+            </div>
+            <div id="l22"
+               class="code sev- "><tt><i>22</i>             <span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-06</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">_intermediate_layernorm&quot;</span></tt>
+            </div>
+            <div id="l23"
+               class="code sev- "><tt><i>23</i>         <span class="p">)(</span><span class="n">v</span><span class="p">)</span></tt>
+            </div>
+            <div id="l24"
+               class="code sev- "><tt><i>24</i>         <span class="n">n</span> <span class="o">=</span> <span class="n">K</span><span class="o">.</span><span class="n">int_shape</span><span class="p">(</span><span class="n">x</span><span class="p">)[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>  <span class="c1"># get spatial dim</span></tt>
+            </div>
+            <div id="l25"
+               class="code sev- "><tt><i>25</i>         <span class="n">v</span> <span class="o">=</span> <span class="n">SwapAxes</span><span class="p">()(</span><span class="n">v</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">)</span></tt>
+            </div>
+            <div id="l26"
+               class="code sev- "><tt><i>26</i>         <span class="n">v</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">use_bias</span><span class="o">=</span><span class="n">use_bias</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">_Dense_0&quot;</span><span class="p">)(</span><span class="n">v</span><span class="p">)</span></tt>
+            </div>
+            <div id="l27"
+               class="code sev- "><tt><i>27</i>         <span class="n">v</span> <span class="o">=</span> <span class="n">SwapAxes</span><span class="p">()(</span><span class="n">v</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">)</span></tt>
+            </div>
+            <div id="l28"
+               class="code sev- "><tt><i>28</i>         <span class="k">return</span> <span class="n">u</span> <span class="o">*</span> <span class="p">(</span><span class="n">v</span> <span class="o">+</span> <span class="mf">1.0</span><span class="p">)</span></tt>
+            </div>
+            <div id="l29"
+               class="code sev- "><tt><i>29</i> &nbsp;</tt>
+            </div>
+            <div id="l30"
+               class="code sev- "><tt><i>30</i>     <span class="k">return</span> <span class="n">apply</span></tt>
+            </div>
+            <div id="l31"
+               class="code sev- "><tt><i>31</i> &nbsp;</tt>
+            </div>
+            <div id="l32"
+               class="code sev- "><tt><i>32</i> &nbsp;</tt>
+            </div>
+            <div id="l33"
+               class="code sev- "><tt><i>33</i> <span class="k">def</span><span class="w"> </span><span class="nf">BlockGmlpLayer</span><span class="p">(</span></tt>
+            </div>
+            <div id="l34"
+               class="code sev- "><tt><i>34</i>         <span class="n">block_size</span><span class="p">,</span></tt>
+            </div>
+            <div id="l35"
+               class="code sev- "><tt><i>35</i>         <span class="n">use_bias</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span></tt>
+            </div>
+            <div id="l36"
+               class="code sev- "><tt><i>36</i>         <span class="n">factor</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span></tt>
+            </div>
+            <div id="l37"
+               class="code sev- "><tt><i>37</i>         <span class="n">dropout_rate</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span></tt>
+            </div>
+            <div id="l38"
+               class="code sev- "><tt><i>38</i>         <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;block_gmlp&quot;</span><span class="p">,</span></tt>
+            </div>
+            <div id="l39"
+               class="code sev- "><tt><i>39</i> <span class="p">):</span></tt>
+            </div>
+            <div id="l40"
+               class="code sev- "><tt><i>40</i> <span class="w">    </span><span class="sd">&quot;&quot;&quot;Block gMLP layer that performs local mixing of tokens.&quot;&quot;&quot;</span></tt>
+            </div>
+            <div id="l41"
+               class="code sev- "><tt><i>41</i> &nbsp;</tt>
+            </div>
+            <div id="l42"
+               class="code sev- "><tt><i>42</i>     <span class="k">def</span><span class="w"> </span><span class="nf">apply</span><span class="p">(</span><span class="n">x</span><span class="p">):</span></tt>
+            </div>
+            <div id="l43"
+               class="code sev-1  le">
+               <ul class="violations">
+               
+                  <li>
+                     <span class="count sev-1">
+                        F841
+                     </span>
+                     Local variable 'n' is assigned to but never used</li>
+               
+               </ul><tt><i>43</i>         <span class="n">n</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">num_channels</span> <span class="o">=</span> <span class="p">(</span></tt>
+            </div>
+            <div id="l44"
+               class="code sev- "><tt><i>44</i>             <span class="n">K</span><span class="o">.</span><span class="n">int_shape</span><span class="p">(</span><span class="n">x</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span></tt>
+            </div>
+            <div id="l45"
+               class="code sev- "><tt><i>45</i>             <span class="n">K</span><span class="o">.</span><span class="n">int_shape</span><span class="p">(</span><span class="n">x</span><span class="p">)[</span><span class="mi">1</span><span class="p">],</span></tt>
+            </div>
+            <div id="l46"
+               class="code sev- "><tt><i>46</i>             <span class="n">K</span><span class="o">.</span><span class="n">int_shape</span><span class="p">(</span><span class="n">x</span><span class="p">)[</span><span class="mi">2</span><span class="p">],</span></tt>
+            </div>
+            <div id="l47"
+               class="code sev- "><tt><i>47</i>             <span class="n">K</span><span class="o">.</span><span class="n">int_shape</span><span class="p">(</span><span class="n">x</span><span class="p">)[</span><span class="mi">3</span><span class="p">],</span></tt>
+            </div>
+            <div id="l48"
+               class="code sev- "><tt><i>48</i>         <span class="p">)</span></tt>
+            </div>
+            <div id="l49"
+               class="code sev- "><tt><i>49</i>         <span class="n">fh</span><span class="p">,</span> <span class="n">fw</span> <span class="o">=</span> <span class="n">block_size</span></tt>
+            </div>
+            <div id="l50"
+               class="code sev- "><tt><i>50</i>         <span class="n">gh</span><span class="p">,</span> <span class="n">gw</span> <span class="o">=</span> <span class="n">h</span> <span class="o">//</span> <span class="n">fh</span><span class="p">,</span> <span class="n">w</span> <span class="o">//</span> <span class="n">fw</span></tt>
+            </div>
+            <div id="l51"
+               class="code sev- "><tt><i>51</i>         <span class="n">x</span> <span class="o">=</span> <span class="n">BlockImages</span><span class="p">()(</span><span class="n">x</span><span class="p">,</span> <span class="n">patch_size</span><span class="o">=</span><span class="p">(</span><span class="n">fh</span><span class="p">,</span> <span class="n">fw</span><span class="p">))</span></tt>
+            </div>
+            <div id="l52"
+               class="code sev- "><tt><i>52</i>         <span class="c1"># MLP2: Local (block) mixing part, provides within-block communication.</span></tt>
+            </div>
+            <div id="l53"
+               class="code sev- "><tt><i>53</i>         <span class="n">y</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">LayerNormalization</span><span class="p">(</span><span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-06</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">_LayerNorm&quot;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span></tt>
+            </div>
+            <div id="l54"
+               class="code sev- "><tt><i>54</i>         <span class="n">y</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span></tt>
+            </div>
+            <div id="l55"
+               class="code sev- "><tt><i>55</i>             <span class="n">num_channels</span> <span class="o">*</span> <span class="n">factor</span><span class="p">,</span></tt>
+            </div>
+            <div id="l56"
+               class="code sev- "><tt><i>56</i>             <span class="n">use_bias</span><span class="o">=</span><span class="n">use_bias</span><span class="p">,</span></tt>
+            </div>
+            <div id="l57"
+               class="code sev- "><tt><i>57</i>             <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">_in_project&quot;</span><span class="p">,</span></tt>
+            </div>
+            <div id="l58"
+               class="code sev- "><tt><i>58</i>         <span class="p">)(</span><span class="n">y</span><span class="p">)</span></tt>
+            </div>
+            <div id="l59"
+               class="code sev- "><tt><i>59</i>         <span class="n">y</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">gelu</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">approximate</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></tt>
+            </div>
+            <div id="l60"
+               class="code sev- "><tt><i>60</i>         <span class="n">y</span> <span class="o">=</span> <span class="n">BlockGatingUnit</span><span class="p">(</span><span class="n">use_bias</span><span class="o">=</span><span class="n">use_bias</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">_BlockGatingUnit&quot;</span><span class="p">)(</span><span class="n">y</span><span class="p">)</span></tt>
+            </div>
+            <div id="l61"
+               class="code sev- "><tt><i>61</i>         <span class="n">y</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span></tt>
+            </div>
+            <div id="l62"
+               class="code sev- "><tt><i>62</i>             <span class="n">num_channels</span><span class="p">,</span></tt>
+            </div>
+            <div id="l63"
+               class="code sev- "><tt><i>63</i>             <span class="n">use_bias</span><span class="o">=</span><span class="n">use_bias</span><span class="p">,</span></tt>
+            </div>
+            <div id="l64"
+               class="code sev- "><tt><i>64</i>             <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">_out_project&quot;</span><span class="p">,</span></tt>
+            </div>
+            <div id="l65"
+               class="code sev- "><tt><i>65</i>         <span class="p">)(</span><span class="n">y</span><span class="p">)</span></tt>
+            </div>
+            <div id="l66"
+               class="code sev- "><tt><i>66</i>         <span class="n">y</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="n">dropout_rate</span><span class="p">)(</span><span class="n">y</span><span class="p">)</span></tt>
+            </div>
+            <div id="l67"
+               class="code sev- "><tt><i>67</i>         <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span></tt>
+            </div>
+            <div id="l68"
+               class="code sev- "><tt><i>68</i>         <span class="n">x</span> <span class="o">=</span> <span class="n">UnblockImages</span><span class="p">()(</span><span class="n">x</span><span class="p">,</span> <span class="n">grid_size</span><span class="o">=</span><span class="p">(</span><span class="n">gh</span><span class="p">,</span> <span class="n">gw</span><span class="p">),</span> <span class="n">patch_size</span><span class="o">=</span><span class="p">(</span><span class="n">fh</span><span class="p">,</span> <span class="n">fw</span><span class="p">))</span></tt>
+            </div>
+            <div id="l69"
+               class="code sev- "><tt><i>69</i>         <span class="k">return</span> <span class="n">x</span></tt>
+            </div>
+            <div id="l70"
+               class="code sev- "><tt><i>70</i> &nbsp;</tt>
+            </div>
+            <div id="l71"
+               class="code sev- "><tt><i>71</i>     <span class="k">return</span> <span class="n">apply</span></tt>
+            </div>
+            
+         </div>
+      </div>
+   </body>
+</html>

@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>neural_de\transformations\transformation_pipeline.py - flake8 annotated source</title>
+      <meta http-equiv="Content-Type" value="text/html; charset=UTF-8">
+      <link rel="stylesheet" href="styles.css">
+   </head>
+   <body>
+      <div id="masthead" class="sev-2"></div>
+      <div id="page">
+         <h1>
+            <a href="neural_de.transformations.transformation_pipeline.report.html">
+               <img src="back.svg" alt="&#x2B05;">
+               neural_de\transformations\transformation_pipeline.py source
+            </a>
+         </h1>
+
+         <div id="doc">
+            <div id="l1"
+               class="code sev- "><tt><i>1</i> <span class="sd">&quot;&quot;&quot;</span></tt>
+            </div>
+            <div id="l2"
+               class="code sev- "><tt><i>2</i> <span class="sd">Transformation pipeline for automation of multiple transformations methods</span></tt>
+            </div>
+            <div id="l3"
+               class="code sev- "><tt><i>3</i> <span class="sd">&quot;&quot;&quot;</span></tt>
+            </div>
+            <div id="l4"
+               class="code sev- "><tt><i>4</i> <span class="kn">import</span><span class="w"> </span><span class="nn">logging</span></tt>
+            </div>
+            <div id="l5"
+               class="code sev- "><tt><i>5</i> <span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span></tt>
+            </div>
+            <div id="l6"
+               class="code sev- "><tt><i>6</i> <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Union</span></tt>
+            </div>
+            <div id="l7"
+               class="code sev- "><tt><i>7</i> &nbsp;</tt>
+            </div>
+            <div id="l8"
+               class="code sev- "><tt><i>8</i> <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span></tt>
+            </div>
+            <div id="l9"
+               class="code sev- "><tt><i>9</i> <span class="kn">import</span><span class="w"> </span><span class="nn">yaml</span></tt>
+            </div>
+            <div id="l10"
+               class="code sev- "><tt><i>10</i> &nbsp;</tt>
+            </div>
+            <div id="l11"
+               class="code sev- "><tt><i>11</i> <span class="kn">from</span><span class="w"> </span><span class="nn">neural_de.transformations.transformation</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseTransformation</span></tt>
+            </div>
+            <div id="l12"
+               class="code sev- "><tt><i>12</i> <span class="c1"># from neural_de import transformations</span></tt>
+            </div>
+            <div id="l13"
+               class="code sev- "><tt><i>13</i> <span class="kn">from</span><span class="w"> </span><span class="nn">neural_de.utils.twe_logger</span><span class="w"> </span><span class="kn">import</span> <span class="n">log_and_raise</span></tt>
+            </div>
+            <div id="l14"
+               class="code sev- "><tt><i>14</i> <span class="kn">import</span><span class="w"> </span><span class="nn">importlib</span></tt>
+            </div>
+            <div id="l15"
+               class="code sev- "><tt><i>15</i> &nbsp;</tt>
+            </div>
+            <div id="l16"
+               class="code sev- "><tt><i>16</i> &nbsp;</tt>
+            </div>
+            <div id="l17"
+               class="code sev- "><tt><i>17</i> <span class="k">def</span><span class="w"> </span><span class="nf">camel_to_snake</span><span class="p">(</span><span class="n">s</span><span class="p">):</span></tt>
+            </div>
+            <div id="l18"
+               class="code sev- "><tt><i>18</i> <span class="w">    </span><span class="sd">&quot;&quot;&quot; This function convert input strings s from Camelcase format to snake case format&quot;&quot;&quot;</span></tt>
+            </div>
+            <div id="l19"
+               class="code sev- "><tt><i>19</i>     <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">c</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">isupper</span><span class="p">()</span> <span class="k">else</span> <span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">s</span><span class="p">])</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)</span></tt>
+            </div>
+            <div id="l20"
+               class="code sev- "><tt><i>20</i> &nbsp;</tt>
+            </div>
+            <div id="l21"
+               class="code sev- "><tt><i>21</i> &nbsp;</tt>
+            </div>
+            <div id="l22"
+               class="code sev- "><tt><i>22</i> <span class="k">class</span><span class="w"> </span><span class="nc">TransformationPipeline</span><span class="p">(</span><span class="n">BaseTransformation</span><span class="p">):</span></tt>
+            </div>
+            <div id="l23"
+               class="code sev- "><tt><i>23</i> <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span></tt>
+            </div>
+            <div id="l24"
+               class="code sev- "><tt><i>24</i> <span class="sd">    Provides a pipeline object, to facilitate the automation of multiple transformations methods,</span></tt>
+            </div>
+            <div id="l25"
+               class="code sev- "><tt><i>25</i> <span class="sd">    and/or offer loading from a yaml file.</span></tt>
+            </div>
+            <div id="l26"
+               class="code sev- "><tt><i>26</i> &nbsp;</tt>
+            </div>
+            <div id="l27"
+               class="code sev- "><tt><i>27</i> <span class="sd">    You can check the example notebook **examples/Pipeline_example.ipynb** for details on the syntax</span></tt>
+            </div>
+            <div id="l28"
+               class="code sev- "><tt><i>28</i> <span class="sd">    and usage.</span></tt>
+            </div>
+            <div id="l29"
+               class="code sev- "><tt><i>29</i> <span class="sd">    An example of valid config file can be found in **examples/config/conf_user.yaml**</span></tt>
+            </div>
+            <div id="l30"
+               class="code sev- "><tt><i>30</i> &nbsp;</tt>
+            </div>
+            <div id="l31"
+               class="code sev- "><tt><i>31</i> <span class="sd">    Args:</span></tt>
+            </div>
+            <div id="l32"
+               class="code sev- "><tt><i>32</i> <span class="sd">        config: either a path toward a yaml configuration file, or a list of dict.</span></tt>
+            </div>
+            <div id="l33"
+               class="code sev- "><tt><i>33</i> <span class="sd">        logger: It is recommended to use the confiance.ai logger, obtainable with</span></tt>
+            </div>
+            <div id="l34"
+               class="code sev- "><tt><i>34</i> <span class="sd">            neural_de.utils.get_logger(...). If None, one logging with stdout will be provided.</span></tt>
+            </div>
+            <div id="l35"
+               class="code sev- "><tt><i>35</i> <span class="sd">    &quot;&quot;&quot;</span></tt>
+            </div>
+            <div id="l36"
+               class="code sev- "><tt><i>36</i>     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="n">Path</span><span class="p">],</span> <span class="n">logger</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span></tt>
+            </div>
+            <div id="l37"
+               class="code sev- "><tt><i>37</i>         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">logger</span><span class="p">)</span></tt>
+            </div>
+            <div id="l38"
+               class="code sev- "><tt><i>38</i>         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span></tt>
+            </div>
+            <div id="l39"
+               class="code sev- "><tt><i>39</i>             <span class="bp">self</span><span class="o">.</span><span class="n">_pipeline_conf</span> <span class="o">=</span> <span class="n">config</span></tt>
+            </div>
+            <div id="l40"
+               class="code sev- "><tt><i>40</i>         <span class="k">else</span><span class="p">:</span></tt>
+            </div>
+            <div id="l41"
+               class="code sev- "><tt><i>41</i>             <span class="c1"># Avoid lazy init for the configuration in order to check consistency asap.</span></tt>
+            </div>
+            <div id="l42"
+               class="code sev- "><tt><i>42</i>             <span class="bp">self</span><span class="o">.</span><span class="n">_pipeline_conf</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_read_config</span><span class="p">(</span><span class="n">config</span><span class="p">)</span></tt>
+            </div>
+            <div id="l43"
+               class="code sev- "><tt><i>43</i>         <span class="bp">self</span><span class="o">.</span><span class="n">_pipeline</span> <span class="o">=</span> <span class="kc">None</span></tt>
+            </div>
+            <div id="l44"
+               class="code sev- "><tt><i>44</i>         <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Config file loaded&quot;</span><span class="p">)</span></tt>
+            </div>
+            <div id="l45"
+               class="code sev- "><tt><i>45</i> &nbsp;</tt>
+            </div>
+            <div id="l46"
+               class="code sev- "><tt><i>46</i>     <span class="k">def</span><span class="w"> </span><span class="nf">_read_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span></tt>
+            </div>
+            <div id="l47"
+               class="code sev- "><tt><i>47</i> <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span></tt>
+            </div>
+            <div id="l48"
+               class="code sev- "><tt><i>48</i> <span class="sd">        Read user configuration of pipeline that contains different transformations parameters</span></tt>
+            </div>
+            <div id="l49"
+               class="code sev- "><tt><i>49</i> &nbsp;</tt>
+            </div>
+            <div id="l50"
+               class="code sev- "><tt><i>50</i> <span class="sd">        Args:</span></tt>
+            </div>
+            <div id="l51"
+               class="code sev- "><tt><i>51</i> <span class="sd">            config_path: path to a yaml configuration file. See example/Pipeline_example for syntax</span></tt>
+            </div>
+            <div id="l52"
+               class="code sev- "><tt><i>52</i> <span class="sd">                specification</span></tt>
+            </div>
+            <div id="l53"
+               class="code sev- "><tt><i>53</i> <span class="sd">        Returns:</span></tt>
+            </div>
+            <div id="l54"
+               class="code sev- "><tt><i>54</i> <span class="sd">            The loaded configuration</span></tt>
+            </div>
+            <div id="l55"
+               class="code sev- "><tt><i>55</i> <span class="sd">        &quot;&quot;&quot;</span></tt>
+            </div>
+            <div id="l56"
+               class="code sev- "><tt><i>56</i>         <span class="k">try</span><span class="p">:</span></tt>
+            </div>
+            <div id="l57"
+               class="code sev- "><tt><i>57</i>             <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">config_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">yaml_file</span><span class="p">:</span></tt>
+            </div>
+            <div id="l58"
+               class="code sev- "><tt><i>58</i>                 <span class="n">config</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">yaml_file</span><span class="p">)</span></tt>
+            </div>
+            <div id="l59"
+               class="code sev- "><tt><i>59</i>         <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span></tt>
+            </div>
+            <div id="l60"
+               class="code sev- "><tt><i>60</i>             <span class="n">log_and_raise</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="p">,</span> <span class="ne">FileNotFoundError</span><span class="p">,</span></tt>
+            </div>
+            <div id="l61"
+               class="code sev- "><tt><i>61</i>                           <span class="sa">f</span><span class="s2">&quot;Config file &#39;</span><span class="si">{</span><span class="n">config_path</span><span class="si">}</span><span class="s2">&#39; not found.&quot;</span><span class="p">)</span></tt>
+            </div>
+            <div id="l62"
+               class="code sev- "><tt><i>62</i>         <span class="k">except</span> <span class="n">yaml</span><span class="o">.</span><span class="n">YAMLError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span></tt>
+            </div>
+            <div id="l63"
+               class="code sev- "><tt><i>63</i>             <span class="n">log_and_raise</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="p">,</span> <span class="n">yaml</span><span class="o">.</span><span class="n">YAMLError</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Error parsing YAML file: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></tt>
+            </div>
+            <div id="l64"
+               class="code sev- "><tt><i>64</i>         <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Config loaded from </span><span class="si">%s</span><span class="s2"> loaded&quot;</span><span class="p">,</span> <span class="n">config_path</span><span class="p">)</span></tt>
+            </div>
+            <div id="l65"
+               class="code sev- "><tt><i>65</i>         <span class="k">return</span> <span class="n">config</span></tt>
+            </div>
+            <div id="l66"
+               class="code sev- "><tt><i>66</i> &nbsp;</tt>
+            </div>
+            <div id="l67"
+               class="code sev- "><tt><i>67</i>     <span class="k">def</span><span class="w"> </span><span class="nf">_init_pipeline</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span></tt>
+            </div>
+            <div id="l68"
+               class="code sev- "><tt><i>68</i> <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span></tt>
+            </div>
+            <div id="l69"
+               class="code sev- "><tt><i>69</i> <span class="sd">        Initialize every transformation method in the pipeline (once on first transform call).</span></tt>
+            </div>
+            <div id="l70"
+               class="code sev- "><tt><i>70</i> <span class="sd">        &quot;&quot;&quot;</span></tt>
+            </div>
+            <div id="l71"
+               class="code sev- "><tt><i>71</i>         <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Loading all the pipeline methods and models&quot;</span><span class="p">)</span></tt>
+            </div>
+            <div id="l72"
+               class="code sev- "><tt><i>72</i>         <span class="bp">self</span><span class="o">.</span><span class="n">_pipeline</span> <span class="o">=</span> <span class="p">[]</span></tt>
+            </div>
+            <div id="l73"
+               class="code sev- "><tt><i>73</i>         <span class="k">try</span><span class="p">:</span></tt>
+            </div>
+            <div id="l74"
+               class="code sev- "><tt><i>74</i>             <span class="c1"># for every transformation, initialize it and store the resulting instance</span></tt>
+            </div>
+            <div id="l75"
+               class="code sev- "><tt><i>75</i>             <span class="c1"># initialization can be costly, so it is done only once, during first transform call.</span></tt>
+            </div>
+            <div id="l76"
+               class="code sev- "><tt><i>76</i>             <span class="k">for</span> <span class="n">transformation_conf</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pipeline_conf</span><span class="p">:</span></tt>
+            </div>
+            <div id="l77"
+               class="code sev- "><tt><i>77</i>                 <span class="n">transformation_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">transformation_conf</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span></tt>
+            </div>
+            <div id="l78"
+               class="code sev- "><tt><i>78</i>                 <span class="n">parameters</span> <span class="o">=</span> <span class="n">transformation_conf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;init_param&#39;</span><span class="p">,</span> <span class="p">{})</span></tt>
+            </div>
+            <div id="l79"
+               class="code sev- "><tt><i>79</i> &nbsp;</tt>
+            </div>
+            <div id="l80"
+               class="code sev- "><tt><i>80</i>                 <span class="c1"># Get module name corresponding to tranformation</span></tt>
+            </div>
+            <div id="l81"
+               class="code sev- "><tt><i>81</i> &nbsp;</tt>
+            </div>
+            <div id="l82"
+               class="code sev- "><tt><i>82</i>                 <span class="n">module_transformation</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="s2">&quot;neural_de.transformations.&quot;</span> <span class="o">+</span></tt>
+            </div>
+            <div id="l83"
+               class="code sev- "><tt><i>83</i>                                                                 <span class="n">camel_to_snake</span><span class="p">(</span><span class="n">transformation_name</span><span class="p">))</span></tt>
+            </div>
+            <div id="l84"
+               class="code sev- "><tt><i>84</i> &nbsp;</tt>
+            </div>
+            <div id="l85"
+               class="code sev- "><tt><i>85</i>                 <span class="n">transformation</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">module_transformation</span><span class="p">,</span> <span class="n">transformation_name</span><span class="p">)</span></tt>
+            </div>
+            <div id="l86"
+               class="code sev- "><tt><i>86</i>                 <span class="bp">self</span><span class="o">.</span><span class="n">_pipeline</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">transformation</span><span class="p">(</span><span class="o">**</span><span class="n">parameters</span><span class="p">))</span></tt>
+            </div>
+            <div id="l87"
+               class="code sev- "><tt><i>87</i>         <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span></tt>
+            </div>
+            <div id="l88"
+               class="code sev-2  le">
+               <ul class="violations">
+               
+                  <li>
+                     <span class="count sev-2">
+                        E222
+                     </span>
+                     Multiple spaces after operator</li>
+               
+               </ul><tt><i>88</i>             <span class="n">log_and_raise</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="p">,</span> <span class="ne">KeyError</span><span class="p">,</span> <span class="s2">&quot;Invalid structure for method &quot;</span> <span class="o">+</span>  <span class="n">transformation_conf</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">])</span></tt>
+            </div>
+            <div id="l89"
+               class="code sev- "><tt><i>89</i>         <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span></tt>
+            </div>
+            <div id="l90"
+               class="code sev- "><tt><i>90</i>             <span class="n">log_and_raise</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="p">,</span> <span class="ne">AttributeError</span><span class="p">,</span> <span class="s2">&quot;Transformation &quot;</span> <span class="o">+</span> <span class="n">transformation_name</span> <span class="o">+</span></tt>
+            </div>
+            <div id="l91"
+               class="code sev- "><tt><i>91</i>                           <span class="s2">&quot;not found in neural.transformations&quot;</span><span class="p">)</span></tt>
+            </div>
+            <div id="l92"
+               class="code sev- "><tt><i>92</i>         <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span></tt>
+            </div>
+            <div id="l93"
+               class="code sev- "><tt><i>93</i>             <span class="n">log_and_raise</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">,</span> <span class="s2">&quot;Invalid call during initialization of &quot;</span> <span class="o">+</span></tt>
+            </div>
+            <div id="l94"
+               class="code sev- "><tt><i>94</i>                           <span class="n">transformation_conf</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">])</span></tt>
+            </div>
+            <div id="l95"
+               class="code sev- "><tt><i>95</i>         <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;All pipeline models successfully loaded&quot;</span><span class="p">)</span></tt>
+            </div>
+            <div id="l96"
+               class="code sev- "><tt><i>96</i> &nbsp;</tt>
+            </div>
+            <div id="l97"
+               class="code sev- "><tt><i>97</i>     <span class="k">def</span><span class="w"> </span><span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">images</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">list</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">list</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span></tt>
+            </div>
+            <div id="l98"
+               class="code sev- "><tt><i>98</i> <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span></tt>
+            </div>
+            <div id="l99"
+               class="code sev- "><tt><i>99</i> <span class="sd">        Sequentially apply every method of the pipeline on a batch of image, and returns</span></tt>
+            </div>
+            <div id="l100"
+               class="code sev- "><tt><i>100</i> <span class="sd">        the resulting images.</span></tt>
+            </div>
+            <div id="l101"
+               class="code sev- "><tt><i>101</i> &nbsp;</tt>
+            </div>
+            <div id="l102"
+               class="code sev- "><tt><i>102</i> <span class="sd">        Args:</span></tt>
+            </div>
+            <div id="l103"
+               class="code sev- "><tt><i>103</i> <span class="sd">          images: Batch of images. Each image should be of a ``np.ndarray`` of target_shape *(h,w,</span></tt>
+            </div>
+            <div id="l104"
+               class="code sev- "><tt><i>104</i> <span class="sd">            channels)*</span></tt>
+            </div>
+            <div id="l105"
+               class="code sev- "><tt><i>105</i> <span class="sd">        Returns:</span></tt>
+            </div>
+            <div id="l106"
+               class="code sev- "><tt><i>106</i> <span class="sd">          Resulting batch of images, one per image provided.</span></tt>
+            </div>
+            <div id="l107"
+               class="code sev- "><tt><i>107</i> <span class="sd">        &quot;&quot;&quot;</span></tt>
+            </div>
+            <div id="l108"
+               class="code sev- "><tt><i>108</i>         <span class="c1"># verify if image is a valid batch</span></tt>
+            </div>
+            <div id="l109"
+               class="code sev- "><tt><i>109</i>         <span class="bp">self</span><span class="o">.</span><span class="n">_check_batch_validity</span><span class="p">(</span><span class="n">images</span><span class="p">)</span></tt>
+            </div>
+            <div id="l110"
+               class="code sev- "><tt><i>110</i>         <span class="c1"># Lazy method init, as it can be costly both in term of computing power and ram.</span></tt>
+            </div>
+            <div id="l111"
+               class="code sev- "><tt><i>111</i>         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pipeline</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span></tt>
+            </div>
+            <div id="l112"
+               class="code sev- "><tt><i>112</i>             <span class="bp">self</span><span class="o">.</span><span class="n">_init_pipeline</span><span class="p">()</span></tt>
+            </div>
+            <div id="l113"
+               class="code sev- "><tt><i>113</i>         <span class="k">try</span><span class="p">:</span></tt>
+            </div>
+            <div id="l114"
+               class="code sev- "><tt><i>114</i>             <span class="c1"># For each method in the pipeline</span></tt>
+            </div>
+            <div id="l115"
+               class="code sev- "><tt><i>115</i>             <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">transformation</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_pipeline</span><span class="p">):</span></tt>
+            </div>
+            <div id="l116"
+               class="code sev- "><tt><i>116</i>                 <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Applying method </span><span class="si">%s</span><span class="s2"> to images&quot;</span><span class="p">,</span> <span class="n">transformation</span><span class="p">)</span></tt>
+            </div>
+            <div id="l117"
+               class="code sev- "><tt><i>117</i>                 <span class="c1"># Retrieves optional transform() parameters if any</span></tt>
+            </div>
+            <div id="l118"
+               class="code sev- "><tt><i>118</i>                 <span class="n">transformation_parameters</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pipeline_conf</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>\</tt>
+            </div>
+            <div id="l119"
+               class="code sev- "><tt><i>119</i>                     <span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;transform&#39;</span><span class="p">,</span> <span class="p">{})</span></tt>
+            </div>
+            <div id="l120"
+               class="code sev- "><tt><i>120</i> &nbsp;</tt>
+            </div>
+            <div id="l121"
+               class="code sev- "><tt><i>121</i>                 <span class="c1"># apply the transformation to the images</span></tt>
+            </div>
+            <div id="l122"
+               class="code sev- "><tt><i>122</i>                 <span class="n">images</span> <span class="o">=</span> <span class="n">transformation</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">images</span><span class="o">=</span><span class="n">images</span><span class="p">,</span> <span class="o">**</span><span class="n">transformation_parameters</span><span class="p">)</span></tt>
+            </div>
+            <div id="l123"
+               class="code sev- "><tt><i>123</i>         <span class="k">except</span> <span class="ne">TypeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span></tt>
+            </div>
+            <div id="l124"
+               class="code sev- "><tt><i>124</i>             <span class="k">raise</span> <span class="n">log_and_raise</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">,</span></tt>
+            </div>
+            <div id="l125"
+               class="code sev- "><tt><i>125</i>                                 <span class="sa">f</span><span class="s2">&quot;Invalid call during function transform of &quot;</span></tt>
+            </div>
+            <div id="l126"
+               class="code sev- "><tt><i>126</i>                                 <span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="n">transformation</span><span class="si">}</span><span class="s2">&#39;: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></tt>
+            </div>
+            <div id="l127"
+               class="code sev- "><tt><i>127</i>         <span class="k">return</span> <span class="n">images</span></tt>
+            </div>
+            
+         </div>
+      </div>
+   </body>
+</html>

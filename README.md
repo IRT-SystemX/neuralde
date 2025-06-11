@@ -12,23 +12,13 @@
     </a>
     <a href="#">
         <img src="https://img.shields.io/badge/License-MPL-2">
+	<a href="_static/pylint/pylint.txt">
+        <img src="_static/pylint/pylint.svg" alt="Pylint Score">
+    </a>
+    <a href="_static/flake8/index.html">
+        <img src="_static/flake8/flake8.svg" alt="Flake8 Report">
+    </a>
 
-[//]: # (    </a>)
-
-[//]: # (    <a href="docs/lint_results/pylint.txt">)
-
-[//]: # (        <img src="_static/lint_results/pylint.svg" alt="Pylint Score">)
-
-[//]: # (    </a>)
-
-[//]: # (    <a href="docs/flake8/index.html">)
-
-[//]: # (        <img src="_static/flake8/flake8.svg" alt="Flake8 Report">)
-
-[//]: # (    </a>)
-
-[![Code style: Pylint](https://img.shields.io/badge/linting-pylint-yellowgreen)](https://github.com/pylint-dev)
-[![Code style: flake8](https://img.shields.io/badge/code%20style-flake8-1c4a6c.svg)](https://flake8.pycqa.org/en/latest/)
 
 </div>
 
@@ -216,14 +206,14 @@ Each transformation has its own parameters.
 To see in details the parameters of available transformations see the section **Technical docs**.
 
 ## Available methods in release 1.1.0
-* [Resolution_Enhancer](neural_de.transformations.rst#resolution-enhancer-label) : enhance image resolution (GPU compat)
-* [NightImageEnhancer](neural_de.transformations.rst#night-image-enhancer-label) : Inmprove quality of night images (GPU compat)
-* [KernelDeblurringEnhancer](neural_de.transformations.rst#kernel-deblurring-enhancer-label) : Improve blurry images
-* [DeSnowEnhancer](neural_de.transformations.rst#desnow-enhancer-label) : Removes snow from images (GPU compat)
-* [DeRainEnhancer](neural_de.transformations.rst#derain-enhancer-label) : Removes rain from images (GPU compat)
-* [BrightnessEnhancer](neural_de.transformations.rst#brightness-enhancer-label) : Improve luminosity
-* [CenteredZoom](neural_de.transformations.rst#centered-zoom-label) : Zoom in the middle of the image, with a given zoom ratio.
-* [DiffusionEnhancer](neural_de_transformations.rst#diffusion-enhancer-label) : Purify noise on images and increase robustness against attack.
+* [Resolution_Enhancer](https://irt-systemx.github.io/neuralde/neural_de.transformations.html#module-neural_de.transformations.resolution_enhancer) : enhance image resolution (GPU compat)
+* [NightImageEnhancer](https://irt-systemx.github.io/neuralde/neural_de.transformations.html#module-neural_de.transformations.night_image_enhancer) : Inmprove quality of night images (GPU compat)
+* [KernelDeblurringEnhancer](https://irt-systemx.github.io/neuralde/neural_de.transformations.html#module-neural_de.transformations.kernel_deblurring_enhancer) : Improve blurry images
+* [DeSnowEnhancer](https://irt-systemx.github.io/neuralde/neural_de.transformations.html#module-neural_de.transformations.de_snow_enhancer) : Removes snow from images (GPU compat)
+* [DeRainEnhancer](https://irt-systemx.github.io/neuralde/neural_de.transformations.html#module-neural_de.transformations.de_rain_enhancer) : Removes rain from images (GPU compat)
+* [BrightnessEnhancer](https://irt-systemx.github.io/neuralde/neural_de.transformations.html#module-neural_de.transformations.brightness_enhancer) : Improve luminosity
+* [CenteredZoom](https://irt-systemx.github.io/neuralde/neural_de.transformations.html#module-neural_de.transformations.centered_zoom) : Zoom in the middle of the image, with a given zoom ratio.
+* [DiffusionEnhancer](https://irt-systemx.github.io/neuralde/neural_de.transformations.diffusion.html#module-neural_de.transformations.diffusion.diffusion_enhancer) : Purify noise on images and increase robustness against attack.
 
 # Required Hardware
 All methods have been tested on CPU and GPU. 
