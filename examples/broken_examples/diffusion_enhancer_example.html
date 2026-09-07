@@ -87,7 +87,7 @@
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import sys
-sys.path.append(&quot;..&quot;)
+sys.path.append("..")
 import time
 #%load_ext autoreload
 #%autoreload 2
@@ -112,11 +112,11 @@ start=time.time()
 
 #accelerator = Accelerator()
 #device = accelerator.device
-#device = &quot;cpu&quot;
+#device = "cpu"
 # Load ADVpurifier
 config= DiffPureConfig()
 config.t = 15
-device = &quot;cuda&quot;
+device = "cuda"
 purifier = DiffusionEnhancer(device=device, config=config)
 </pre></div>
 </div>
@@ -159,12 +159,12 @@ To enable the following instructions: AVX2 AVX512F AVX512_VNNI FMA, in other ope
 import torch
 
 # Load the classifier pretrained weights
-weights_dir = &#39;../neuralde_renault/pretrained_classifier/resnet_renault_epoch_4.pth&#39;
-classifier = torch.load(weights_dir,  map_location=torch.device(device))#.to(&quot;cpu&quot;)
+weights_dir = '../neuralde_renault/pretrained_classifier/resnet_renault_epoch_4.pth'
+classifier = torch.load(weights_dir,  map_location=torch.device(device))#.to("cpu")
 
 # Load the batch of 128 images and its attacked versions
-X_attacked, Y_attacked = torch.load(&#39;../neuralde_renault/data/attacked_X.pth&#39;).to(device), torch.load(&#39;../neuralde_renault/data/attacked_Y.pth&#39;).to(device)
-X, Y = torch.load(&#39;../neuralde_renault/data/X.pth&#39;).to(device), torch.load(&#39;../neuralde_renault/data/Y.pth&#39;).to(device)
+X_attacked, Y_attacked = torch.load('../neuralde_renault/data/attacked_X.pth').to(device), torch.load('../neuralde_renault/data/attacked_Y.pth').to(device)
+X, Y = torch.load('../neuralde_renault/data/X.pth').to(device), torch.load('../neuralde_renault/data/Y.pth').to(device)
 <br/></pre></div>
 </div>
 </div>
@@ -229,13 +229,13 @@ attacked_acc = attack.clean_accuracy(X_attacked, Y_attacked)
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import matplotlib.pyplot as plt
 
 fig, axs = plt.subplots(1, 2, figsize=(15, 5))  # Adjust figsize as needed
-titles = [f&#39;original acc. {original_acc}%&#39;, f&#39;attacked acc. {attacked_acc}%&#39;]
+titles = [f'original acc. {original_acc}%', f'attacked acc. {attacked_acc}%']
 
 for i, img in enumerate([X[0].permute(1,2,0).detach().cpu(),
                          X_attacked[0].permute(1,2,0).detach().cpu()]):
 
     axs[i].imshow(img)
-    axs[i].axis(&#39;off&#39;)  # Turn off axis
+    axs[i].axis('off')  # Turn off axis
     axs[i].set_title(titles[i])  # Set title for each subplot
 <br/></pre></div>
 </div>
@@ -302,7 +302,7 @@ purified_images = torch.vstack(purified_images)
 
 # Calculate the acurracy of the purified images
 purified_acc = attack.clean_accuracy(purified_images, Y)*100
-print(f&#39;Accuracy after purification {purified_acc}%&#39;)
+print(f'Accuracy after purification {purified_acc}%')
 <br/></pre></div>
 </div>
 </div>
@@ -314,14 +314,14 @@ print(f&#39;Accuracy after purification {purified_acc}%&#39;)
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import matplotlib.pyplot as plt
 
 fig, axs = plt.subplots(1, 3, figsize=(15, 5))
-titles = [f&#39;original. Acc {original_acc}%&#39;, f&#39;purified. Acc {purified_acc}%&#39;, f&#39;attacked. Acc {attacked_acc}%&#39;]
+titles = [f'original. Acc {original_acc}%', f'purified. Acc {purified_acc}%', f'attacked. Acc {attacked_acc}%']
 
 for i, img in enumerate([X[0].permute(1,2,0).detach().cpu(),
                          purified_images[0].permute(1,2,0).detach().cpu(),
                          X_attacked[0].permute(1,2,0).detach().cpu()]):
 
     axs[i].imshow(img)
-    axs[i].axis(&#39;off&#39;)
+    axs[i].axis('off')
     axs[i].set_title(titles[i])
 <br/></pre></div>
 </div>
@@ -330,7 +330,7 @@ for i, img in enumerate([X[0].permute(1,2,0).detach().cpu(),
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Model&#39;s predictions on the original data
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Model's predictions on the original data
 original_outputs = classifier(X)
 original_outputs.argmax(1)
 <br/></pre></div>
@@ -340,7 +340,7 @@ original_outputs.argmax(1)
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Model&#39;s predictions on the attacked data
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Model's predictions on the attacked data
 attacked_outputs = classifier(X_attacked)
 attacked_outputs.argmax(1)
 <br/></pre></div>
@@ -359,7 +359,7 @@ Y
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Model&#39;s predictions on the purified data
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Model's predictions on the purified data
 classifier = classifier.eval()
 purified_outputs = classifier(purified_images)
 purified_outputs.argmax(1)
@@ -371,7 +371,7 @@ purified_outputs.argmax(1)
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>end=time.time()
-print(&quot;temps final : &quot;,end-start)
+print("temps final : ",end-start)
 </pre></div>
 </div>
 </div>
@@ -394,13 +394,25 @@ print(&quot;temps final : &quot;,end-start)
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2025, IRT-SystemX.</p>
+    <p>&#169; Copyright 2026, IRT-SystemX, AirLiquide.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
+  
+ 
+
+<div class="authors-footer" style="margin-top: 1.5em;">
+  <strong>Maintainers :</strong><br>
+  
+    Martin Gonzalez (martin.gonzalez@irt-systemx.fr</a>)<br>
+  
+    Nelson Fernandez-Pinto (nelson.fernandezpinto@airliquide.com</a>)<br>
+  
+</div>
+
+
 
 </footer>
         </div>

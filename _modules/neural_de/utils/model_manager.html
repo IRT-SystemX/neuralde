@@ -74,9 +74,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for neural_de.utils.model_manager</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">This module implements tools functions to manage external models used within the component</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">hashlib</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
@@ -94,9 +94,9 @@
 <div class="viewcode-block" id="ModelManager">
 <a class="viewcode-back" href="../../../neural_de.utils.html#neural_de.utils.model_manager.ModelManager">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">ModelManager</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Manages all external models required by the library</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">enhancer</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">required_model</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">logger</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span> <span class="o">=</span> <span class="n">logger</span>
@@ -104,32 +104,32 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_enhancer</span> <span class="o">=</span> <span class="n">enhancer</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_model_filename</span> <span class="o">=</span> <span class="n">required_model</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_enhancer_directory</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="n">Path</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s2">&quot;~&quot;</span><span class="p">))</span> <span class="o">/</span> <span class="s2">&quot;.neuralde&quot;</span> <span class="o">/</span> <span class="n">enhancer</span>
+            <span class="n">Path</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s2">"~"</span><span class="p">))</span> <span class="o">/</span> <span class="s2">".neuralde"</span> <span class="o">/</span> <span class="n">enhancer</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_model_filepath</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_enhancer_directory</span> <span class="o">/</span> <span class="n">required_model</span>
 
         <span class="c1"># Load model repostories</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span>
-            <span class="n">ROOT_PATH</span> <span class="o">/</span> <span class="s2">&quot;neural_de/external/_repositories/external_models_list.yaml&quot;</span><span class="p">,</span>
-            <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">,</span>
+            <span class="n">ROOT_PATH</span> <span class="o">/</span> <span class="s2">"neural_de/external/_repositories/external_models_list.yaml"</span><span class="p">,</span>
+            <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">,</span>
         <span class="p">)</span> <span class="k">as</span> <span class="n">stream</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">external_models_list</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">stream</span><span class="p">)</span>
             <span class="k">except</span> <span class="n">yaml</span><span class="o">.</span><span class="n">YAMLError</span><span class="p">:</span>
                 <span class="nb">print</span><span class="p">(</span>
-                    <span class="s2">&quot;error the external models list file is missing from package , it should be at </span><span class="se">\</span>
-<span class="s2">                         /neural_de/external/_repositories/external_models_list.yaml&quot;</span>
+                    <span class="s2">"error the external models list file is missing from package , it should be at </span><span class="se">\</span>
+<span class="s2">                         /neural_de/external/_repositories/external_models_list.yaml"</span>
                 <span class="p">)</span>
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_load_checksums</span><span class="p">():</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Load each available model&#39;s checksum.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Load each available model's checksum.</span>
+<span class="sd">        """</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span>
-            <span class="n">ROOT_PATH</span> <span class="o">/</span> <span class="s2">&quot;neural_de/external/_checksums/checksums.json&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;r&quot;</span><span class="p">,</span>
-            <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">,</span>
+            <span class="n">ROOT_PATH</span> <span class="o">/</span> <span class="s2">"neural_de/external/_checksums/checksums.json"</span><span class="p">,</span>
+            <span class="s2">"r"</span><span class="p">,</span>
+            <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">,</span>
         <span class="p">)</span> <span class="k">as</span> <span class="n">checksum_file</span><span class="p">:</span>
             <span class="n">checksums</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">checksum_file</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">checksums</span>
@@ -137,58 +137,58 @@
 <div class="viewcode-block" id="ModelManager.download_model">
 <a class="viewcode-back" href="../../../neural_de.utils.html#neural_de.utils.model_manager.ModelManager.download_model">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">download_model</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Download weights for an enhancer if they are not already available locally.</span>
 <span class="sd">        Weights will be stored at ~/.neuralde/{enhancer_name}/model.pth</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_is_model_available</span><span class="p">()</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_model_valid</span><span class="p">()):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-                <span class="s2">&quot;Model </span><span class="si">%s</span><span class="s2"> not found locally or corrupted, downloading it from server&quot;</span><span class="p">,</span>
+                <span class="s2">"Model </span><span class="si">%s</span><span class="s2"> not found locally or corrupted, downloading it from server"</span><span class="p">,</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_model_filename</span><span class="p">,</span>
             <span class="p">)</span>
 
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_enhancer</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">external_models_list</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
                 <span class="nb">print</span><span class="p">(</span>
-                    <span class="s2">&quot;Required pretrain model for &quot;</span><span class="p">,</span>
+                    <span class="s2">"Required pretrain model for "</span><span class="p">,</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_enhancer</span><span class="p">,</span>
-                    <span class="s2">&quot; enchancer is not present in local cache, downloading it . . .&quot;</span><span class="p">,</span>
+                    <span class="s2">" enchancer is not present in local cache, downloading it . . ."</span><span class="p">,</span>
                 <span class="p">)</span>
                 <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlretrieve</span><span class="p">(</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">external_models_list</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_enhancer</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model_filepath</span>
                 <span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_check_download_status</span><span class="p">()</span>
-                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pretrained model has been downloaded in cache&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">"Pretrained model has been downloaded in cache"</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="s2">&quot;error there is no defined model repository for the enhancer &quot;</span><span class="p">,</span>
+                    <span class="s2">"error there is no defined model repository for the enhancer "</span><span class="p">,</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_enhancer</span><span class="p">,</span>
-                    <span class="s2">&quot;in external models annuary&quot;</span><span class="p">,</span>
+                    <span class="s2">"in external models annuary"</span><span class="p">,</span>
                 <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Model already available locally, skipping download&quot;</span><span class="p">)</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Model already available locally, skipping download"</span><span class="p">)</span></div>
 
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_check_download_status</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Validate if the model is locally present and valid, and raises an error if not.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_model_valid</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_remove_corrupted_model</span><span class="p">()</span>
             <span class="n">log_and_raise</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="p">,</span>
                 <span class="ne">ValueError</span><span class="p">,</span>
-                <span class="s2">&quot;The downloaded file does not pass the checksum validation,&quot;</span>
-                <span class="s2">&quot; it might be invalid. It has been removed from your machine&quot;</span><span class="p">,</span>
+                <span class="s2">"The downloaded file does not pass the checksum validation,"</span>
+                <span class="s2">" it might be invalid. It has been removed from your machine"</span><span class="p">,</span>
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Model downloaded and validated&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Model downloaded and validated"</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_remove_corrupted_model</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model_filepath</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
             <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model_filepath</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">log_and_raise</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="p">,</span> <span class="ne">FileNotFoundError</span><span class="p">,</span> <span class="s2">&quot;Expected model was not found&quot;</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="p">,</span> <span class="ne">FileNotFoundError</span><span class="p">,</span> <span class="s2">"Expected model was not found"</span>
             <span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_is_model_available</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
@@ -203,12 +203,12 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">_calculate_checksum</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">hash_md5</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">md5</span><span class="p">()</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model_filepath</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
-            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model_filepath</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
-                <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="nb">iter</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">4096</span><span class="p">),</span> <span class="sa">b</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_model_filepath</span><span class="p">,</span> <span class="s2">"rb"</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="nb">iter</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">4096</span><span class="p">),</span> <span class="sa">b</span><span class="s2">""</span><span class="p">):</span>
                     <span class="n">hash_md5</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">log_and_raise</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="p">,</span> <span class="ne">FileNotFoundError</span><span class="p">,</span> <span class="s2">&quot;Expected model was not found&quot;</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="p">,</span> <span class="ne">FileNotFoundError</span><span class="p">,</span> <span class="s2">"Expected model was not found"</span>
             <span class="p">)</span>
         <span class="k">return</span> <span class="n">hash_md5</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span></div>
 
@@ -221,13 +221,25 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2025, IRT-SystemX.</p>
+    <p>&#169; Copyright 2026, IRT-SystemX, AirLiquide.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
+  
+ 
+
+<div class="authors-footer" style="margin-top: 1.5em;">
+  <strong>Maintainers :</strong><br>
+  
+    Martin Gonzalez (martin.gonzalez@irt-systemx.fr</a>)<br>
+  
+    Nelson Fernandez-Pinto (nelson.fernandezpinto@airliquide.com</a>)<br>
+  
+</div>
+
+
 
 </footer>
         </div>

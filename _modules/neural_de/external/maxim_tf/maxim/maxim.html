@@ -74,9 +74,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for neural_de.external.maxim_tf.maxim.maxim</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">MAXIM based on https://github.com/google-research/maxim/blob/main/maxim/models/maxim.py</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">functools</span>
 
@@ -91,13 +91,13 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">.blocks.unet</span><span class="w"> </span><span class="kn">import</span> <span class="n">UNetDecoderBlock</span><span class="p">,</span> <span class="n">UNetEncoderBlock</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.layers</span><span class="w"> </span><span class="kn">import</span> <span class="n">Resizing</span>
 
-<span class="n">Conv1x1</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;same&quot;</span><span class="p">)</span>
-<span class="n">Conv3x3</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;same&quot;</span><span class="p">)</span>
+<span class="n">Conv1x1</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="s2">"same"</span><span class="p">)</span>
+<span class="n">Conv3x3</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="s2">"same"</span><span class="p">)</span>
 <span class="n">ConvT_up</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span>
-    <span class="n">layers</span><span class="o">.</span><span class="n">Conv2DTranspose</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">strides</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;same&quot;</span>
+    <span class="n">layers</span><span class="o">.</span><span class="n">Conv2DTranspose</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">strides</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="s2">"same"</span>
 <span class="p">)</span>
 <span class="n">Conv_down</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span>
-    <span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">strides</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;same&quot;</span>
+    <span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">strides</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="s2">"same"</span>
 <span class="p">)</span>
 
 
@@ -126,7 +126,7 @@
         <span class="n">num_outputs</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
         <span class="n">dropout_rate</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;The MAXIM model function with multi-stage and multi-scale supervision.</span>
+<span class="w">    </span><span class="sd">"""The MAXIM model function with multi-stage and multi-scale supervision.</span>
 
 <span class="sd">    For more model details, please check the CVPR paper:</span>
 <span class="sd">    MAXIM: MUlti-Axis MLP for Image Processing (https://arxiv.org/abs/2201.02973)</span>
@@ -165,7 +165,7 @@
 <span class="sd">       [output_stage2_scale1, output_stage2_scale2, output_stage2_scale3],</span>
 <span class="sd">       [output_stage3_scale1, output_stage3_scale2, output_stage3_scale3],]</span>
 <span class="sd">      The final output can be retrieved by outputs[-1][-1].</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">apply</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
         <span class="n">n</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="p">(</span>
@@ -183,9 +183,9 @@
             <span class="n">resizing_layer</span> <span class="o">=</span> <span class="n">Resizing</span><span class="p">(</span>
                 <span class="n">height</span><span class="o">=</span><span class="n">h</span> <span class="o">//</span> <span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="n">i</span><span class="p">),</span>
                 <span class="n">width</span><span class="o">=</span><span class="n">w</span> <span class="o">//</span> <span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="n">i</span><span class="p">),</span>
-                <span class="n">method</span><span class="o">=</span><span class="s2">&quot;nearest&quot;</span><span class="p">,</span>
+                <span class="n">method</span><span class="o">=</span><span class="s2">"nearest"</span><span class="p">,</span>
                 <span class="n">antialias</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># Following `jax.image.resize()`.</span>
-                <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;initial_resizing_</span><span class="si">{</span><span class="n">K</span><span class="o">.</span><span class="n">get_uid</span><span class="p">(</span><span class="s1">&#39;Resizing&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">"initial_resizing_</span><span class="si">{</span><span class="n">K</span><span class="o">.</span><span class="n">get_uid</span><span class="p">(</span><span class="s1">'Resizing'</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
             <span class="p">)</span>
             <span class="n">shortcuts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">resizing_layer</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
 
@@ -202,7 +202,7 @@
                 <span class="n">x_scale</span> <span class="o">=</span> <span class="n">Conv3x3</span><span class="p">(</span>
                     <span class="n">filters</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="n">i</span><span class="p">)</span> <span class="o">*</span> <span class="n">features</span><span class="p">,</span>
                     <span class="n">use_bias</span><span class="o">=</span><span class="n">use_bias</span><span class="p">,</span>
-                    <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;stage_</span><span class="si">{</span><span class="n">idx_stage</span><span class="si">}</span><span class="s2">_input_conv_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">"stage_</span><span class="si">{</span><span class="n">idx_stage</span><span class="si">}</span><span class="s2">_input_conv_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
                 <span class="p">)(</span><span class="n">shortcuts</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
 
                 <span class="c1"># If later stages, fuse input features with SAM features from prev stage</span>
@@ -221,13 +221,13 @@
                             <span class="n">input_proj_factor</span><span class="o">=</span><span class="n">input_proj_factor</span><span class="p">,</span>
                             <span class="n">upsample_y</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                             <span class="n">use_bias</span><span class="o">=</span><span class="n">use_bias</span><span class="p">,</span>
-                            <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;stage_</span><span class="si">{</span><span class="n">idx_stage</span><span class="si">}</span><span class="s2">_input_fuse_sam_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                            <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">"stage_</span><span class="si">{</span><span class="n">idx_stage</span><span class="si">}</span><span class="s2">_input_fuse_sam_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
                         <span class="p">)(</span><span class="n">x_scale</span><span class="p">,</span> <span class="n">sam_features</span><span class="o">.</span><span class="n">pop</span><span class="p">())</span>
                     <span class="k">else</span><span class="p">:</span>
                         <span class="n">x_scale</span> <span class="o">=</span> <span class="n">Conv1x1</span><span class="p">(</span>
                             <span class="n">filters</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="n">i</span><span class="p">)</span> <span class="o">*</span> <span class="n">features</span><span class="p">,</span>
                             <span class="n">use_bias</span><span class="o">=</span><span class="n">use_bias</span><span class="p">,</span>
-                            <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;stage_</span><span class="si">{</span><span class="n">idx_stage</span><span class="si">}</span><span class="s2">_input_catconv_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                            <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">"stage_</span><span class="si">{</span><span class="n">idx_stage</span><span class="si">}</span><span class="s2">_input_catconv_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
                         <span class="p">)(</span><span class="n">tf</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">x_scale</span><span class="p">,</span> <span class="n">sam_features</span><span class="o">.</span><span class="n">pop</span><span class="p">()],</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">))</span>
 
                 <span class="n">x_scales</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x_scale</span><span class="p">)</span>
@@ -264,7 +264,7 @@
                     <span class="n">dropout_rate</span><span class="o">=</span><span class="n">dropout_rate</span><span class="p">,</span>
                     <span class="n">use_bias</span><span class="o">=</span><span class="n">use_bias</span><span class="p">,</span>
                     <span class="n">use_cross_gating</span><span class="o">=</span><span class="n">use_cross_gating_layer</span><span class="p">,</span>
-                    <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;stage_</span><span class="si">{</span><span class="n">idx_stage</span><span class="si">}</span><span class="s2">_encoder_block_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">"stage_</span><span class="si">{</span><span class="n">idx_stage</span><span class="si">}</span><span class="s2">_encoder_block_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
                 <span class="p">)(</span><span class="n">x</span><span class="p">,</span> <span class="n">skip</span><span class="o">=</span><span class="n">x_scale</span><span class="p">,</span> <span class="n">enc</span><span class="o">=</span><span class="n">enc_prev</span><span class="p">,</span> <span class="n">dec</span><span class="o">=</span><span class="n">dec_prev</span><span class="p">)</span>
 
                 <span class="c1"># Cache skip signals</span>
@@ -283,7 +283,7 @@
                     <span class="n">dropout_rate</span><span class="o">=</span><span class="n">dropout_rate</span><span class="p">,</span>
                     <span class="n">use_bias</span><span class="o">=</span><span class="n">use_bias</span><span class="p">,</span>
                     <span class="n">channels_reduction</span><span class="o">=</span><span class="n">channels_reduction</span><span class="p">,</span>
-                    <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;stage_</span><span class="si">{</span><span class="n">idx_stage</span><span class="si">}</span><span class="s2">_global_block_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">"stage_</span><span class="si">{</span><span class="n">idx_stage</span><span class="si">}</span><span class="s2">_global_block_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
                 <span class="p">)(</span><span class="n">x</span><span class="p">)</span>
             <span class="c1"># cache global feature for cross-gating</span>
             <span class="n">global_feature</span> <span class="o">=</span> <span class="n">x</span>
@@ -302,7 +302,7 @@
                             <span class="n">num_channels</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="n">i</span><span class="p">)</span> <span class="o">*</span> <span class="n">features</span><span class="p">,</span>
                             <span class="n">ratio</span><span class="o">=</span><span class="mi">2</span> <span class="o">**</span> <span class="p">(</span><span class="n">j</span> <span class="o">-</span> <span class="n">i</span><span class="p">),</span>
                             <span class="n">use_bias</span><span class="o">=</span><span class="n">use_bias</span><span class="p">,</span>
-                            <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;UpSampleRatio_</span><span class="si">{</span><span class="n">K</span><span class="o">.</span><span class="n">get_uid</span><span class="p">(</span><span class="s1">&#39;UpSampleRatio&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                            <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">"UpSampleRatio_</span><span class="si">{</span><span class="n">K</span><span class="o">.</span><span class="n">get_uid</span><span class="p">(</span><span class="s1">'UpSampleRatio'</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
                         <span class="p">)(</span><span class="n">enc</span><span class="p">)</span>
                         <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">enc</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">encs</span><span class="p">)</span>
                     <span class="p">],</span>
@@ -319,14 +319,14 @@
                         <span class="n">dropout_rate</span><span class="o">=</span><span class="n">dropout_rate</span><span class="p">,</span>
                         <span class="n">upsample_y</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
                         <span class="n">use_bias</span><span class="o">=</span><span class="n">use_bias</span><span class="p">,</span>
-                        <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;stage_</span><span class="si">{</span><span class="n">idx_stage</span><span class="si">}</span><span class="s2">_cross_gating_block_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                        <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">"stage_</span><span class="si">{</span><span class="n">idx_stage</span><span class="si">}</span><span class="s2">_cross_gating_block_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
                     <span class="p">)(</span><span class="n">signal</span><span class="p">,</span> <span class="n">global_feature</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">skips</span> <span class="o">=</span> <span class="n">Conv1x1</span><span class="p">(</span>
-                        <span class="n">filters</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="n">i</span><span class="p">)</span> <span class="o">*</span> <span class="n">features</span><span class="p">,</span> <span class="n">use_bias</span><span class="o">=</span><span class="n">use_bias</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Conv_0&quot;</span>
+                        <span class="n">filters</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="n">i</span><span class="p">)</span> <span class="o">*</span> <span class="n">features</span><span class="p">,</span> <span class="n">use_bias</span><span class="o">=</span><span class="n">use_bias</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Conv_0"</span>
                     <span class="p">)(</span><span class="n">signal</span><span class="p">)</span>
                     <span class="n">skips</span> <span class="o">=</span> <span class="n">Conv3x3</span><span class="p">(</span>
-                        <span class="n">filters</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="n">i</span><span class="p">)</span> <span class="o">*</span> <span class="n">features</span><span class="p">,</span> <span class="n">use_bias</span><span class="o">=</span><span class="n">use_bias</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Conv_1&quot;</span>
+                        <span class="n">filters</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="n">i</span><span class="p">)</span> <span class="o">*</span> <span class="n">features</span><span class="p">,</span> <span class="n">use_bias</span><span class="o">=</span><span class="n">use_bias</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"Conv_1"</span>
                     <span class="p">)(</span><span class="n">skips</span><span class="p">)</span>
 
                 <span class="n">skip_features</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">skips</span><span class="p">)</span>
@@ -345,7 +345,7 @@
                             <span class="n">num_channels</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="n">i</span><span class="p">)</span> <span class="o">*</span> <span class="n">features</span><span class="p">,</span>
                             <span class="n">ratio</span><span class="o">=</span><span class="mi">2</span> <span class="o">**</span> <span class="p">(</span><span class="n">depth</span> <span class="o">-</span> <span class="n">j</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">i</span><span class="p">),</span>
                             <span class="n">use_bias</span><span class="o">=</span><span class="n">use_bias</span><span class="p">,</span>
-                            <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;UpSampleRatio_</span><span class="si">{</span><span class="n">K</span><span class="o">.</span><span class="n">get_uid</span><span class="p">(</span><span class="s1">&#39;UpSampleRatio&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                            <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">"UpSampleRatio_</span><span class="si">{</span><span class="n">K</span><span class="o">.</span><span class="n">get_uid</span><span class="p">(</span><span class="s1">'UpSampleRatio'</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
                         <span class="p">)(</span><span class="n">skip</span><span class="p">)</span>
                         <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">skip</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">skip_features</span><span class="p">)</span>
                     <span class="p">],</span>
@@ -366,10 +366,10 @@
                     <span class="n">use_global_mlp</span><span class="o">=</span><span class="n">use_global_mlp</span><span class="p">,</span>
                     <span class="n">dropout_rate</span><span class="o">=</span><span class="n">dropout_rate</span><span class="p">,</span>
                     <span class="n">use_bias</span><span class="o">=</span><span class="n">use_bias</span><span class="p">,</span>
-                    <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;stage_</span><span class="si">{</span><span class="n">idx_stage</span><span class="si">}</span><span class="s2">_decoder_block_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">"stage_</span><span class="si">{</span><span class="n">idx_stage</span><span class="si">}</span><span class="s2">_decoder_block_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
                 <span class="p">)(</span><span class="n">x</span><span class="p">,</span> <span class="n">bridge</span><span class="o">=</span><span class="n">signal</span><span class="p">)</span>
 
-                <span class="c1"># Cache decoder features for later-stage&#39;s usage</span>
+                <span class="c1"># Cache decoder features for later-stage's usage</span>
                 <span class="n">decs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 
                 <span class="c1"># output conv, if not final stage, use supervised-attention-block.</span>
@@ -379,7 +379,7 @@
                             <span class="n">num_channels</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="n">i</span><span class="p">)</span> <span class="o">*</span> <span class="n">features</span><span class="p">,</span>
                             <span class="n">output_channels</span><span class="o">=</span><span class="n">num_outputs</span><span class="p">,</span>
                             <span class="n">use_bias</span><span class="o">=</span><span class="n">use_bias</span><span class="p">,</span>
-                            <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;stage_</span><span class="si">{</span><span class="n">idx_stage</span><span class="si">}</span><span class="s2">_supervised_attention_module_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                            <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">"stage_</span><span class="si">{</span><span class="n">idx_stage</span><span class="si">}</span><span class="s2">_supervised_attention_module_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
                         <span class="p">)(</span><span class="n">x</span><span class="p">,</span> <span class="n">shortcuts</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
                         <span class="n">outputs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
                         <span class="n">sam_features</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sam</span><span class="p">)</span>
@@ -387,11 +387,11 @@
                         <span class="n">output</span> <span class="o">=</span> <span class="n">Conv3x3</span><span class="p">(</span>
                             <span class="n">num_outputs</span><span class="p">,</span>
                             <span class="n">use_bias</span><span class="o">=</span><span class="n">use_bias</span><span class="p">,</span>
-                            <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;stage_</span><span class="si">{</span><span class="n">idx_stage</span><span class="si">}</span><span class="s2">_output_conv_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                            <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">"stage_</span><span class="si">{</span><span class="n">idx_stage</span><span class="si">}</span><span class="s2">_output_conv_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
                         <span class="p">)(</span><span class="n">x</span><span class="p">)</span>
                         <span class="n">output</span> <span class="o">=</span> <span class="n">output</span> <span class="o">+</span> <span class="n">shortcuts</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
                         <span class="n">outputs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
-            <span class="c1"># Cache encoder and decoder features for later-stage&#39;s usage</span>
+            <span class="c1"># Cache encoder and decoder features for later-stage's usage</span>
             <span class="n">encs_prev</span> <span class="o">=</span> <span class="n">encs</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
             <span class="n">decs_prev</span> <span class="o">=</span> <span class="n">decs</span>
 
@@ -410,13 +410,25 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2025, IRT-SystemX.</p>
+    <p>&#169; Copyright 2026, IRT-SystemX, AirLiquide.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
+  
+ 
+
+<div class="authors-footer" style="margin-top: 1.5em;">
+  <strong>Maintainers :</strong><br>
+  
+    Martin Gonzalez (martin.gonzalez@irt-systemx.fr</a>)<br>
+  
+    Nelson Fernandez-Pinto (nelson.fernandezpinto@airliquide.com</a>)<br>
+  
+</div>
+
+
 
 </footer>
         </div>

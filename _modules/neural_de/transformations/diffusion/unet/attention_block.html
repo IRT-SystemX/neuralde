@@ -89,12 +89,12 @@
 <div class="viewcode-block" id="AttentionBlock">
 <a class="viewcode-back" href="../../../../../neural_de.transformations.diffusion.unet.html#neural_de.transformations.diffusion.unet.attention_block.AttentionBlock">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">AttentionBlock</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    An attention block that allows spatial positions to attend to each other.</span>
 
 <span class="sd">    Originally ported from here, but adapted to the N-d case.</span>
 <span class="sd">    https://github.com/hojonathanho/diffusion/blob/1e0dceb3b3495bbe19116a5e1b3596cd0706c543/diffusion_tf/models/unet.py#L66.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -111,7 +111,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">assert</span> <span class="p">(</span>
                 <span class="n">channels</span> <span class="o">%</span> <span class="n">num_head_channels</span> <span class="o">==</span> <span class="mi">0</span>
-            <span class="p">),</span> <span class="sa">f</span><span class="s2">&quot;q,k,v channels </span><span class="si">{</span><span class="n">channels</span><span class="si">}</span><span class="s2"> is not divisible by num_head_channels </span><span class="si">{</span><span class="n">num_head_channels</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">),</span> <span class="sa">f</span><span class="s2">"q,k,v channels </span><span class="si">{</span><span class="n">channels</span><span class="si">}</span><span class="s2"> is not divisible by num_head_channels </span><span class="si">{</span><span class="n">num_head_channels</span><span class="si">}</span><span class="s2">"</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">num_heads</span> <span class="o">=</span> <span class="n">channels</span> <span class="o">//</span> <span class="n">num_head_channels</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">use_checkpoint</span> <span class="o">=</span> <span class="n">use_checkpoint</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">norm</span> <span class="o">=</span> <span class="n">normalization</span><span class="p">(</span><span class="n">channels</span><span class="p">)</span>
@@ -148,13 +148,25 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2025, IRT-SystemX.</p>
+    <p>&#169; Copyright 2026, IRT-SystemX, AirLiquide.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
+  
+ 
+
+<div class="authors-footer" style="margin-top: 1.5em;">
+  <strong>Maintainers :</strong><br>
+  
+    Martin Gonzalez (martin.gonzalez@irt-systemx.fr</a>)<br>
+  
+    Nelson Fernandez-Pinto (nelson.fernandezpinto@airliquide.com</a>)<br>
+  
+</div>
+
+
 
 </footer>
         </div>

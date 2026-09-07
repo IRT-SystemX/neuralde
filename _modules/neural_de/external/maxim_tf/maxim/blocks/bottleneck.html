@@ -74,9 +74,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for neural_de.external.maxim_tf.maxim.blocks.bottleneck</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">Blocks based on https://github.com/google-research/maxim/blob/main/maxim/models/maxim.py</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">functools</span>
 
@@ -85,7 +85,7 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">.attentions</span><span class="w"> </span><span class="kn">import</span> <span class="n">RDCAB</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.misc_gating</span><span class="w"> </span><span class="kn">import</span> <span class="n">ResidualSplitHeadMultiAxisGmlpLayer</span>
 
-<span class="n">Conv1x1</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;same&quot;</span><span class="p">)</span>
+<span class="n">Conv1x1</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="s2">"same"</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="BottleneckBlock">
@@ -101,13 +101,13 @@
         <span class="n">channels_reduction</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
         <span class="n">dropout_rate</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
         <span class="n">use_bias</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;bottleneck_block&quot;</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"bottleneck_block"</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;The bottleneck block consisting of multi-axis gMLP block and RDCAB.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""The bottleneck block consisting of multi-axis gMLP block and RDCAB."""</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">apply</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
         <span class="c1"># input projection</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">Conv1x1</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="n">features</span><span class="p">,</span> <span class="n">use_bias</span><span class="o">=</span><span class="n">use_bias</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">_input_proj&quot;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">Conv1x1</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="n">features</span><span class="p">,</span> <span class="n">use_bias</span><span class="o">=</span><span class="n">use_bias</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">_input_proj"</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
         <span class="n">shortcut_long</span> <span class="o">=</span> <span class="n">x</span>
 
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_groups</span><span class="p">):</span>
@@ -119,14 +119,14 @@
                 <span class="n">input_proj_factor</span><span class="o">=</span><span class="n">input_proj_factor</span><span class="p">,</span>
                 <span class="n">use_bias</span><span class="o">=</span><span class="n">use_bias</span><span class="p">,</span>
                 <span class="n">dropout_rate</span><span class="o">=</span><span class="n">dropout_rate</span><span class="p">,</span>
-                <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">_SplitHeadMultiAxisGmlpLayer_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">_SplitHeadMultiAxisGmlpLayer_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
             <span class="p">)(</span><span class="n">x</span><span class="p">)</span>
             <span class="c1"># Channel-mixing part, which provides within-patch communication.</span>
             <span class="n">x</span> <span class="o">=</span> <span class="n">RDCAB</span><span class="p">(</span>
                 <span class="n">num_channels</span><span class="o">=</span><span class="n">features</span><span class="p">,</span>
                 <span class="n">reduction</span><span class="o">=</span><span class="n">channels_reduction</span><span class="p">,</span>
                 <span class="n">use_bias</span><span class="o">=</span><span class="n">use_bias</span><span class="p">,</span>
-                <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">_channel_attention_block_1_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">_channel_attention_block_1_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
             <span class="p">)(</span><span class="n">x</span><span class="p">)</span>
 
         <span class="c1"># long skip-connect</span>
@@ -144,13 +144,25 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2025, IRT-SystemX.</p>
+    <p>&#169; Copyright 2026, IRT-SystemX, AirLiquide.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
+  
+ 
+
+<div class="authors-footer" style="margin-top: 1.5em;">
+  <strong>Maintainers :</strong><br>
+  
+    Martin Gonzalez (martin.gonzalez@irt-systemx.fr</a>)<br>
+  
+    Nelson Fernandez-Pinto (nelson.fernandezpinto@airliquide.com</a>)<br>
+  
+</div>
+
+
 
 </footer>
         </div>

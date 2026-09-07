@@ -91,7 +91,7 @@
 <div class="viewcode-block" id="DiffusionEnhancer">
 <a class="viewcode-back" href="../../../../tech_docs.html#neural_de.transformations.diffusion.diffusion_enhancer.DiffusionEnhancer">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">DiffusionEnhancer</span><span class="p">(</span><span class="n">BaseTransformation</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    The goal of this class is to purify a batch of images, to reduce noise and to increase</span>
 <span class="sd">    robustness against potential adversarial attacks contained in the images. The weights given in</span>
 <span class="sd">    this librairy are adapted for an output in 256*256 format. Of course, all sizes are</span>
@@ -102,19 +102,19 @@
 <span class="sd">         config: an instance of the DiffPureConfig class. The most important attributes are: t,</span>
 <span class="sd">          sample_step and t_delta. Higher t or sample step will lead to a stronger denoising, at</span>
 <span class="sd">          the cost of processing time. t_delta is the quantity of noise added by the method before</span>
-<span class="sd">          it&#39;s diffusion process : the higher, the higher the chances to remove adversarial attacks,</span>
+<span class="sd">          it's diffusion process : the higher, the higher the chances to remove adversarial attacks,</span>
 <span class="sd">          at the cost of a potentiel loss of quality in the images.</span>
 <span class="sd">          The other attributes of DiffPureConfig should be modified for a custom</span>
 <span class="sd">          Diffusion model.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                  <span class="n">device</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">DeviceObjType</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                  <span class="n">config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">DiffPureConfig</span><span class="p">]</span> <span class="o">=</span> <span class="n">DiffPureConfig</span><span class="p">(),</span>
                  <span class="n">logger</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">logger</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">device</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cuda&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;No device provided, device inferred to be </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
+            <span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">"cuda"</span><span class="p">)</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">"cpu"</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"No device provided, device inferred to be </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">device</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_device</span> <span class="o">=</span> <span class="n">device</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_config</span> <span class="o">=</span> <span class="n">config</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_model_manager</span> <span class="o">=</span> <span class="n">ModelManager</span><span class="p">(</span><span class="n">enhancer</span><span class="o">=</span><span class="n">ENHANCER</span><span class="p">,</span>
@@ -127,7 +127,7 @@
 <div class="viewcode-block" id="DiffusionEnhancer.forward">
 <a class="viewcode-back" href="../../../../neural_de.transformations.diffusion.html#neural_de.transformations.diffusion.diffusion_enhancer.DiffusionEnhancer.forward">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Apply the diffusion process to a tensor of images.</span>
 
 <span class="sd">        Args:</span>
@@ -135,8 +135,8 @@
 
 <span class="sd">        Returns:</span>
 <span class="sd">            Tensor of images after diffusion.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="mi">256</span><span class="p">),</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;bilinear&#39;</span><span class="p">,</span> <span class="n">align_corners</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="sd">        """</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="mi">256</span><span class="p">),</span> <span class="n">mode</span><span class="o">=</span><span class="s1">'bilinear'</span><span class="p">,</span> <span class="n">align_corners</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="n">x_re</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runner</span><span class="o">.</span><span class="n">image_editing_sample</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">(</span><span class="n">x_re</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.5</span></div>
 
@@ -144,8 +144,8 @@
 <div class="viewcode-block" id="DiffusionEnhancer.transform">
 <a class="viewcode-back" href="../../../../neural_de.transformations.diffusion.html#neural_de.transformations.diffusion.diffusion_enhancer.DiffusionEnhancer.transform">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image_batch</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        &quot;Purify&quot; (removes noise and noise-based adverserial attacks) a batch of input images by</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        "Purify" (removes noise and noise-based adverserial attacks) a batch of input images by</span>
 <span class="sd">        applying a diffusion process to the images.</span>
 
 <span class="sd">        The images are resized to the diffusion model supported size (currently 256*256) :</span>
@@ -158,7 +158,7 @@
 
 <span class="sd">        Returns:</span>
 <span class="sd">            The batch of purified images (numpy array).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_batch_validity</span><span class="p">(</span><span class="n">image_batch</span><span class="p">)</span>
         <span class="n">image_batch</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">image_batch</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">is_scaled</span><span class="p">(</span><span class="n">image_batch</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
@@ -176,13 +176,25 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2025, IRT-SystemX.</p>
+    <p>&#169; Copyright 2026, IRT-SystemX, AirLiquide.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
+  
+ 
+
+<div class="authors-footer" style="margin-top: 1.5em;">
+  <strong>Maintainers :</strong><br>
+  
+    Martin Gonzalez (martin.gonzalez@irt-systemx.fr</a>)<br>
+  
+    Nelson Fernandez-Pinto (nelson.fernandezpinto@airliquide.com</a>)<br>
+  
+</div>
+
+
 
 </footer>
         </div>

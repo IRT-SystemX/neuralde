@@ -85,7 +85,7 @@
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import sys
-sys.path.append(&quot;..&quot;)
+sys.path.append("..")
 import time
 </pre></div>
 </div>
@@ -105,13 +105,13 @@ import time
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import os
-os.environ[&quot;KMP_DUPLICATE_LIB_OK&quot;]= &quot;TRUE&quot;
+os.environ["KMP_DUPLICATE_LIB_OK"]= "TRUE"
 import matplotlib.pyplot as plt
 from pathlib import Path
 import cv2
 
 start=time.time()
-input_path = Path(&#39;../examples/images/night.jpg&#39;)
+input_path = Path('../examples/images/night.jpg')
 image = cv2.imread(str(input_path))
 image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 plt.imshow(image)
@@ -141,7 +141,7 @@ Text(0.5, 1.0, &#39;(427, 640, 3)&#39;)
 <hr class="docutils" />
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>name: ResolutionEnhancer
     init_param:
-        device: &#39;cpu&#39;
+        device: 'cpu'
     transform:
       target_shape: [800, 800]
       crop_ratio: .3
@@ -160,7 +160,7 @@ name: DesnowEnhancer
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>config_file = &#39;config/conf_user.yaml&#39; # user configuration path
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>config_file = 'config/conf_user.yaml' # user configuration path
 </pre></div>
 </div>
 </div>
@@ -685,8 +685,8 @@ Text(0.5, 1.0, &#39;(1, 800, 800, 3)&#39;)
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>conf = [{&quot;name&quot;: &#39;ResolutionEnhancer&#39;, &quot;transform&quot;: {&#39;target_shape&#39;: [100, 100], &#39;crop_ratio&#39;: 0.5}},
-        {&quot;name&quot;: &#39;KernelDeblurringEnhancer&#39;, &quot;init_param&quot;: {&quot;kernel&quot;:&quot;medium&quot;}}]
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>conf = [{"name": 'ResolutionEnhancer', "transform": {'target_shape': [100, 100], 'crop_ratio': 0.5}},
+        {"name": 'KernelDeblurringEnhancer', "init_param": {"kernel":"medium"}}]
 </pre></div>
 </div>
 </div>
@@ -922,7 +922,7 @@ Text(0.5, 1.0, &#39;(100, 100, 3)&#39;)
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>end=time.time()
-print(&quot;temps final : &quot;,end-start)
+print("temps final : ",end-start)
 </pre></div>
 </div>
 </div>
@@ -968,13 +968,25 @@ temps final :  156.99668192863464
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2025, IRT-SystemX.</p>
+    <p>&#169; Copyright 2026, IRT-SystemX, AirLiquide.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
+  
+ 
+
+<div class="authors-footer" style="margin-top: 1.5em;">
+  <strong>Maintainers :</strong><br>
+  
+    Martin Gonzalez (martin.gonzalez@irt-systemx.fr</a>)<br>
+  
+    Nelson Fernandez-Pinto (nelson.fernandezpinto@airliquide.com</a>)<br>
+  
+</div>
+
+
 
 </footer>
         </div>

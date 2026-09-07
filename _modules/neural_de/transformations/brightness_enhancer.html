@@ -74,9 +74,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for neural_de.transformations.brightness_enhancer</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">Image brightness enhancement method.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Union</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">neural_de.transformations.transformation</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseTransformation</span>
@@ -87,7 +87,7 @@
 <div class="viewcode-block" id="BrightnessEnhancer">
 <a class="viewcode-back" href="../../../tech_docs.html#neural_de.transformations.brightness_enhancer.BrightnessEnhancer">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">BrightnessEnhancer</span><span class="p">(</span><span class="n">BaseTransformation</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 
 <span class="sd">    BaseTransformation method for image brightness change.</span>
 <span class="sd">    It uses NPLIE-based method for brightness enhancement, and Opencv for transforming the</span>
@@ -119,20 +119,20 @@
 <span class="sd">        logger: It is recommended to use the Confiance logger, obtainable with</span>
 <span class="sd">        neural_de.utils.get_logger(...).</span>
 <span class="sd">        If None, one logging with stdout will be provided.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
 <div class="viewcode-block" id="BrightnessEnhancer.enhance_brightness">
 <a class="viewcode-back" href="../../../neural_de.transformations.html#neural_de.transformations.brightness_enhancer.BrightnessEnhancer.enhance_brightness">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">enhance_brightness</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Args:</span>
 <span class="sd">            Image: numpy array format with float32 dtype.</span>
 <span class="sd">        Returns:</span>
 <span class="sd">            Image numpy array format with float32 dtype.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">image</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">is_scaled</span><span class="p">(</span><span class="n">image</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Image normalized as between [0;1]&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Image normalized as between [0;1]"</span><span class="p">)</span>
             <span class="n">image</span> <span class="o">/=</span> <span class="mf">255.</span>
         <span class="k">return</span> <span class="n">NPLIE</span><span class="p">(</span><span class="n">image</span><span class="p">)</span></div>
 
@@ -140,7 +140,7 @@
 <div class="viewcode-block" id="BrightnessEnhancer.transform">
 <a class="viewcode-back" href="../../../neural_de.transformations.html#neural_de.transformations.brightness_enhancer.BrightnessEnhancer.transform">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">images</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Improve brightness a batch of images using a NPLIE-based method.</span>
 
 <span class="sd">        Args:</span>
@@ -148,7 +148,7 @@
 <span class="sd">            channels)*. Images dimensions do not need to be the same across the batch.</span>
 <span class="sd">        Returns:</span>
 <span class="sd">          The same images with improved brightness.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_batch_validity</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">enhance_brightness</span><span class="p">(</span><span class="n">image</span><span class="p">)</span> <span class="k">for</span> <span class="n">image</span> <span class="ow">in</span> <span class="n">images</span><span class="p">]</span></div>
 </div>
@@ -162,13 +162,25 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2025, IRT-SystemX.</p>
+    <p>&#169; Copyright 2026, IRT-SystemX, AirLiquide.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
+  
+ 
+
+<div class="authors-footer" style="margin-top: 1.5em;">
+  <strong>Maintainers :</strong><br>
+  
+    Martin Gonzalez (martin.gonzalez@irt-systemx.fr</a>)<br>
+  
+    Nelson Fernandez-Pinto (nelson.fernandezpinto@airliquide.com</a>)<br>
+  
+</div>
+
+
 
 </footer>
         </div>

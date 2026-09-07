@@ -85,7 +85,7 @@
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>#Please note that this cell can be ignored if you installed neural_de from pip
 import sys
-sys.path.append(&quot;..&quot;)
+sys.path.append("..")
 import time
 </pre></div>
 </div>
@@ -113,7 +113,7 @@ from neural_de.transformations.de_snow_enhancer import DeSnowEnhancer
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>start=time.time()
-input_path = Path(&#39;../examples/images/corrupted_truck.png&#39;)
+input_path = Path('../examples/images/corrupted_truck.png')
 corrupted_image = cv2.imread(str(input_path))
 # Channel reordering
 corrupted_image = corrupted_image[:, :, ::-1]
@@ -202,7 +202,7 @@ purified_image = purifier.transform([corrupted_image])
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>end=time.time()
-print(&quot;temps final : &quot;,end-start)
+print("temps final : ",end-start)
 </pre></div>
 </div>
 </div>
@@ -233,13 +233,25 @@ temps final :  3.3435487747192383
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2025, IRT-SystemX.</p>
+    <p>&#169; Copyright 2026, IRT-SystemX, AirLiquide.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
+  
+ 
+
+<div class="authors-footer" style="margin-top: 1.5em;">
+  <strong>Maintainers :</strong><br>
+  
+    Martin Gonzalez (martin.gonzalez@irt-systemx.fr</a>)<br>
+  
+    Nelson Fernandez-Pinto (nelson.fernandezpinto@airliquide.com</a>)<br>
+  
+</div>
+
+
 
 </footer>
         </div>

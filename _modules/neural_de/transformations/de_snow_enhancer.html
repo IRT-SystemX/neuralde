@@ -74,9 +74,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for neural_de.transformations.de_snow_enhancer</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""</span>
 <span class="sd">Snow removal enhancer - Prenet Based implementation</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">os.path</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
@@ -90,15 +90,15 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">neural_de.utils.math</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_scaled</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">neural_de.external.prenet.networks</span><span class="w"> </span><span class="kn">import</span> <span class="n">PReNet</span>
 
-<span class="n">_ENHANCER</span> <span class="o">=</span> <span class="s2">&quot;desnow&quot;</span>
-<span class="n">_MODEL_FILENAME</span> <span class="o">=</span> <span class="s2">&quot;prenet_latest.pth&quot;</span>
-<span class="n">_DOWNLOADED_MODEL_PATH</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s2">&quot;~&quot;</span><span class="p">))</span> <span class="o">/</span> <span class="s2">&quot;.neuralde&quot;</span> <span class="o">/</span> <span class="n">_ENHANCER</span> <span class="o">/</span> <span class="n">_MODEL_FILENAME</span>
+<span class="n">_ENHANCER</span> <span class="o">=</span> <span class="s2">"desnow"</span>
+<span class="n">_MODEL_FILENAME</span> <span class="o">=</span> <span class="s2">"prenet_latest.pth"</span>
+<span class="n">_DOWNLOADED_MODEL_PATH</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s2">"~"</span><span class="p">))</span> <span class="o">/</span> <span class="s2">".neuralde"</span> <span class="o">/</span> <span class="n">_ENHANCER</span> <span class="o">/</span> <span class="n">_MODEL_FILENAME</span>
 
 
 <div class="viewcode-block" id="DeSnowEnhancer">
 <a class="viewcode-back" href="../../../tech_docs.html#neural_de.transformations.de_snow_enhancer.DeSnowEnhancer">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">DeSnowEnhancer</span><span class="p">(</span><span class="n">BaseTransformation</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Snow Removal Enhancer, Prenet based implementation.</span>
 
 <span class="sd">    ** WARNING ** : The current method may have bad results on real images. The model had been trained</span>
@@ -108,16 +108,16 @@
 <span class="sd">        device: Any torch-compatible device string.</span>
 <span class="sd">        logger: It is recommended to use the Confiance logger, obtainable with</span>
 <span class="sd">            neural_de.utils.get_logger(...). If None, one logging with stdout will be provided.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">device</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;cpu&quot;</span><span class="p">,</span> <span class="n">logger</span><span class="p">:</span> <span class="n">logging</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">device</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"cpu"</span><span class="p">,</span> <span class="n">logger</span><span class="p">:</span> <span class="n">logging</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">logger</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">check_device_validity</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_device</span> <span class="o">=</span> <span class="n">device</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_prenet_iterations</span> <span class="o">=</span> <span class="mi">4</span>
 
         <span class="c1"># Download model if not available locally</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Checking model availability...&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Checking model availability..."</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_model_manager</span> <span class="o">=</span> <span class="n">ModelManager</span><span class="p">(</span><span class="n">enhancer</span><span class="o">=</span><span class="n">_ENHANCER</span><span class="p">,</span>
                                            <span class="n">required_model</span><span class="o">=</span><span class="n">_MODEL_FILENAME</span><span class="p">,</span>
                                            <span class="n">logger</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="p">)</span>
@@ -126,21 +126,21 @@
         <span class="c1"># Load model from</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_local_model_path</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">_DOWNLOADED_MODEL_PATH</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_purifier</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_setup_model</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Model correctly loaded to </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_device</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">'Model correctly loaded to </span><span class="si">%s</span><span class="s1">'</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_device</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_setup_model</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PReNet</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Load and initialize a PreNet model trained for snow removal.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Loading model. Using </span><span class="si">%s</span><span class="s1"> </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_device</span><span class="p">)</span>
-        <span class="n">model</span> <span class="o">=</span> <span class="n">PReNet</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_prenet_iterations</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_device</span> <span class="o">==</span> <span class="s2">&quot;cuda&quot;</span><span class="p">)</span>
+<span class="sd">        """</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">'Loading model. Using </span><span class="si">%s</span><span class="s1"> </span><span class="se">\n</span><span class="s1">'</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_device</span><span class="p">)</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">PReNet</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_prenet_iterations</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_device</span> <span class="o">==</span> <span class="s2">"cuda"</span><span class="p">)</span>
         <span class="n">model</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_local_model_path</span><span class="p">,</span> <span class="n">map_location</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_device</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_device</span><span class="p">)</span>
 
 <div class="viewcode-block" id="DeSnowEnhancer.transform">
 <a class="viewcode-back" href="../../../neural_de.transformations.html#neural_de.transformations.de_snow_enhancer.DeSnowEnhancer.transform">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">images</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Removes the snow in a batch of images.</span>
 
 <span class="sd">        **WARNING** : The current method may have bad results on real images.</span>
@@ -150,10 +150,10 @@
 <span class="sd">            channels)*. Images dimensions should be identical across one batch.</span>
 <span class="sd">        Returns:</span>
 <span class="sd">          The same images without snow on it.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_batch_validity</span><span class="p">(</span><span class="n">images</span><span class="p">,</span> <span class="n">same_dim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">images</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Converting list like batch to numpy array&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Converting list like batch to numpy array"</span><span class="p">)</span>
             <span class="n">images</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
 
         <span class="c1"># Evaluate model on the batch</span>
@@ -167,7 +167,7 @@
         <span class="n">batch</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">batch</span><span class="p">))</span>
 
         <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_device</span> <span class="o">==</span> <span class="s2">&quot;cuda&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_device</span> <span class="o">==</span> <span class="s2">"cuda"</span><span class="p">:</span>
                 <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">synchronize</span><span class="p">()</span>
             <span class="n">model_output</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_purifier</span><span class="p">(</span><span class="n">batch</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_device</span><span class="p">))</span>
             <span class="n">model_output</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span><span class="n">model_output</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">)</span>
@@ -184,13 +184,25 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2025, IRT-SystemX.</p>
+    <p>&#169; Copyright 2026, IRT-SystemX, AirLiquide.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
+  
+ 
+
+<div class="authors-footer" style="margin-top: 1.5em;">
+  <strong>Maintainers :</strong><br>
+  
+    Martin Gonzalez (martin.gonzalez@irt-systemx.fr</a>)<br>
+  
+    Nelson Fernandez-Pinto (nelson.fernandezpinto@airliquide.com</a>)<br>
+  
+</div>
+
+
 
 </footer>
         </div>

@@ -85,7 +85,7 @@
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import sys
-sys.path.append(&quot;..&quot;)
+sys.path.append("..")
 import time
 print(sys.version)
 </pre></div>
@@ -133,9 +133,9 @@ To enable them in other operations, rebuild TensorFlow with the appropriate comp
 from pathlib import Path
 import cv2
 import os
-print(&quot;Num GPUs Available: &quot;, len(tf.config.list_physical_devices(&#39;GPU&#39;)))
+print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
 start=time.time()
-input_path = Path(&#39;../examples/images/test_brightness_car.jpg&#39;)
+input_path = Path('../examples/images/test_brightness_car.jpg')
 image = cv2.imread(str(input_path))
 image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 plt.title(image.shape)
@@ -220,10 +220,10 @@ Skipping registering GPU devices...
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plt.figure(figsize=(10,7))
 plt.subplot(1,2,1)
-plt.title(&quot;Before&quot;)
+plt.title("Before")
 plt.imshow(image)
 plt.subplot(1,2,2)
-plt.title(&quot;After&quot;)
+plt.title("After")
 plt.imshow(enhanced_images[0])
 plt.show()
 </pre></div>
@@ -241,10 +241,10 @@ plt.show()
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ROOT_DIR = &quot;../examples/images&quot;
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>ROOT_DIR = "../examples/images"
 image_path_list = []
-image_path_list.append(ROOT_DIR +  &quot;/test_brightness_xmass_tree.jpg&quot;)
-image_path_list.append(ROOT_DIR +  &quot;/test_brightness_car.jpg&quot;)
+image_path_list.append(ROOT_DIR +  "/test_brightness_xmass_tree.jpg")
+image_path_list.append(ROOT_DIR +  "/test_brightness_car.jpg")
 image_list = []
 for image_path_str in image_path_list:
     input_path = Path(image_path_str)
@@ -295,10 +295,10 @@ for image_path_str in image_path_list:
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for image_index_ in range(len(image_list)):
     plt.figure(figsize=(10,7))
     plt.subplot(1,2,1)
-    plt.title(&quot;Before&quot;)
+    plt.title("Before")
     plt.imshow(image_list[image_index_])
     plt.subplot(1,2,2)
-    plt.title(&quot;After&quot;)
+    plt.title("After")
     plt.imshow(enhanced_images[image_index_])
     plt.show()
 </pre></div>
@@ -323,7 +323,7 @@ for image_path_str in image_path_list:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>end=time.time()
-print(&quot;final duration : &quot;,end-start)
+print("final duration : ",end-start)
 </pre></div>
 </div>
 </div>
@@ -361,13 +361,25 @@ final duration :  4.178200960159302
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2025, IRT-SystemX.</p>
+    <p>&#169; Copyright 2026, IRT-SystemX, AirLiquide.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
+  
+ 
+
+<div class="authors-footer" style="margin-top: 1.5em;">
+  <strong>Maintainers :</strong><br>
+  
+    Martin Gonzalez (martin.gonzalez@irt-systemx.fr</a>)<br>
+  
+    Nelson Fernandez-Pinto (nelson.fernandezpinto@airliquide.com</a>)<br>
+  
+</div>
+
+
 
 </footer>
         </div>

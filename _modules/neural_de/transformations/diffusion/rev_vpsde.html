@@ -84,7 +84,7 @@
 <div class="viewcode-block" id="RevVPSDE">
 <a class="viewcode-back" href="../../../../neural_de.transformations.diffusion.html#neural_de.transformations.diffusion.rev_vpsde.RevVPSDE">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">RevVPSDE</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    Constructs a Variance Preserving SDE.</span>
 
 <span class="sd">    Args:</span>
@@ -94,7 +94,7 @@
 <span class="sd">        N: scaling factor</span>
 <span class="sd">        img_shape: Image dimension, channel-first.</span>
 <span class="sd">        logger: logger (logging.Logger)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                  <span class="n">model</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span>
                  <span class="n">beta_min</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span>
@@ -113,20 +113,20 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_N</span> <span class="o">=</span> <span class="n">N</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_beta_range</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_beta_1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_beta_0</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">noise_type</span> <span class="o">=</span> <span class="s2">&quot;diagonal&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sde_type</span> <span class="o">=</span> <span class="s2">&quot;ito&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">noise_type</span> <span class="o">=</span> <span class="s2">"diagonal"</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sde_type</span> <span class="o">=</span> <span class="s2">"ito"</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">discrete_betas</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">beta_min</span> <span class="o">/</span> <span class="n">N</span><span class="p">,</span> <span class="n">beta_max</span> <span class="o">/</span> <span class="n">N</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
 
 <div class="viewcode-block" id="RevVPSDE.vpsde_fn">
 <a class="viewcode-back" href="../../../../neural_de.transformations.diffusion.html#neural_de.transformations.diffusion.rev_vpsde.RevVPSDE.vpsde_fn">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">vpsde_fn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Apply variant-preserving sde to a batch of images.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            timesteps: current timestep</span>
 <span class="sd">            x: image batch</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">beta_t</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_beta_0</span> <span class="o">+</span> <span class="n">t</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_beta_1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_beta_0</span><span class="p">)</span>
         <span class="n">drift</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">beta_t</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">x</span>
         <span class="n">diffusion</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">beta_t</span><span class="p">)</span>
@@ -135,13 +135,13 @@
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_extract_info_from_output_tensor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timesteps</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">broadcast_shape</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">)</span>\
             <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Compute and broadcast a multiplicative factor used by vpsde to obtain drift score.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            timesteps: current timestep</span>
 <span class="sd">            broadcast_shape: target shape</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">res</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_beta_range</span> <span class="o">*</span> <span class="n">timesteps</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_beta_0</span> <span class="o">*</span> <span class="n">timesteps</span><span class="p">)</span>
         <span class="n">res</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mf">1.</span> <span class="o">/</span> <span class="n">torch</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">res</span><span class="p">))</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
         <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">broadcast_shape</span><span class="p">):</span>
@@ -150,19 +150,19 @@
 
 <div class="viewcode-block" id="RevVPSDE.rvpsde_fn">
 <a class="viewcode-back" href="../../../../neural_de.transformations.diffusion.html#neural_de.transformations.diffusion.rev_vpsde.RevVPSDE.rvpsde_fn">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">rvpsde_fn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">return_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;drift&#39;</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">rvpsde_fn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">return_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">'drift'</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Create the drift and diffusion functions for the reverse SDE</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            t: current step</span>
 <span class="sd">            x: batch of input images</span>
-<span class="sd">            return_type: if &quot;drift&quot;, will apply a drift following the diffusion. If not, only the</span>
+<span class="sd">            return_type: if "drift", will apply a drift following the diffusion. If not, only the</span>
 <span class="sd">                         diffusion will be performed.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">drift</span><span class="p">,</span> <span class="n">diffusion</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vpsde_fn</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">return_type</span> <span class="o">!=</span> <span class="s1">&#39;drift&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">return_type</span> <span class="o">!=</span> <span class="s1">'drift'</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">diffusion</span>
 
         <span class="n">x_img</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">_img_shape</span><span class="p">)</span>
@@ -177,31 +177,31 @@
 <div class="viewcode-block" id="RevVPSDE.f">
 <a class="viewcode-back" href="../../../../neural_de.transformations.diffusion.html#neural_de.transformations.diffusion.rev_vpsde.RevVPSDE.f">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Creates the drift function -f(x, 1-t) (by t&#39; = 1 - t)</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Creates the drift function -f(x, 1-t) (by t' = 1 - t)</span>
 <span class="sd">        Sdeint only support a 2D tensor (batch_size, c*h*w)</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            t: current step</span>
 <span class="sd">            x: batch of input images</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">t</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-        <span class="k">return</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">rvpsde_fn</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">t</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">return_type</span><span class="o">=</span><span class="s1">&#39;drift&#39;</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">rvpsde_fn</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">t</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">return_type</span><span class="o">=</span><span class="s1">'drift'</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="RevVPSDE.g">
 <a class="viewcode-back" href="../../../../neural_de.transformations.diffusion.html#neural_de.transformations.diffusion.rev_vpsde.RevVPSDE.g">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">g</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Create the diffusion function g(1-t) (by t&#39; = 1 - t)</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Create the diffusion function g(1-t) (by t' = 1 - t)</span>
 <span class="sd">        sdeint only support a 2D tensor (batch_size, c*h*w)</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            t: current step</span>
 <span class="sd">            x: batch of input images</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">t</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-        <span class="n">diffusion</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rvpsde_fn</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">t</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">return_type</span><span class="o">=</span><span class="s1">&#39;diffusion&#39;</span><span class="p">)</span>
+        <span class="n">diffusion</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rvpsde_fn</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">t</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">return_type</span><span class="o">=</span><span class="s1">'diffusion'</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">diffusion</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span></div>
 </div>
 
@@ -214,13 +214,25 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2025, IRT-SystemX.</p>
+    <p>&#169; Copyright 2026, IRT-SystemX, AirLiquide.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
+  
+ 
+
+<div class="authors-footer" style="margin-top: 1.5em;">
+  <strong>Maintainers :</strong><br>
+  
+    Martin Gonzalez (martin.gonzalez@irt-systemx.fr</a>)<br>
+  
+    Nelson Fernandez-Pinto (nelson.fernandezpinto@airliquide.com</a>)<br>
+  
+</div>
+
+
 
 </footer>
         </div>

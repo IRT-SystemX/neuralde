@@ -85,7 +85,7 @@
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import sys
-sys.path.append(&quot;..&quot;)
+sys.path.append("..")
 </pre></div>
 </div>
 </div>
@@ -114,7 +114,7 @@ import time
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>start=time.time()
-input_path = Path(&#39;../examples/images/fox.jpg&#39;)
+input_path = Path('../examples/images/fox.jpg')
 image = cv2.imread(str(input_path))
 image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 plt.title(image.shape)
@@ -173,8 +173,8 @@ config.t = 150
 config.t_delta = 15
 config.sample_step = 1
 
-#Select &quot;cuda&quot; for gpu ortherwise &quot;cpu&quot;
-device = &quot;cuda&quot;
+#Select "cuda" for gpu ortherwise "cpu"
+device = "cuda"
 
 #Create instance of the diffusion model
 purifier = DiffusionEnhancer(device=device, config=config)
@@ -226,13 +226,13 @@ purified = purifier.transform([noisy_image[100:356, 250:506]])
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plt.figure(figsize=(12,12))
 plt.subplot(1,3,1)
-plt.title(&quot;Noisy image&quot;)
+plt.title("Noisy image")
 plt.imshow(noisy_image[100:356, 250:506])
 plt.subplot(1,3,2)
-plt.title(&quot;Purified image&quot;)
+plt.title("Purified image")
 plt.imshow(purified[0])
 plt.subplot(1,3,3)
-plt.title(&quot;Original image&quot;)
+plt.title("Original image")
 plt.imshow(image[100:356, 250:506])
 plt.show();
 </pre></div>
@@ -268,8 +268,8 @@ config2.t = 150
 config2.t_delta = 15
 config2.sample_step = 7
 
-#Select &quot;cuda&quot; for gpu ortherwise &quot;cpu&quot;
-device = &quot;cuda&quot;
+#Select "cuda" for gpu ortherwise "cpu"
+device = "cuda"
 
 #Create instance of the diffusion model
 purifier2 = DiffusionEnhancer(device=device, config=config2)
@@ -317,13 +317,13 @@ noisy_image2 = noisy_image2.astype(np.uint8)
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plt.figure(figsize=(12,12))
 plt.subplot(1,3,1)
-plt.title(&quot;Noisy image&quot;)
+plt.title("Noisy image")
 plt.imshow(noisy_image2[100:356, 250:506])
 plt.subplot(1,3,2)
-plt.title(&quot;Purified image&quot;)
+plt.title("Purified image")
 plt.imshow(purified2[0])
 plt.subplot(1,3,3)
-plt.title(&quot;Original image&quot;)
+plt.title("Original image")
 plt.imshow(image[100:356, 250:506])
 plt.show();
 </pre></div>
@@ -349,7 +349,7 @@ Clipping input data to the valid range for imshow with RGB data ([0..1] for floa
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>end=time.time()
-print(&quot;temps final : &quot;,end-start)
+print("temps final : ",end-start)
 </pre></div>
 </div>
 </div>
@@ -379,13 +379,25 @@ temps final :  140.4699993133545
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2025, IRT-SystemX.</p>
+    <p>&#169; Copyright 2026, IRT-SystemX, AirLiquide.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
+  
+ 
+
+<div class="authors-footer" style="margin-top: 1.5em;">
+  <strong>Maintainers :</strong><br>
+  
+    Martin Gonzalez (martin.gonzalez@irt-systemx.fr</a>)<br>
+  
+    Nelson Fernandez-Pinto (nelson.fernandezpinto@airliquide.com</a>)<br>
+  
+</div>
+
+
 
 </footer>
         </div>

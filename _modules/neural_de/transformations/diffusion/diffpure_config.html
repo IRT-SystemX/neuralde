@@ -79,9 +79,9 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 
 <span class="c1"># where the weights will be download and store</span>
-<span class="n">ENHANCER</span> <span class="o">=</span> <span class="s2">&quot;diffpure&quot;</span>
-<span class="n">MODEL_FILENAME</span> <span class="o">=</span> <span class="s2">&quot;256x256_diffusion_uncond.pt&quot;</span>
-<span class="n">NEURALDE_MODEL_DOWNLOAD_PATH</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s2">&quot;~&quot;</span><span class="p">))</span> <span class="o">/</span> <span class="s2">&quot;.neuralde&quot;</span> <span class="o">/</span> <span class="n">ENHANCER</span> <span class="o">/</span> <span class="n">MODEL_FILENAME</span>
+<span class="n">ENHANCER</span> <span class="o">=</span> <span class="s2">"diffpure"</span>
+<span class="n">MODEL_FILENAME</span> <span class="o">=</span> <span class="s2">"256x256_diffusion_uncond.pt"</span>
+<span class="n">NEURALDE_MODEL_DOWNLOAD_PATH</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="s2">"~"</span><span class="p">))</span> <span class="o">/</span> <span class="s2">".neuralde"</span> <span class="o">/</span> <span class="n">ENHANCER</span> <span class="o">/</span> <span class="n">MODEL_FILENAME</span>
 
 <span class="c1"># automatic channel_mult values depending on input image size</span>
 <span class="n">CHANNEL_MULT</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">([</span>
@@ -95,7 +95,7 @@
 <a class="viewcode-back" href="../../../../neural_de.transformations.diffusion.html#neural_de.transformations.diffusion.diffpure_config.DiffPureConfig">[docs]</a>
 <span class="nd">@dataclass</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">DiffPureConfig</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    A dataclass to configure and provide parameters for the internal diffusion model of</span>
 <span class="sd">    diffusion_enhancer.</span>
 
@@ -140,7 +140,7 @@
 <span class="sd">         denoising) is repeated for each image.</span>
 <span class="sd">        rand_t: bool (by default False). If true, add random noise before denoising. The noise is</span>
 <span class="sd">         sampled uniformly between -t_delta and +t_delta.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">weights_path</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">NEURALDE_MODEL_DOWNLOAD_PATH</span>
     <span class="n">img_shape</span><span class="p">:</span> <span class="nb">tuple</span> <span class="o">=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">256</span><span class="p">)</span>
     <span class="n">attention_resolutions</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="p">[</span><span class="mi">32</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">8</span><span class="p">])</span>
@@ -167,9 +167,9 @@
     <span class="n">rand_t</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Post-init parameters inference to avoid redundant parameters</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">image_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">img_shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></div>
 
 </pre></div>
@@ -181,13 +181,25 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2025, IRT-SystemX.</p>
+    <p>&#169; Copyright 2026, IRT-SystemX, AirLiquide.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
+  
+ 
+
+<div class="authors-footer" style="margin-top: 1.5em;">
+  <strong>Maintainers :</strong><br>
+  
+    Martin Gonzalez (martin.gonzalez@irt-systemx.fr</a>)<br>
+  
+    Nelson Fernandez-Pinto (nelson.fernandezpinto@airliquide.com</a>)<br>
+  
+</div>
+
+
 
 </footer>
         </div>

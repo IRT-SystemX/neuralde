@@ -103,7 +103,7 @@
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>#ADD NEURALDE MODULES TO PYTHON PATH
 import sys
 import time
-sys.path.append(&quot;..&quot;)
+sys.path.append("..")
 </pre></div>
 </div>
 </div>
@@ -134,7 +134,7 @@ import os
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>#SET IMAGE DATA DIR
 start=time.time()
-ROOT_DIR = &quot;../examples/images&quot;
+ROOT_DIR = "../examples/images"
 </pre></div>
 </div>
 </div>
@@ -146,7 +146,7 @@ ROOT_DIR = &quot;../examples/images&quot;
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># PREPARE ABSOLUTE PATHS FOR IMAGES
 image_path_list_0 = []
-image_path_list_0.append(ROOT_DIR +  &quot;/tulip-under-rain.jpg&quot;)
+image_path_list_0.append(ROOT_DIR +  "/tulip-under-rain.jpg")
 print(image_path_list_0)
 # READ AND SHOW IMAGES
 image_list_0 = []
@@ -212,10 +212,10 @@ transformed_images_0 = center_zoom_transformer_0.transform(image_list_0)
 for image_index_ in range(len(image_list_0)):
     plt.figure(figsize=(8,6))
     plt.subplot(1,2,1)
-    plt.title(f&#39;&#39;&#39;Before {image_list_0[image_index_].shape}&#39;&#39;&#39;)
+    plt.title(f'''Before {image_list_0[image_index_].shape}''')
     plt.imshow(image_list_0[image_index_])
     plt.subplot(1,2,2)
-    plt.title(f&#39;&#39;&#39;After {transformed_images_0[image_index_].shape}&#39;&#39;&#39;)
+    plt.title(f'''After {transformed_images_0[image_index_].shape}''')
     plt.imshow(transformed_images_0[image_index_])
     plt.show()
 </pre></div>
@@ -238,10 +238,10 @@ for image_index_ in range(len(image_list_0)):
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><br/><span></span>image_path_list_1 = []
 
-image_path_list_1.append(ROOT_DIR +  &quot;/tulip-under-rain.jpg&quot;)
-image_path_list_1.append(ROOT_DIR +  &quot;/test_snow.webp&quot;)
-image_path_list_1.append(ROOT_DIR +  &quot;/test_brightness_car.jpg&quot;)
-image_path_list_1.append(ROOT_DIR +  &quot;/street-rain-men.jpeg&quot;)
+image_path_list_1.append(ROOT_DIR +  "/tulip-under-rain.jpg")
+image_path_list_1.append(ROOT_DIR +  "/test_snow.webp")
+image_path_list_1.append(ROOT_DIR +  "/test_brightness_car.jpg")
+image_path_list_1.append(ROOT_DIR +  "/street-rain-men.jpeg")
 
 print(image_path_list_1)
 image_list_1 = []
@@ -328,10 +328,10 @@ transformed_images_1 = center_zoom_transformer_1.transform(image_list_1)
 for image_index_ in range(len(image_list_1)):
     plt.figure(figsize=(8,6))
     plt.subplot(1,2,1)
-    plt.title(f&#39;&#39;&#39;Before {image_list_1[image_index_].shape}&#39;&#39;&#39;)
+    plt.title(f'''Before {image_list_1[image_index_].shape}''')
     plt.imshow(image_list_1[image_index_])
     plt.subplot(1,2,2)
-    plt.title(f&#39;&#39;&#39;After {transformed_images_1[image_index_].shape}&#39;&#39;&#39;)
+    plt.title(f'''After {transformed_images_1[image_index_].shape}''')
     plt.imshow(transformed_images_1[image_index_])
     plt.show()
 </pre></div>
@@ -370,7 +370,7 @@ for image_index_ in range(len(image_list_1)):
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>end=time.time()
-print(&quot;temps final : &quot;,end-start)
+print("temps final : ",end-start)
 </pre></div>
 </div>
 </div>
@@ -416,13 +416,25 @@ temps final :  3.04654598236084
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2025, IRT-SystemX.</p>
+    <p>&#169; Copyright 2026, IRT-SystemX, AirLiquide.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
+  
+ 
+
+<div class="authors-footer" style="margin-top: 1.5em;">
+  <strong>Maintainers :</strong><br>
+  
+    Martin Gonzalez (martin.gonzalez@irt-systemx.fr</a>)<br>
+  
+    Nelson Fernandez-Pinto (nelson.fernandezpinto@airliquide.com</a>)<br>
+  
+</div>
+
+
 
 </footer>
         </div>
