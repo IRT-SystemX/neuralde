@@ -1,0 +1,14 @@
+{% extends "!footer.html" %}
+{% block extrafooter %}
+{{ super() }}
+
+<div class="authors-footer" style="margin-top: 1.5em;">
+  <strong>Maintainers :</strong><br>
+  {% for name, email in authors %}
+    {{ name }} ({{ email }}</a>)<br>
+  {% endfor %}
+</div>
+
+{% endblock %}
+
+

@@ -7,9 +7,17 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = "neuralde"
-copyright = "2025, IRT-SystemX"
-author = "IRT-SystemX"
+copyright = "2026, IRT-SystemX, AirLiquide"
+author = "martin.gonzalez, nelson luis pinto"
 release = "1.1.0"
+
+authors = [
+("Martin Gonzalez", "martin.gonzalez@irt-systemx.fr"),
+("Nelson Fernandez-Pinto", "nelson.fernandezpinto@airliquide.com"),
+]
+html_context = {
+"authors": authors,
+}
 
 import os
 import sys
